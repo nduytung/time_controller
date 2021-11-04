@@ -27,7 +27,7 @@ const SettingScreen = ({navigation}) => {
                 </View>
                 <View style={styles.profileSetting}>
                     <Avatar.Image
-                        source={require('../public/assets/image/user-default.png')}
+                        source={require('../public/assets/image/duck.gif')}
                         size={100}
                     />
                     <View style={styles.profileText}>

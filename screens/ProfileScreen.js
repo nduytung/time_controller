@@ -18,7 +18,7 @@ const ProfileScreen = () => {
         <View style={profileStyle.screen}>
             <ScrollView>
             <View style={profileStyle.headpage}>
-                   
+                <Text>Nhìn giề, học đê...!</Text>     
             </View >
 
             <View style={profileStyle.tailpage}>
