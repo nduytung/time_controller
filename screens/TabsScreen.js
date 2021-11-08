@@ -9,7 +9,7 @@ import ProgressScreen from './ProgressScreen';
 import SettingScreen from './SettingScreen';
 import PostScreen from './PostScreen';
 import ProfileScreen from './ProfileScreen';
-import ProfileSetting from './ProfileSetting';
+import todoScreen from './todoSreen';
 
 import { exp } from 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
@@ -111,7 +111,7 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
+            <Tab.Screen name="todoScreen" component={todoScreen} options={{
                 headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>
