@@ -9,6 +9,7 @@ import ProgressScreen from './ProgressScreen';
 import SettingScreen from './SettingScreen';
 import PostScreen from './PostScreen';
 import ProfileScreen from './ProfileScreen';
+import ProfileSetting from './ProfileSetting';
 
 import { exp } from 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
