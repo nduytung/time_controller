@@ -23,7 +23,7 @@ const todoScreen = () => {
                 <Text style={global.text}>Làm gì hôm nay?</Text>
             </View>
             
-            <View style={global.box}>
+            <Animatable.View animation="bounceInDown" style={global.box}>
                 <Image style={global.imageJob} source={require('../public/assets/image/bike.jpg')}></Image>
                 <View style={global.infor}>
                     <TextTicker style={global.textTime}>20min - 4/5</TextTicker>
@@ -33,9 +33,9 @@ const todoScreen = () => {
                             repeatSpacer={100}
                             marqueeDelay={100}>Đạp xe gần nhà 2km</TextTicker>
                 </View>
-            </View>
+            </Animatable.View>
 
-            <View style={global.box}>
+            <Animatable.View animation="bounceInDown" style={global.box}>
                 <Image style={global.imageJob} source={require('../public/assets/image/bike.jpg')}></Image>
                 <View style={global.infor}>
                     <TextTicker style={global.textTime}>20min - 4/5</TextTicker>
@@ -45,9 +45,9 @@ const todoScreen = () => {
                             repeatSpacer={100}
                             marqueeDelay={100}>Đạp bộ quanh nhà 1km</TextTicker>
                 </View>
-            </View>
+            </Animatable.View>
 
-            <View style={global.box}>
+            <Animatable.View animation="bounceInDown" style={global.box}>
                 <Image style={global.imageJob} source={require('../public/assets/image/book.jpg')}></Image>
                 <View style={global.infor}>
                     <TextTicker style={global.textTime}>20min - 4/5</TextTicker>
@@ -56,11 +56,11 @@ const todoScreen = () => {
                             bounceSpeed={60}
                             repeatSpacer={100}
                             marqueeDelay={100}>
-                            Báo cáo cuối kỳ thiết kế mạng</TextTicker>
+                            Báo cáo CK thiết kế mạng</TextTicker>
                 </View>
-            </View>
+            </Animatable.View>
 
-            <View style={global.box}>
+            <Animatable.View animation="bounceInDown" style={global.box}>
                 <Image style={global.imageJob} source={require('../public/assets/image/book.jpg')}></Image>
                 <View style={global.infor}>
                     <TextTicker style={global.textTime}>20min - 4/5</TextTicker>
@@ -71,7 +71,7 @@ const todoScreen = () => {
                             marqueeDelay={100}>
                             Làm deadline di động Lab3 SQL Lite, Làm 3 bai</TextTicker>
                 </View>
-            </View>
+            </Animatable.View>
 
             
             <View style={{marginBottom: 90}}></View>
