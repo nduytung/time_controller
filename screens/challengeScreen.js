@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { challengeStyleheet, Text, View, Image, Pressable } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import challengeStyle from '../public/assets/css/challenge';
 
 const App = () => {
   return (
-    <View style={styles.body}>
-      <View style={styles.progressView}>
+    <View style={challengeStyle.body}>
+      <View style={challengeStyle.progressView}>
         <AnimatedCircularProgress
           size={300}
           width={20}
@@ -13,41 +14,41 @@ const App = () => {
           tintColor="#FECB1C"
           backgroundColor="#FFFFFF"
           rotation={-360}>
-          {fill => <Text style={styles.bigText}>5 Phút nghỉ</Text>}
+          {fill => <Text style={challengeStyle.bigText}>5 Phút nghỉ</Text>}
         </AnimatedCircularProgress>
       </View>
-      <View style={styles.tagView}>
+      <View style={challengeStyle.tagView}>
         <View style={{margin: 5}}>
-          <Text style={styles.text}>5 minute challenge</Text>
+          <Text style={challengeStyle.text}>5 minute challenge</Text>
         </View>
-        <View style={styles.HoriLine} />
-        <View style={styles.rowView}>
+        <View style={challengeStyle.HoriLine} />
+        <View style={challengeStyle.rowView}>
           <View style={{flex: 1}}>
             <Image
-              tyle={styles.img}
+              tyle={challengeStyle.img}
               source={require('./image9.png')}
               resizeMode="center"
             />
           </View>
           <View style={{flex: 1}}>
-            <Text style={styles.bigText}>chống đẩy</Text>
-            <Text style={styles.text}>x5</Text>
+            <Text style={challengeStyle.bigText}>chống đẩy</Text>
+            <Text style={challengeStyle.text}>x5</Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.textView}>
-        <View style={styles.textViewText}>
-          <Text style={styles.text}>Bạn đã hoàn thành</Text>
-          <Text style={styles.text}>
-            <Text style={styles.bigText}>2 </Text>
+      <View style={challengeStyle.textView}>
+        <View style={challengeStyle.textViewText}>
+          <Text style={challengeStyle.text}>Bạn đã hoàn thành</Text>
+          <Text style={challengeStyle.text}>
+            <Text style={challengeStyle.bigText}>2 </Text>
             chu kỳ
           </Text>
         </View>
-        <View style={styles.verticleLine} />
-        <View style={styles.textViewText}>
-          <Text style={styles.text}>Còn 2 chu kỳ</Text>
-          <Text style={styles.bigText}>để nghỉ dài</Text>
+        <View style={challengeStyle.verticleLine} />
+        <View style={challengeStyle.textViewText}>
+          <Text style={challengeStyle.text}>Còn 2 chu kỳ</Text>
+          <Text style={challengeStyle.bigText}>để nghỉ dài</Text>
         </View>
       </View>
       <View style={{margin: 5}} />
