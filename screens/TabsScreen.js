@@ -9,7 +9,7 @@ import ProgressScreen from './ProgressScreen';
 import SettingScreen from './SettingScreen';
 import PostScreen from './PostScreen';
 import ProfileScreen from './ProfileScreen';
-import SleepyScreen from './SleepyScreen';
+import intro3 from './intro3';
 
 import { exp } from 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
@@ -111,7 +111,7 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen name="SleepyScreen" component={SleepyScreen} options={{
+            <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
                 headerShown: false,
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center'}}>

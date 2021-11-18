@@ -19,7 +19,7 @@ const SleepyScreen = () => {
     return(
         <ScrollView style={sleepyStyle.backgroundFont}>
             <TextTicker style={sleepyStyle.helloText}>Chào buổi tối, DUY TÙNG!</TextTicker>
-            <Image style={sleepyStyle.imageF} source={require('../public/assets/image/sleep.png')}></Image>
+            <Image style={sleepyStyle.imageF} source={require('../public/assets/image/sleepy.png')}></Image>
             <Text style={sleepyStyle.text}>Bạn muốn thức dậy vào lúc: </Text>
             <TextInput style={sleepyStyle.textInput}></TextInput>
             <View style={sleepyStyle.time}>
@@ -44,7 +44,7 @@ const SleepyScreen = () => {
                     <Text style={sleepyStyle.textTime}>12 PM</Text>
                 </ScrollView>
             </View>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {}} style={sleepyStyle.touch}>
                 <Text style={sleepyStyle.textBaothuc}>Đặt Báo Thức</Text>
             </TouchableOpacity>
 
