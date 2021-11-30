@@ -11,10 +11,12 @@ import progressStyle from '../public/assets/css/progressStyle';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import Duck from '../public/assets/image/duck.gif';
 import Tabs from './TabsScreen';
+import global from '../public/assets/css/global';
+import TextTicker from 'react-native-text-ticker';
 
 const HomeScreen = ({navigation}) => {
   return (
-    <View style={progressStyle.body}>
+    <ScrollView style={progressStyle.body}>
       <View class="Sec1" style={progressStyle.sec1}>
         <View class="Text" style={progressStyle.sec1text}>
           <Text style={progressStyle.bigText}>Xin chao!</Text>
@@ -65,7 +67,11 @@ const HomeScreen = ({navigation}) => {
             <Text style={progressStyle.text}>
               <Text style={{color: '#FFFFFF'}}>tuần này</Text>
             </Text>
-            <Pressable style={progressStyle.pressable}>
+            <Pressable
+              style={progressStyle.pressable}
+              onPress={() => {
+                navigation.navigate('TaskScreen');
+              }}>
               <Text style={progressStyle.textInButton}>Xem</Text>
             </Pressable>
           </View>
@@ -80,8 +86,51 @@ const HomeScreen = ({navigation}) => {
         </ScrollView>
       </View>
 
-      <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
-    </View>
+      <View>
+        <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
+        <View style={global.box}>
+          <Image
+            style={global.imageJob}
+            source={require('../public/assets/image/bike.jpg')}></Image>
+          <View style={global.infor}>
+            <Text style={global.textTime}>20min - 4/5</Text>
+            <Text style={global.textWork}>Đạp xe gần nhà 2km</Text>
+          </View>
+        </View>
+
+        <View style={global.box}>
+          <Image
+            style={global.imageJob}
+            source={require('../public/assets/image/bike.jpg')}></Image>
+          <View style={global.infor}>
+            <Text style={global.textTime}>20min - 4/5</Text>
+            <Text style={global.textWork}>Đạp bộ quanh nhà 1km</Text>
+          </View>
+        </View>
+
+        <View style={global.box}>
+          <Image
+            style={global.imageJob}
+            source={require('../public/assets/image/book.jpg')}></Image>
+          <View style={global.infor}>
+            <Text style={global.textTime}>20min - 4/5</Text>
+            <Text style={global.textWork}>Báo cáo CK thiết kế mạng</Text>
+          </View>
+        </View>
+
+        <View style={global.box}>
+          <Image
+            style={global.imageJob}
+            source={require('../public/assets/image/book.jpg')}></Image>
+          <View style={global.infor}>
+            <Text style={global.textTime}>20min - 4/5</Text>
+            <Text style={global.textWork}>
+              Làm deadline di động Lab3 SQL Lite, Làm 3 bai
+            </Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

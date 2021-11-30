@@ -14,31 +14,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {Header} from '@react-navigation/stack';
 import RankScreen from './RankScreen';
+import AddTask1Screen from './AddTask1Screen';
+import BufferScreen from './BufferScreen';
 
 const Tab = createBottomTabNavigator();
 
-const CustomTabBarButon = ({children, onPress}) => (
-  <TouchableOpacity
-    style={{
-      top: -30,
-      justifyContent: 'center',
-      alignItems: 'center',
-      ...styles.shadow,
-    }}
-    onPress={onPress}>
-    <View
-      style={{
-        width: 50,
-        height: 50,
-        borderRadius: 50,
-        backgroundColor: '#f1f522',
-      }}>
-      {children}
-    </View>
-  </TouchableOpacity>
-);
-
-const Tabs = () => {
+const Tabs = ({navigation}) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -95,22 +76,39 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="PostScreen"
-        component={PostScreen}
+        name="BufferScreen"
+        component={BufferScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <Image
-              source={require('../public/assets/image/plus.png')}
-              resizeMode="contain"
+            <View
               style={{
-                width: 30,
-                height: 30,
-                tintColor: '#fff',
-              }}
-            />
+                top: -30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                ...styles.shadow,
+              }}>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  backgroundColor: '#f1f522',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Image
+                  source={require('../public/assets/image/plus.png')}
+                  resizeMode="contain"
+                  style={{
+                    width: 30,
+                    height: 30,
+                    tintColor: '#fff',
+                  }}
+                />
+              </View>
+            </View>
           ),
-          tabBarButton: props => <CustomTabBarButon {...props} />,
         }}
       />
       <Tab.Screen

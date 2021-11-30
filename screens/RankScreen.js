@@ -85,10 +85,10 @@ const Data = [
 ];
 
 const RankData = () => {
-  return Data.map(item => {
+  return Data.map((item, i) => {
     var splitarray = item.split(':');
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View key={i + 1} style={{flexDirection: 'row'}}>
         <View style={{width: 35}}>
           <Text style={rankStyles.rankNumber}>{splitarray[0]}</Text>
         </View>
