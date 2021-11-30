@@ -1,9 +1,9 @@
 import React from 'react';
-import { challengeStyleheet, Text, View, Image, Pressable } from 'react-native';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import {challengeStyleheet, Text, View, Image, Pressable} from 'react-native';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import challengeStyle from '../public/assets/css/challenge';
 
-const App = () => {
+const ChallengeScreen = () => {
   return (
     <View style={challengeStyle.body}>
       <View style={challengeStyle.progressView}>
@@ -26,7 +26,7 @@ const App = () => {
           <View style={{flex: 1}}>
             <Image
               tyle={challengeStyle.img}
-              source={require('./image9.png')}
+              source={require('../public/assets/image/intro1.png')}
               resizeMode="center"
             />
           </View>

@@ -61,7 +61,7 @@ const Progress = () => {
             </Text>
             <Text style={progressStyle.bigText}>100 việc</Text>
             <Text style={progressStyle.text}>
-              <Text style={{color:'#FFFFFF'}}>tuần này</Text>
+              <Text style={{color: '#FFFFFF'}}>tuần này</Text>
             </Text>
             <Pressable style={progressStyle.pressable}>
               <Text style={progressStyle.textInButton}>Xem</Text>
@@ -82,4 +82,4 @@ const Progress = () => {
     </View>
   );
 };
-export default ProgressBar;
+export default Progress;

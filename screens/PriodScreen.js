@@ -1,0 +1,48 @@
+import React from 'react';
+import {View, Text, Image, Pressable} from 'react-native';
+import priodStyle from '../public/assets/css/priodStyle';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+
+const PriodScreen = () => {
+  return (
+    <View style={priodStyle.body}>
+      <View style={priodStyle.progressView}>
+        <AnimatedCircularProgress
+          size={300}
+          width={30}
+          fill={90}
+          tintColor="#FECB1C"
+          backgroundColor="#FFFFFF"
+          rotation={-360}>
+          {fill => <Text style={priodStyle.bigText}>45 Phút</Text>}
+        </AnimatedCircularProgress>
+      </View>
+      <View style={priodStyle.imgView}>
+        <Pressable class="press" style={priodStyle.pressable}>
+          <Image
+            tyle={priodStyle.img}
+            source={'../public/assets/image/media5.png'}
+            resizeMode="center"
+          />
+        </Pressable>
+      </View>
+
+      <View style={priodStyle.textView}>
+        <View style={priodStyle.textViewText}>
+          <Text style={priodStyle.text}>Bạn đã hoàn thành</Text>
+          <Text style={priodStyle.text}>
+            <Text style={priodStyle.bigText}>2 </Text>
+            chu kỳ
+          </Text>
+        </View>
+        <View style={priodStyle.verticleLine} />
+        <View style={priodStyle.textViewText}>
+          <Text style={priodStyle.text}>Còn 2 chu kỳ</Text>
+          <Text style={priodStyle.bigText}>để nghỉ dài</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default PriodScreen;

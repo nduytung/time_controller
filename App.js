@@ -1,18 +1,13 @@
 import React from 'react';
-import { NavigationContainer } from "@react-navigation/native";
-import Login from './screens/Login';
-import RootStackScreen from "./screens/RootStack";
-import RankScreen from './screens/RankScreen';
-
+import {NavigationContainer} from '@react-navigation/native';
+import RootStackScreen from './screens/RootStack';
 
 const App = () => {
-  //dua screen can hien thi vao day
   return (
     <NavigationContainer>
-      <RootStackScreen/>
+      <RootStackScreen />
     </NavigationContainer>
-    //<RankScreen></RankScreen>
-  )
+  );
 };
 
 export default App;
