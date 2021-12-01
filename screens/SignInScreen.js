@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
   Dimensions,
+  ToastAndroid,
   TouchableOpacity,
   TextInput,
   Image,
@@ -16,42 +17,30 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import signinStyle from '../public/assets/css/signinStyle';
 import {loginHandler} from '../asyncFunctions/handleApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SignInScreen = ({navigation}) => {
-  const [data, setData] = useState({
-    email: 'haha',
-    password: 'hehe',
-    check_textInputChange: false,
-    secureTextEntry: true,
-  });
-
-  const textInPutChange = val => {
-    setData({
-      ...data,
-      email: val,
-      check_textInputChange: true,
-    });
-  };
-
-  const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    console.log({'email: ': data.email, 'pass: ': data.password});
-    try {
-      const data = await loginHandler(data.email, data.password);
-    } catch (err) {
-      console.log(err);
+    let data = await loginHandler(username, password);
+    //neu login thanh cong
+    if (data.success == true) {
+      console.log('logged in!');
+      try {
+        await AsyncStorage.setItem('@token', data.accessToken);
+        navigation.navigate('Tabs');
+      } catch (e) {
+        console.log('Logged in err: ' + err);
+      }
+    } else {
+      console.log('cant login');
+      console.log(data.message);
+      ToastAndroid.show(
+        'Mật khẩu/Tài khoản không đúng, xin vui lòng thử lại',
+        ToastAndroid.SHORT,
+      );
     }
   };
 
@@ -69,20 +58,12 @@ const SignInScreen = ({navigation}) => {
             style={signinStyle.usericon}
           />
           <TextInput
-            placeholder="Your username..."
+            placeholder="Your username"
             style={signinStyle.textInput}
             autoCapitalize="none"
-            value={data.email}
-            onChange={e => setData({email: e.target.value, ...data})}
+            value={username}
+            onChangeText={text => setUsername(text)}
           />
-          {data.check_textInputChange ? (
-            <Feather
-              name="check-circle"
-              color="green"
-              size={20}
-              style={signinStyle.usercheckicon}
-            />
-          ) : null}
         </View>
         <Text style={[signinStyle.text_footer, {marginTop: 10}]}>Password</Text>
         <View style={signinStyle.action}>
@@ -95,37 +76,21 @@ const SignInScreen = ({navigation}) => {
           <TextInput
             style={{color: 'white'}}
             placeholder="Your password..."
-            secureTextEntry={data.secureTextEntry ? true : false}
             style={signinStyle.textInput}
             autoCapitalize="none"
-            value={data.password}
-            onChange={e => setData({password: e.target.value, ...data})}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPassword(text)}
           />
 
-          <TouchableOpacity onPress={updateSecureTextEntry}>
-            {data.secureTextEntry ? (
-              <Feather
-                name="eye-off"
-                color="gray"
-                size={20}
-                style={signinStyle.passeyeicon}
-              />
-            ) : (
-              <Feather
-                name="eye"
-                color="gray"
-                size={20}
-                style={signinStyle.passeyeicon}
-              />
-            )}
-          </TouchableOpacity>
+          <TouchableOpacity></TouchableOpacity>
         </View>
         <Text style={{color: '#009bd1', textAlign: 'right'}}>
           Forgot Password
         </Text>
         <View style={signinStyle.button}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Tabs')}
+            onPress={() => handleLogin()}
             style={[
               signinStyle.SignIn,
               {

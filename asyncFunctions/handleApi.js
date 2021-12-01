@@ -1,7 +1,13 @@
-const API_ENDPOINT = 'http://192.168.100.6:3001';
+const API_ENDPOINT = 'http://192.168.100.8:3001';
 
-export const registerHandler = async (username, fullname, password) => {
-  const data = {username, fullname, password};
+export const registerHandler = async (
+  fullname,
+  username,
+  password,
+  sex,
+  email,
+) => {
+  const data = {fullname, username, password, sex, email};
   try {
     let res = await fetch(`${API_ENDPOINT}/auth/register`, {
       method: 'POST',
@@ -26,11 +32,10 @@ export const loginHandler = async (username, password) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        body: JSON.stringify(data),
       },
+      body: JSON.stringify(data),
     });
     let resolve = await res.json();
-    console.log(resolve);
     return resolve;
   } catch (err) {
     console.log('LOGIN ERR: ' + err);
