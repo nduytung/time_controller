@@ -100,7 +100,7 @@ const HomeScreen = ({navigation}) => {
         </View>
         <Pressable class="press" style={progressStyle.pressable}>
           <Text
-            onPress={() => navigation.navigate('PriodScreen')}
+            onPress={() => navigation.navigate('WorkingScreen')}
             style={progressStyle.textInButton}>
             Làm việc!
           </Text>

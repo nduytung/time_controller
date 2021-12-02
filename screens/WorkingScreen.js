@@ -1,51 +1,70 @@
-import React, {useEffect, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {View, Text, Image, Pressable} from 'react-native';
 import priodStyle from '../public/assets/css/priodStyle';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 
-const PriodScreen = ({pomodoro = 25}) => {
-  let [minute, setMinute] = useState(pomodoro);
-  let [second, setSecond] = useState(59);
+const PriodScreen = ({pomodoro}) => {
+  const [timer, setTimer] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const increment = useRef(null);
 
-  useEffect(() => {
-    //gom 2 phan la phut va giay
-    setInterval(() => {
-      if (minute > 0) {
-        setSecond(second--);
-      } else return;
+  const handleStart = () => {
+    setIsActive(true);
+    setIsPaused(true);
+    increment.current = setInterval(() => {
+      setTimer(timer => timer + 1);
     }, 1000);
+  };
 
-    setInterval(() => {
-      setMinute(minute--);
-      if (second <= 0) {
-        setSecond(60);
-      } else return;
-    }, 60000);
-  }, []);
+  const handlePause = () => {
+    clearInterval(increment.current);
+    setIsPaused(false);
+  };
+
+  const handleResume = () => {
+    setIsPaused(true);
+    increment.current = setInterval(() => {
+      setTimer(timer => timer + 1);
+    }, 1000);
+  };
+
+  const handleReset = () => {
+    clearInterval(increment.current);
+    setIsActive(false);
+    setIsPaused(false);
+    setTimer(0);
+  };
+
+  const formatTime = () => {
+    const getSeconds = `0${timer % 60}`.slice(-2);
+    const minutes = `${Math.floor(timer / 60)}`;
+    const getMinutes = `0${minutes % 60}`.slice(-2);
+
+    return `${getMinutes} : ${getSeconds}`;
+  };
+
   return (
     <View style={priodStyle.body}>
+      {() => startTimer()}
       <View style={priodStyle.progressView}>
         <AnimatedCircularProgress
           size={300}
           width={30}
-          fill={minute * 4}
+          fill={90}
           tintColor="#FECB1C"
           backgroundColor="#FFFFFF"
           rotation={-360}>
-          {fill => (
-            <Text style={priodStyle.bigText}>
-              {minute} : {second}
-            </Text>
-          )}
+          {fill => <Text style={priodStyle.bigText}>{formatTime()}</Text>}
         </AnimatedCircularProgress>
       </View>
+
       <View style={priodStyle.imgView}>
-        <Pressable class="press" style={priodStyle.pressable}>
-          <Image
-            tyle={priodStyle.img}
-            source={'../public/assets/image/media5.png'}
-            resizeMode="center"
-          />
+        <Pressable
+          class="press"
+          onPress={() => handleStart()}
+          style={priodStyle.pressable}>
+          <Text>click me</Text>
         </Pressable>
       </View>
 
