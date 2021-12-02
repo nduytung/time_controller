@@ -5,7 +5,6 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import HomeScreen from './HomeScreen';
 import ProgressScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
-import PostScreen from './PostScreen';
 import ProfileScreen from './ProfileScreen';
 import Intro3 from './Intro3';
 
