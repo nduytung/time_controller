@@ -1,20 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, Pressable} from 'react-native';
 import priodStyle from '../public/assets/css/priodStyle';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 
-const PriodScreen = () => {
+const PriodScreen = ({pomodoro = 25}) => {
+  let [minute, setMinute] = useState(pomodoro);
+  let [second, setSecond] = useState(59);
+
+  useEffect(() => {
+    //gom 2 phan la phut va giay
+    setInterval(() => {
+      if (minute > 0) {
+        setSecond(second--);
+      } else return;
+    }, 1000);
+
+    setInterval(() => {
+      setMinute(minute--);
+      if (second <= 0) {
+        setSecond(60);
+      } else return;
+    }, 60000);
+  }, []);
   return (
     <View style={priodStyle.body}>
       <View style={priodStyle.progressView}>
         <AnimatedCircularProgress
           size={300}
           width={30}
-          fill={90}
+          fill={minute * 4}
           tintColor="#FECB1C"
           backgroundColor="#FFFFFF"
           rotation={-360}>
-          {fill => <Text style={priodStyle.bigText}>45 Phút</Text>}
+          {fill => (
+            <Text style={priodStyle.bigText}>
+              {minute} : {second}
+            </Text>
+          )}
         </AnimatedCircularProgress>
       </View>
       <View style={priodStyle.imgView}>

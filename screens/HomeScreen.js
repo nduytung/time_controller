@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   progressStyleheet,
@@ -13,13 +13,42 @@ import Duck from '../public/assets/image/duck.gif';
 import Tabs from './TabsScreen';
 import global from '../public/assets/css/global';
 import TextTicker from 'react-native-text-ticker';
+import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 
 const HomeScreen = ({navigation}) => {
+  const [taskData, setTaskData] = useState([]);
+  const [taskLeft, setTaskLeft] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const getInfo = async () => {
+    const data = await getAllTaskInfo();
+    console.log(data.tasks);
+    await setTaskData(data.tasks);
+    countDoneTask();
+  };
+
+  //tinh toan ra so phut con lai va so task da xong
+  const countDoneTask = () => {
+    let remainTask = 0;
+    let remainTime = 0;
+    taskData.map(task => {
+      console.log('task: ' + task.pomodoroPeriod);
+      if (task.done < task.pomodoroPeriod) {
+        remainTask++;
+        remainTime += (task.pomodoroPeriod - task.done) * 25;
+      }
+    });
+    setTaskLeft(remainTask);
+    setTimeLeft(remainTime);
+  };
+
+  useEffect(() => {
+    getInfo();
+  }, []);
   return (
     <ScrollView style={progressStyle.body}>
       <View class="Sec1" style={progressStyle.sec1}>
         <View class="Text" style={progressStyle.sec1text}>
-          <Text style={progressStyle.bigText}>Xin chao!</Text>
+          <Text style={progressStyle.hello}>Xin chao!</Text>
           <Text style={progressStyle.text}>Duy Tung</Text>
         </View>
         <View style={progressStyle.sec1img}>
@@ -44,7 +73,10 @@ const HomeScreen = ({navigation}) => {
             Bạn đã hoàn thành
           </Text>
           <Text style={progressStyle.bigText}>
-            <Text style={progressStyle.textImpress}>17</Text> Streaks!
+            <Text style={progressStyle.textImpress}>
+              {taskData.length - taskLeft}
+            </Text>{' '}
+            Streaks!
           </Text>
         </View>
       </View>
@@ -61,9 +93,9 @@ const HomeScreen = ({navigation}) => {
         <ScrollView style={progressStyle.scroll} horizontal={true}>
           <View style={progressStyle.scrollview}>
             <Text style={(progressStyle.text, {color: '#FFFFFF'})}>
-              Bạn đã làm xong
+              Hiện còn lại{' '}
             </Text>
-            <Text style={progressStyle.bigText}>100 việc</Text>
+            <Text style={progressStyle.bigText}>{taskLeft} việc</Text>
             <Text style={progressStyle.text}>
               <Text style={{color: '#FFFFFF'}}>tuần này</Text>
             </Text>
@@ -78,7 +110,14 @@ const HomeScreen = ({navigation}) => {
 
           <View style={progressStyle.scrollview}>
             <Text style={progressStyle.text}>Số phút tập trung còn lại</Text>
-            <Text style={progressStyle.bigText}>200</Text>
+            <Text style={progressStyle.bigText}>{timeLeft}</Text>
+            <Pressable style={progressStyle.pressable}>
+              <Text style={progressStyle.textInButton}>Xem</Text>
+            </Pressable>
+          </View>
+          <View style={progressStyle.scrollview}>
+            <Text style={progressStyle.text}>Tổng số task của tuần này</Text>
+            <Text style={progressStyle.bigText}>{taskData.length}</Text>
             <Pressable style={progressStyle.pressable}>
               <Text style={progressStyle.textInButton}>Xem</Text>
             </Pressable>

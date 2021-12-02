@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {challengeStyleheet, Text, View, Image, Pressable} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import {useState} from 'react/cjs/react.development';
 import challengeStyle from '../public/assets/css/challenge';
 
-const ChallengeScreen = () => {
+const ChallengeScreen = ({pomodoro}) => {
+  const [timer, setTimer] = useState(pomodoro);
+  const [minute, setMinute] = useState(pomodoro);
+  const [second, setSecond] = useState(59);
+  useEffect(() => {
+    //gom 2 phan la phut va giay
+    setInterval(() => {
+      if (minute > 0) {
+        second = second - 1;
+        if (second == 0) {
+          minute = minute - 1;
+          second = 59;
+        }
+      }
+    }, 1000);
+  }, []);
   return (
     <View style={challengeStyle.body}>
       <View style={challengeStyle.progressView}>

@@ -41,3 +41,19 @@ export const loginHandler = async (username, password) => {
     console.log('LOGIN ERR: ' + err);
   }
 };
+
+export const getAllTaskInfo = async () => {
+  try {
+    let res = await fetch(`${API_ENDPOINT}/task/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type':
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWE2ZjE5MDcwZDBhZTU3MjE0MjMxODQiLCJpYXQiOjE2MzgzNTY4MTJ9.zRVSNZWvjeCvRGmksvY1Ci9SaoBTc0CkROhWONYaVLQ',
+      },
+    });
+    let resolve = await res.json();
+    return resolve;
+  } catch (err) {
+    console.log('FETCH ERR: ' + err);
+  }
+};
