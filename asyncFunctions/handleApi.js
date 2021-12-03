@@ -57,3 +57,14 @@ export const getAllTaskInfo = async () => {
     console.log('FETCH ERR: ' + err);
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/user/all`);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log('GET USER ERR: ' + err);
+  }
+};
