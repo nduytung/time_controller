@@ -48,7 +48,9 @@ const RankScreen = () => {
                 marginTop: 40,
               }}
             />
-            <View style={rankStyles.rank2Column}></View>
+            <View style={rankStyles.rank2Column}>
+              <Text style={rankStyles.top3Text}> {data[1]?.username}</Text>
+            </View>
           </View>
           <View>
             <Image
@@ -59,7 +61,9 @@ const RankScreen = () => {
                 marginLeft: 15,
               }}
             />
-            <View style={rankStyles.rank1Column}></View>
+            <View style={rankStyles.rank1Column}>
+              <Text style={rankStyles.top3Text}> {data[0]?.username}</Text>
+            </View>
           </View>
           <View style={{marginLeft: 'auto'}}>
             <Image
@@ -71,7 +75,9 @@ const RankScreen = () => {
                 marginTop: 70,
               }}
             />
-            <View style={rankStyles.rank3Column}></View>
+            <View style={rankStyles.rank3Column}>
+              <Text style={rankStyles.top3Text}> {data[2]?.username}</Text>
+            </View>
           </View>
         </View>
       </Animatable.View>
