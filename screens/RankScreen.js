@@ -95,7 +95,7 @@ const RankData = dataList => {
     dataList &&
     dataList.map((item, i) => {
       return (
-        <View key={i + 1} style={{flexDirection: 'row'}}>
+        <View key={i + 1} style={{flexDirection: 'row', alignItems: 'center'}}>
           <View style={{width: 35}}>
             <Text style={rankStyles.rankNumber}>{i + 1}</Text>
           </View>
@@ -110,12 +110,20 @@ const RankData = dataList => {
             <Text style={rankStyles.rankName}>{item.fullname}</Text>
             <Text style={rankStyles.rankCheckProfile}>{item.username}</Text>
           </View>
-          <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginLeft: 'auto',
+              alignItems: 'center',
+              marginTop: 20,
+              marginRight: 10,
+            }}>
             <Text style={rankStyles.rankPoint}>{item.pomodoroDone}</Text>
             <Image
-              source={require('../public/assets/image/rank-point.png')}
+              source={require('../public/assets/image/gem.png')}
               style={{
-                marginTop: 20,
+                width: 30,
+                height: 30,
               }}
             />
           </View>

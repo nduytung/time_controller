@@ -11,6 +11,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import taskStyle from '../public/assets/css/taskStyle';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import moment from 'moment';
+import CustomButton from '../components/Button';
 
 const TaskScreen = () => {
   const [taskData, setTaskData] = useState([]);
@@ -52,34 +53,57 @@ const TaskScreen = () => {
     getInfo();
   }, [renderFlag]);
   return (
-    <ScrollView style={{margin: 10}}>
-      <View>
-        <Text style={taskStyle.headerText}>Task trong tuần</Text>
-      </View>
+    <View style={{backgroundColor: 'white'}}>
+      <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
+        <View>
+          <Text style={taskStyle.headerText}>Task trong tuần</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View style={{width: '65%'}}>
+              <Text
+                style={{
+                  color: 'gray',
+                  fontSize: 15,
+                  textAlign: 'justify',
+                }}>
+                Tất cả các task (dù đã hoàn thành hay chưa) của bạn sẽ được thể
+                hiện ở đây. Chúng sẽ được sắp xếp theo thứ tự giảm dần về độ ưu
+                tiên. Hãy tranh thủ thời gian làm bài nhé!
+              </Text>
+            </View>
+            <Image
+              style={{width: 150, height: 150}}
+              source={require('../public/assets/image/task-screen.jpg')}
+            />
+          </View>
+        </View>
 
-      {taskData?.map(task => {
-        return (
-          <View style={taskStyle.box1}>
-            <View style={taskStyle.information}>
-              <View style={taskStyle.leftInformation}>
-                <Text style={taskStyle.leftInfor1}>Còn lại</Text>
-                <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
-                <Text style={taskStyle.leftInfor3}>phút</Text>
+        {taskData?.map(task => {
+          return (
+            <View style={taskStyle.box1}>
+              <View style={taskStyle.information}>
+                <View style={taskStyle.leftInformation}>
+                  <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
+                  <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
+                </View>
+                <View style={taskStyle.rightInformation}>
+                  <Text style={taskStyle.rightInfor1}>{task.taskname} </Text>
+                  <Text style={taskStyle.rightInfor2}>{task.deadline}</Text>
+                </View>
               </View>
-              <View style={taskStyle.rightInformation}>
-                <Text style={taskStyle.rightInfor1}>{task.taskname} </Text>
-                <Text style={taskStyle.rightInfor2}>{task.deadline}</Text>
-                <Text style={taskStyle.rightInfor3}>{task.description}</Text>
-                <TouchableOpacity style={taskStyle.touchFix} onPress={() => {}}>
-                  <Text style={taskStyle.textFix}>Sửa</Text>
-                </TouchableOpacity>
+              <Text style={taskStyle.rightInfor3}>{task.description}</Text>
+              <View style={{width: '30%'}}>
+                <CustomButton title={'Sửa'} />
               </View>
             </View>
-          </View>
-        );
-      })}
-      <View style={{marginBottom: 90}}></View>
-    </ScrollView>
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 };
 

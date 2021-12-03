@@ -77,8 +77,8 @@ var rankStyles = StyleSheet.create({
     color: '#000000',
   },
   rankPoint: {
-    marginTop: 25,
     fontSize: 16,
+    marginRight: 10,
     fontWeight: 'bold',
     color: '#0aa0f7',
   },

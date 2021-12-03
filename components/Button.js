@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-const Button = ({title = 'OK', callback}) => {
+const CustomButton = ({title = 'OK', callback}) => {
   return (
     <TouchableOpacity
       style={{
@@ -8,11 +8,15 @@ const Button = ({title = 'OK', callback}) => {
         paddingHorizontal: 30,
         paddingVertical: 10,
         justifyContent: 'center',
-        backgroundColor: '#815fde',
+        backgroundColor: 'white',
+        marginVertical: 15,
       }}
       onPress={() => callback()}>
-      <Text style={{color: 'white', fontSize: 16}}> {title} </Text>
+      <Text style={{color: 'gray', fontSize: 16, textAlign: 'center'}}>
+        {' '}
+        {title}{' '}
+      </Text>
     </TouchableOpacity>
   );
 };
-export default Button;
+export default CustomButton;
