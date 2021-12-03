@@ -35,12 +35,14 @@ var splashStyle = StyleSheet.create({
     marginTop: 50,
   },
   SignIn: {
-    width: '100%',
+    width: '50%',
     borderColor: '#815fde',
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   textSign: {
     fontSize: 18,

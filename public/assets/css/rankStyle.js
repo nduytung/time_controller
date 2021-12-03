@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 var rankStyles = StyleSheet.create({
   RankScreencontainer: {
     flex: 1,
-    backgroundColor: '#8ebeed',
+    backgroundColor: '#e1d8f7',
   },
   tittle: {
     marginTop: 30,
@@ -16,7 +16,7 @@ var rankStyles = StyleSheet.create({
   },
   RankScreenHeader: {
     flex: 1,
-    backgroundColor: '#8ebeed',
+    backgroundColor: '#e1d8f7',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
@@ -15,6 +15,8 @@ import {Header} from '@react-navigation/stack';
 import RankScreen from './RankScreen';
 import AddTask1Screen from './AddTask1Screen';
 import BufferScreen from './BufferScreen';
+import SleepyScreen from './SleepCalculator';
+import TaskScreen from './TaskScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,15 +46,7 @@ const Tabs = ({navigation}) => {
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Image
-                source={require('../public/assets/image/home.png')}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#9ec5fd' : '#748c94',
-                }}
-              />
+              <Entypo name="home" size={25} />
             </View>
           ),
         }}
@@ -64,15 +58,19 @@ const Tabs = ({navigation}) => {
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Image
-                source={require('../public/assets/image/progress.png')}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#9ec5fd' : '#748c94',
-                }}
-              />
+              <Entypo name="bar-graph" size={25} />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SleepCalculator"
+        component={SleepyScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Entypo name="moon" size={25} />
             </View>
           ),
         }}
@@ -114,21 +112,25 @@ const Tabs = ({navigation}) => {
         }}
       />
       <Tab.Screen
+        name="TaskScreen"
+        component={TaskScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Entypo name="browser" size={25} />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Image
-                source={require('../public/assets/image/profile.png')}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#9ec5fd' : '#748c94',
-                }}
-              />
+              <Entypo name="add-user" size={25} />
             </View>
           ),
         }}
@@ -140,15 +142,7 @@ const Tabs = ({navigation}) => {
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Image
-                source={require('../public/assets/image/setting.png')}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? '#9ec5fd' : '#748c94',
-                }}
-              />
+              <Entypo name="cog" size={25} />
             </View>
           ),
         }}

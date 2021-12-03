@@ -39,9 +39,7 @@ const SleepyScreen = () => {
   };
   return (
     <ScrollView style={sleepyStyle.backgroundFont}>
-      <TextTicker style={sleepyStyle.helloText}>
-        Chào buổi tối, Duy Tung!
-      </TextTicker>
+      <Text style={sleepyStyle.helloText}>Chào buổi tối, Duy Tung!</Text>
       <Image
         style={sleepyStyle.imageF}
         source={require('../public/assets/image/sleep-screen.jpg')}></Image>
