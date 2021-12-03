@@ -10,6 +10,7 @@ const globalStyle = StyleSheet.create({
   },
   hobby: {
     marginBottom: 110,
+    marginTop: 30,
   },
   testingDiv: {
     flex: 1,
@@ -17,14 +18,16 @@ const globalStyle = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 20,
+    marginTop: 5,
     flexDirection: 'row',
-    borderColor: 'black',
+    borderColor: 'grey',
     borderWidth: 1,
+    alignItems: 'center',
   },
   imageJob: {
-    margin: 10,
+    marginHorizontal: 10,
     alignItems: 'center',
     height: 60,
     width: 60,

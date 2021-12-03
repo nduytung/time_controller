@@ -61,13 +61,13 @@ const HomeScreen = ({navigation}) => {
       <ScrollView>
         <View class="Sec1" style={progressStyle.sec1}>
           <View class="Text" style={progressStyle.sec1text}>
-            <Text style={progressStyle.hello}>Xin chao!</Text>
-            <Text style={progressStyle.text}>Duy Tung</Text>
+            <Text style={progressStyle.hello}>Xin chào!</Text>
+            <Text style={progressStyle.text}>Chiến thôi, Duy Tung !</Text>
           </View>
           <View style={progressStyle.sec1img}>
             <Image
               style={progressStyle.img}
-              source={Duck}
+              source={require('../public/assets/image/user-avt.png')}
               resizeMode="center"
             />
           </View>
@@ -76,22 +76,24 @@ const HomeScreen = ({navigation}) => {
         <View class="sec2" style={progressStyle.sec2}>
           <View style={progressStyle.progress}>
             <AnimatedCircularProgress
-              size={120}
-              width={15}
+              size={110}
+              width={16}
               fill={donePercentage || 0}
               tintColor="#FFFFFF"
               backgroundColor="#FFDC65"
               rotation={-360}>
               {fill => (
-                <Text style={progressStyle.text}>{donePercentage}%</Text>
+                <Text style={{color: 'white', fontSize: 20}}>
+                  {donePercentage}%
+                </Text>
               )}
             </AnimatedCircularProgress>
           </View>
           <View style={progressStyle.sec2text}>
-            <Text style={(progressStyle.text, {textAlign: 'left'})}>
+            <Text style={{textAlign: 'left', fontSize: 18}}>
               Bạn đã hoàn thành
             </Text>
-            <Text style={progressStyle.bigText}>
+            <Text style={{fontSize: 40, fontWeight: '800', color: 'black'}}>
               <Text style={progressStyle.textImpress}>
                 {taskData.length - taskLeft}
               </Text>{' '}
@@ -99,49 +101,77 @@ const HomeScreen = ({navigation}) => {
             </Text>
           </View>
         </View>
-        <Pressable class="press" style={progressStyle.pressable}>
+        <Pressable class="press" style={progressStyle.mainbutton}>
           <Text
             onPress={() => navigation.navigate('WorkingScreen')}
-            style={progressStyle.textInButton}>
-            Làm việc!
+            style={progressStyle.mainButtonText}>
+            Làm việc
           </Text>
         </Pressable>
 
-        <Text style={progressStyle.extentText}>Task tuần này</Text>
-        <View style={{flex: 0.6}}>
-          <ScrollView style={progressStyle.scroll} horizontal={true}>
-            <View style={progressStyle.scrollview}>
-              <Text style={(progressStyle.text, {color: '#FFFFFF'})}>
-                Hiện còn lại{' '}
-              </Text>
-              <Text style={progressStyle.bigText}>{taskLeft} việc</Text>
-              <Text style={progressStyle.text}>
-                <Text style={{color: '#FFFFFF'}}>tuần này</Text>
-              </Text>
-              <Pressable
-                style={progressStyle.pressable}
-                onPress={() => {
-                  navigation.navigate('TaskScreen');
-                }}>
-                <Text style={progressStyle.textInButton}>Xem</Text>
-              </Pressable>
-            </View>
+        <View>
+          <Text style={progressStyle.extentText}>Task tuần này</Text>
+          <View style={{flex: 0.5}}>
+            <ScrollView
+              style={progressStyle.scroll}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              <View class="task-detail" style={progressStyle.scrollview}>
+                <View>
+                  <Text style={progressStyle.text}>Tuần này hiện còn lại </Text>
+                  <Text style={progressStyle.bigText}>{taskLeft} việc</Text>
+                  <Text style={progressStyle.text}>
+                    <Text style={{color: '#FFFFFF'}}></Text>
+                  </Text>
+                </View>
+                <Pressable
+                  style={progressStyle.pressable}
+                  onPress={() => {
+                    navigation.navigate('TaskScreen');
+                  }}>
+                  <Text style={progressStyle.textInButton}>Chi tiết</Text>
+                </Pressable>
+              </View>
 
-            <View style={progressStyle.scrollview}>
-              <Text style={progressStyle.text}>Số phút tập trung còn lại</Text>
-              <Text style={progressStyle.bigText}>{timeLeft}</Text>
-              <Pressable style={progressStyle.pressable}>
-                <Text style={progressStyle.textInButton}>Xem</Text>
-              </Pressable>
-            </View>
-            <View style={progressStyle.scrollview}>
-              <Text style={progressStyle.text}>Tổng số task của tuần này</Text>
-              <Text style={progressStyle.bigText}>{taskData.length}</Text>
-              <Pressable style={progressStyle.pressable}>
-                <Text style={progressStyle.textInButton}>Xem</Text>
-              </Pressable>
-            </View>
-          </ScrollView>
+              <View class="task-detail" style={progressStyle.scrollview}>
+                <View>
+                  <Text style={progressStyle.text}>
+                    Số chu kỳ còn lại của bạn
+                  </Text>
+                  <Text style={progressStyle.bigText}>{taskLeft} chu kỳ</Text>
+                  <Text style={progressStyle.text}>
+                    <Text style={{color: '#FFFFFF'}}></Text>
+                  </Text>
+                </View>
+                <Pressable
+                  style={progressStyle.pressable}
+                  onPress={() => {
+                    navigation.navigate('TaskScreen');
+                  }}>
+                  <Text style={progressStyle.textInButton}>Chi tiết</Text>
+                </Pressable>
+              </View>
+
+              <View class="task-detail" style={progressStyle.scrollview}>
+                <View>
+                  <Text style={progressStyle.text}>
+                    Số việc bạn đã làm cùng ứng dụng
+                  </Text>
+                  <Text style={progressStyle.bigText}>{taskLeft} việc</Text>
+                  <Text style={progressStyle.text}>
+                    <Text style={{color: '#FFFFFF'}}></Text>
+                  </Text>
+                </View>
+                <Pressable
+                  style={progressStyle.pressable}
+                  onPress={() => {
+                    navigation.navigate('TaskScreen');
+                  }}>
+                  <Text style={progressStyle.textInButton}>Chi tiết</Text>
+                </Pressable>
+              </View>
+            </ScrollView>
+          </View>
         </View>
 
         <View style={global.hobby}>
@@ -151,9 +181,12 @@ const HomeScreen = ({navigation}) => {
               <View key={i + 1} style={global.box}>
                 <Image
                   style={global.imageJob}
-                  source={require('../public/assets/image/bike.jpg')}></Image>
+                  source={require('../public/assets/image/bike.png')}></Image>
                 <View style={global.infor}>
-                  <Text style={global.textTime}> {item.time} </Text>
+                  <Text style={global.textTime}>
+                    {' '}
+                    {item.time} - {item.calories} calories
+                  </Text>
                   <Text style={global.textWork}>{item.name}</Text>
                 </View>
               </View>

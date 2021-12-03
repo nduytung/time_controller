@@ -33,9 +33,9 @@ const introStyle = StyleSheet.create({
   textDetail3: {
     marginTop: '10%',
     marginLeft: 10,
-    width: '70%',
+    width: '90%',
     textAlign: 'justify',
-    fontSize: 20,
+    fontSize: 18,
     flexWrap: 'wrap',
   },
   btnStart: {

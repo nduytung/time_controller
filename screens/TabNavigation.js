@@ -25,11 +25,14 @@ const Tabs = ({navigation}) => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          Header: 'false',
-          elevation: 10,
-          backgroundColor: '#ffffff',
+          backgroundColor: '#f8f9fa',
           height: 70,
-          ...styles.shadow,
+          shadowOffset: {
+            width: -10,
+            height: -5,
+          },
+          shadowOpacity: 1,
+          shadowRadius: 0,
           margin: 10,
           borderRadius: 20,
         },
@@ -47,7 +50,7 @@ const Tabs = ({navigation}) => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#f1f522' : '#748c94',
+                  tintColor: focused ? '#9ec5fd' : '#748c94',
                 }}
               />
             </View>
@@ -67,7 +70,7 @@ const Tabs = ({navigation}) => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#f1f522' : '#748c94',
+                  tintColor: focused ? '#9ec5fd' : '#748c94',
                 }}
               />
             </View>
@@ -92,7 +95,7 @@ const Tabs = ({navigation}) => {
                   width: 50,
                   height: 50,
                   borderRadius: 50,
-                  backgroundColor: '#f1f522',
+                  backgroundColor: '#9ec5fd',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
@@ -123,7 +126,7 @@ const Tabs = ({navigation}) => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#f1f522' : '#748c94',
+                  tintColor: focused ? '#9ec5fd' : '#748c94',
                 }}
               />
             </View>
@@ -143,7 +146,7 @@ const Tabs = ({navigation}) => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#f1f522' : '#748c94',
+                  tintColor: focused ? '#9ec5fd' : '#748c94',
                 }}
               />
             </View>

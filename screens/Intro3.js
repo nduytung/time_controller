@@ -12,13 +12,18 @@ import {ScrollView} from 'react-native-gesture-handler';
 import TextTicker from 'react-native-text-ticker';
 import introStyle from '../public/assets/css/introStyle';
 import NextNav from '../components/NextNav';
+import Button from '../components/Button';
 
 const Intro3 = ({navigation}) => {
+  const callback = () => {
+    navigation.navigate('Tabs');
+  };
   return (
     <View
       style={{
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        alignItems: 'center',
+        textAlign: 'center',
         height: '100%',
         backgroundColor: 'white',
       }}>
@@ -33,16 +38,25 @@ const Intro3 = ({navigation}) => {
         }
         source={require('../public/assets/image/intro3.png')}></Image>
       <Text style={introStyle.textDetail3}>
-        Quản lý thời gian bằng cơ sở chứng minh khoa học và thực tế
+        Quản lý dự án & dự định cá nhân của bản thân trong chớp mắt!{' '}
       </Text>
       <TouchableOpacity
-        style={introStyle.btnStart}
-        onPress={() => {
-          navigation.navigate('Tabs');
-        }}>
-        <Text style={introStyle.textStart}>BẮT ĐẦU</Text>
+        style={{
+          borderRadius: 50,
+          paddingVertical: 15,
+          width: '90%',
+          justifyContent: 'center',
+          backgroundColor: '#815fde',
+          marginLeft: 'auto',
+          marginBottom: 50,
+          marginRight: 'auto',
+        }}
+        onPress={() => callback()}>
+        <Text style={{color: 'white', fontSize: 16, textAlign: 'center'}}>
+          {' '}
+          Bắt đầu{' '}
+        </Text>
       </TouchableOpacity>
-      <View style={{marginBottom: 90}}></View>
     </View>
   );
 };
