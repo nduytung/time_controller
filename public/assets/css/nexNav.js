@@ -8,6 +8,7 @@ const nextNavCss = StyleSheet.create({
     width: '50%',
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginBottom: 50,
   },
 });
 

@@ -15,10 +15,23 @@ import NextNav from '../components/NextNav';
 
 const Intro3 = ({navigation}) => {
   return (
-    <View>
+    <View
+      style={{
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <Image
-        style={introStyle.imageshow}
-        source={require('../public/assets/image/duck.gif')}></Image>
+        style={
+          (introStyle.imageshow,
+          {
+            width: 350,
+            marginTop: 150,
+            height: 350,
+          })
+        }
+        source={require('../public/assets/image/intro3.png')}></Image>
       <Text style={introStyle.textDetail3}>
         Quản lý thời gian bằng cơ sở chứng minh khoa học và thực tế
       </Text>

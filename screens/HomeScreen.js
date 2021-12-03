@@ -14,6 +14,7 @@ import Tabs from './TabNavigation';
 import global from '../public/assets/css/global';
 import TextTicker from 'react-native-text-ticker';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
+import {activities} from '../components/activitiesData';
 
 const HomeScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
@@ -143,49 +144,21 @@ const HomeScreen = ({navigation}) => {
           </ScrollView>
         </View>
 
-        <View>
+        <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
-          <View style={global.box}>
-            <Image
-              style={global.imageJob}
-              source={require('../public/assets/image/bike.jpg')}></Image>
-            <View style={global.infor}>
-              <Text style={global.textTime}>20min - 4/5</Text>
-              <Text style={global.textWork}>Đạp xe gần nhà 2km</Text>
-            </View>
-          </View>
-
-          <View style={global.box}>
-            <Image
-              style={global.imageJob}
-              source={require('../public/assets/image/bike.jpg')}></Image>
-            <View style={global.infor}>
-              <Text style={global.textTime}>20min - 4/5</Text>
-              <Text style={global.textWork}>Đạp bộ quanh nhà 1km</Text>
-            </View>
-          </View>
-
-          <View style={global.box}>
-            <Image
-              style={global.imageJob}
-              source={require('../public/assets/image/book.jpg')}></Image>
-            <View style={global.infor}>
-              <Text style={global.textTime}>20min - 4/5</Text>
-              <Text style={global.textWork}>Báo cáo CK thiết kế mạng</Text>
-            </View>
-          </View>
-
-          <View style={global.box}>
-            <Image
-              style={global.imageJob}
-              source={require('../public/assets/image/book.jpg')}></Image>
-            <View style={global.infor}>
-              <Text style={global.textTime}>20min - 4/5</Text>
-              <Text style={global.textWork}>
-                Làm deadline di động Lab3 SQL Lite, Làm 3 bai
-              </Text>
-            </View>
-          </View>
+          {activities.map((item, i) => {
+            return (
+              <View key={i + 1} style={global.box}>
+                <Image
+                  style={global.imageJob}
+                  source={require('../public/assets/image/bike.jpg')}></Image>
+                <View style={global.infor}>
+                  <Text style={global.textTime}> {item.time} </Text>
+                  <Text style={global.textWork}>{item.name}</Text>
+                </View>
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
     </ScrollView>

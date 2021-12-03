@@ -17,39 +17,43 @@ const SplashScreen = ({navigation}) => {
   return (
     <View style={splashStyle.container}>
       <StatusBar barStyle="light-content" />
-      <View style={splashStyle.header}></View>
+      <View style={splashStyle.header}>
+        <Image
+          source={require('../public/assets/image/welcome.jpg')}
+          style={{
+            width: '100%',
+            height: 420,
+          }}
+        />
+      </View>
       <Animatable.View style={splashStyle.footer} animation="fadeInUpBig">
-        <Text style={splashStyle.title}>Best way to control your time</Text>
+        <Text style={splashStyle.title}>Quản lý thời gian liệu có khó?</Text>
         <View style={splashStyle.button}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Login')}
             style={[
               splashStyle.SignIn,
               {
-                borderColor: '#4dc2f8',
+                backgroundColor: '#815fde',
                 borderWidth: 1,
               },
             ]}>
-            <LinearGradient
-              colors={['#5db8fe', '#39cff2']}
-              style={splashStyle.SignIn}>
-              <Text style={[splashStyle.textSign, {color: 'white'}]}>
-                Sign In
-              </Text>
-            </LinearGradient>
+            <Text style={[splashStyle.textSign, {color: 'white'}]}>
+              Đăng nhập{' '}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('Register')}
             style={[
               splashStyle.SignIn,
               {
-                borderColor: 'black',
+                borderColor: '#815fde',
                 borderWidth: 1,
                 marginTop: 20,
               },
             ]}>
-            <Text style={[splashStyle.textSign, {color: 'black'}]}>
-              Sign Up
+            <Text style={[splashStyle.textSign, {color: '#815fde'}]}>
+              Đăng ký{' '}
             </Text>
           </TouchableOpacity>
         </View>

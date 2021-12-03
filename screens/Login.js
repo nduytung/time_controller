@@ -58,9 +58,10 @@ const SignInScreen = ({navigation}) => {
   return (
     <View style={signinStyle.container}>
       <View style={signinStyle.header}></View>
+
       <Animatable.View animation="fadeInUpBig" style={signinStyle.footer}>
-        <Text style={signinStyle.screenname}>Sign In</Text>
-        <Text style={signinStyle.text_footer}>Email Address</Text>
+        <Text style={signinStyle.screenname}>Đăng nhập</Text>
+        <Text style={signinStyle.text_footer}>Tên người dùng</Text>
         <View style={signinStyle.action}>
           <FontAwesome
             name="user-o"
@@ -69,14 +70,14 @@ const SignInScreen = ({navigation}) => {
             style={signinStyle.usericon}
           />
           <TextInput
-            placeholder="Your username"
+            placeholder="Tên người dùng"
             style={signinStyle.textInput}
             autoCapitalize="none"
             value={username}
             onChangeText={text => setUsername(text)}
           />
         </View>
-        <Text style={[signinStyle.text_footer, {marginTop: 10}]}>Password</Text>
+        <Text style={[signinStyle.text_footer, {marginTop: 10}]}>Mật khẩu</Text>
         <View style={signinStyle.action}>
           <FontAwesome
             name="lock"
@@ -86,18 +87,16 @@ const SignInScreen = ({navigation}) => {
           />
           <TextInput
             style={{color: 'white'}}
-            placeholder="Your password..."
+            placeholder="Mật khẩu"
             style={signinStyle.textInput}
             autoCapitalize="none"
             secureTextEntry={true}
             value={password}
             onChangeText={text => setPassword(text)}
           />
-
-          <TouchableOpacity></TouchableOpacity>
         </View>
         <Text style={{color: '#009bd1', textAlign: 'right'}}>
-          Forgot Password
+          Quên mật khẩu{' '}
         </Text>
         <View style={signinStyle.button}>
           <TouchableOpacity
@@ -105,32 +104,27 @@ const SignInScreen = ({navigation}) => {
             style={[
               signinStyle.SignIn,
               {
-                borderColor: '#4dc2f8',
+                borderColor: '#815fde',
                 borderWidth: 1,
                 marginTop: -30,
               },
             ]}>
-            <LinearGradient
-              colors={['#5db8fe', '#39cff2']}
-              style={signinStyle.SignIn}>
-              <Text style={[signinStyle.textSign, {color: 'white'}]}>
-                Sign In
-              </Text>
-            </LinearGradient>
+            <Text style={[signinStyle.textSign, {color: 'white'}]}>
+              Đăng nhập{' '}
+            </Text>
           </TouchableOpacity>
           <View style={signinStyle.TextSignUp}>
-            <Text>I'm a new user, </Text>
+            <Text>Chưa có tài khoản? </Text>
             <Text
-              onPress={() => navigation.navigate('SignUpScreen')}
+              onPress={() => navigation.navigate('Register')}
               style={{color: '#009bd1'}}>
-              Sign Up
+              Đăng ký
             </Text>
           </View>
           <View style={{marginTop: 30, fontSize: 18}}>
-            <Text>Sign In With</Text>
+            <Text>Đăng nhập với</Text>
             <View style={signinStyle.OtherSignIn}>
               <Entypo
-                onPress={() => navigation.navigate('SignUpScreen')}
                 name="facebook-with-circle"
                 color="blue"
                 size={30}

@@ -6,7 +6,10 @@ const globalStyle = StyleSheet.create({
   text: {
     fontSize: 30,
     color: 'gray',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+  },
+  hobby: {
+    marginBottom: 110,
   },
   testingDiv: {
     flex: 1,
@@ -18,14 +21,14 @@ const globalStyle = StyleSheet.create({
     borderRadius: 20,
     flexDirection: 'row',
     borderColor: 'black',
-    borderWidth: 1
+    borderWidth: 1,
   },
   imageJob: {
     margin: 10,
     alignItems: 'center',
-    height:60,
+    height: 60,
     width: 60,
-    borderRadius: 2
+    borderRadius: 2,
   },
   infor: {
     flexDirection: 'column',
@@ -34,15 +37,15 @@ const globalStyle = StyleSheet.create({
     marginTop: 10,
     marginStart: 10,
     marginBottom: 5,
-    fontSize: 15
+    fontSize: 15,
   },
   textWork: {
     marginBottom: 10,
     marginStart: 10,
     marginTop: 5,
-    fontSize: 20, 
-    fontWeight: 'bold'
-  }
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
 
 export default globalStyle;
