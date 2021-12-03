@@ -13,6 +13,7 @@ import Tabs from './TabNavigation';
 import AddTask1Screen from './AddTask1Screen';
 import AddTask2Screen from './AddTask2Screen';
 import AddTask3Screen from './AddTask3Screen';
+import SleepCalculator from './SleepCalculator';
 const RootStack = createStackNavigator();
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -40,6 +41,7 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="Intro3" component={Intro3} />
       <RootStack.Screen name="Tabs" component={Tabs} />
       <RootStack.Screen name="WorkingScreen" component={WorkingScreen} />
+      <RootStack.Screen name="SleepCalculator" component={SleepCalculator} />
       <RootStack.Screen name="TaskScreen" component={TaskScreen} />
       <RootStack.Screen name="AddTask1" component={AddTask1Screen} />
       <RootStack.Screen name="AddTask2" component={AddTask2Screen} />

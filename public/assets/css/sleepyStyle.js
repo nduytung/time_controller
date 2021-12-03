@@ -1,82 +1,86 @@
-import React from "react";
+import React from 'react';
 import {StyleSheet} from 'react-native';
 
 const sleepyStyle = StyleSheet.create({
-    backgroundFont: {
-        backgroundColor: '#03178C'
-    },
-    imageF: {
-        margin: 10,
-        width: '90%',
-        alignSelf: 'center',
-        borderRadius: 20
-    },
-    helloText: {
-        marginTop: 20,
-        margin: 10,
-        color: 'white',
-        fontSize: 22
-    },
-    text: {
-        margin: 10,
-        color: 'white',
-        fontSize: 17
-    },
-    textInput: {
-        backgroundColor: 'white',
-        margin: 10,
-        width: '90%',
-        borderRadius: 15,
-        alignSelf: 'center'
-    },
-    time: {
-        margin: 10,
-        flexDirection: 'row'
-    },
-    timeLeft: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginLeft: 15,
-        width: '45%',
-        alignSelf: 'center'
-    },
-    text1: {
-        color: 'white',
-        fontSize: 20
-    },
-    text2: {
-        fontSize: 35,
-        color: '#FF69B4'
-    },
-    timeRight: {
-        alignSelf: 'center',
-        textAlign: 'center',
-        width: '55%',
-        height: 100,
-        marginTop: 10,
-        marginRight: 15,
-        backgroundColor: '#2551DD'
-    },
-    textTime: {
-        textAlign: 'center',
-        marginTop: 7,
-        color: 'white',
-        fontSize: 20,
-        borderTopWidth: 1,
-        borderTopColor: 'white'
-    },
-    textBaothuc: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-        marginTop: 20,
-        alignSelf: 'center',
-        color: '#ffff00'
-    },
-    touch: {
-        alignItems: 'center',
-    }
-
-})
+  backgroundFont: {
+    backgroundColor: '#385277',
+  },
+  imageF: {
+    marginVertical: 30,
+    width: '100%',
+    height: 300,
+    alignSelf: 'center',
+    borderRadius: 20,
+  },
+  helloText: {
+    marginTop: 20,
+    margin: 10,
+    color: 'white',
+    fontSize: 25,
+    fontWeight: '700',
+  },
+  text: {
+    margin: 10,
+    color: 'white',
+    fontSize: 17,
+  },
+  textInput: {
+    backgroundColor: 'white',
+    marginVertical: 10,
+    fontSize: 18,
+    paddingLeft: 10,
+    fontWeight: '700',
+    width: '30%',
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+  time: {
+    margin: 10,
+    flexDirection: 'row',
+  },
+  timeLeft: {
+    textAlign: 'center',
+    marginTop: 10,
+    flex: 1,
+    alignSelf: 'center',
+  },
+  text1: {
+    color: 'white',
+    fontSize: 35,
+    fontWeight: '700',
+  },
+  text2: {
+    fontSize: 40,
+    color: '#FF69B4',
+    fontWeight: '700',
+  },
+  timeRight: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginTop: 10,
+    flex: 1,
+  },
+  textTime: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    borderTopColor: 'white',
+    marginVertical: 5,
+    borderRadius: 10,
+  },
+  textBaothuc: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 20,
+    alignSelf: 'center',
+    color: '#ffff00',
+  },
+  touch: {
+    alignItems: 'center',
+  },
+});
 
 export default sleepyStyle;

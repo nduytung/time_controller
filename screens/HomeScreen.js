@@ -135,10 +135,8 @@ const HomeScreen = ({navigation}) => {
 
               <View class="task-detail" style={progressStyle.scrollview}>
                 <View>
-                  <Text style={progressStyle.text}>
-                    Số chu kỳ còn lại của bạn
-                  </Text>
-                  <Text style={progressStyle.bigText}>{taskLeft} chu kỳ</Text>
+                  <Text style={progressStyle.text}>Hỗ trợ tính toán</Text>
+                  <Text style={progressStyle.bigText}>Chu kỳ giấc ngủ</Text>
                   <Text style={progressStyle.text}>
                     <Text style={{color: '#FFFFFF'}}></Text>
                   </Text>
@@ -146,7 +144,7 @@ const HomeScreen = ({navigation}) => {
                 <Pressable
                   style={progressStyle.pressable}
                   onPress={() => {
-                    navigation.navigate('TaskScreen');
+                    navigation.navigate('SleepCalculator');
                   }}>
                   <Text style={progressStyle.textInButton}>Chi tiết</Text>
                 </Pressable>

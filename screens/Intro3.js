@@ -12,7 +12,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import TextTicker from 'react-native-text-ticker';
 import introStyle from '../public/assets/css/introStyle';
 import NextNav from '../components/NextNav';
-import Button from '../components/Button';
+import Button from '../components/CustomButton';
 
 const Intro3 = ({navigation}) => {
   const callback = () => {

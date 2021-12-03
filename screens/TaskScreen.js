@@ -11,7 +11,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import taskStyle from '../public/assets/css/taskStyle';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import moment from 'moment';
-import CustomButton from '../components/Button';
+import CustomButton from '../components/CustomButton';
 
 const TaskScreen = () => {
   const [taskData, setTaskData] = useState([]);
