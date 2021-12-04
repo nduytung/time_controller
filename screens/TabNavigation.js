@@ -14,6 +14,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {Header} from '@react-navigation/stack';
 import RankScreen from './RankScreen';
 import AddTask1Screen from './AddTask1Screen';
+import AddTask2Screen from './AddTask2Screen';
 import BufferScreen from './BufferScreen';
 import SleepyScreen from './SleepCalculator';
 import TaskScreen from './TaskScreen';
@@ -123,6 +124,7 @@ const Tabs = ({navigation}) => {
           ),
         }}
       />
+
       <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}

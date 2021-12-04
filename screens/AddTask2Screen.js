@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,76 @@ import {
   TextInput,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import StarRating from 'react-native-star-rating';
+import DatePicker from 'react-native-date-picker';
 
 const AddTask2Screen = ({navigation}) => {
+  const [star, setStar] = useState(0);
+  const [open, setOpen] = useState();
+  const [date, setDate] = useState(new Date());
   return (
     <View style={addtask2Style.container}>
-      <Text style={addtask2Style.tittle}>Thêm task</Text>
-      <Text style={addtask2Style.text}>Bắt buộc</Text>
       <View>
+        <Text style={addtask2Style.tittle}>Thêm task</Text>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '300',
+            color: 'gray',
+            marginTop: 5,
+          }}>
+          Tất cả các trường bên dưới đều là BẮT BUỘC
+        </Text>
+      </View>
+      <View>
+        <Text style={addtask2Style.textques}>Deadline (ngày)</Text>
+        <View style={{flexDirection: 'row'}}>
+          <TextInput
+            value={date.toString()}
+            style={{
+              borderColor: 'gray',
+              flex: 1,
+              marginRight: 15,
+              borderWidth: 1,
+              marginTop: 40,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              borderRadius: 15,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => setOpen(true)}
+            style={{
+              backgroundColor: '#7CC88D',
+              marginTop: 40,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              width: 100,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 16,
+                fontWeight: '400',
+                textAlign: 'center',
+              }}>
+              Chọn
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+        />
         <TextInput
           placeholder="Thời gian ước lượng (min)"
           style={addtask2Style.timeInput}
@@ -23,16 +86,21 @@ const AddTask2Screen = ({navigation}) => {
         <Text style={addtask2Style.textques}>
           Bạn nghĩ việc này quan trọng đến đâu ?
         </Text>
-        <View style={{flexDirection: 'row', marginTop: 15}}>
-          <View style={addtask2Style.circleblue} />
-          <View style={addtask2Style.importantstraight} />
-          <View style={addtask2Style.circle} />
-          <View style={addtask2Style.importantstraight} />
-          <View style={addtask2Style.circle} />
-          <View style={addtask2Style.importantstraight} />
-          <View style={addtask2Style.circle} />
-          <View style={addtask2Style.importantstraight} />
-          <View style={addtask2Style.circle} />
+        <View
+          style={{
+            width: '70%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginVertical: 20,
+          }}>
+          <StarRating
+            disabled={false}
+            maxStars={5}
+            fullStarColor={'#f2b72e'}
+            halfStarEnabled={true}
+            rating={star}
+            selectedStar={rating => setStar(rating)}
+          />
         </View>
         <View>
           <View style={addtask2Style.importantlevel}>
@@ -51,7 +119,7 @@ const AddTask2Screen = ({navigation}) => {
           </View>
           <View style={addtask2Style.importantlevel}>
             <View
-              style={[addtask2Style.circlelevel, {backgroundColor: '#F89045'}]}
+              style={[addtask2Style.circlelevel, {backgroundColor: '#EB7C7C'}]}
             />
             <Text style={addtask2Style.textimportant}>
               3. Dealine, bài tập tuần
@@ -59,7 +127,7 @@ const AddTask2Screen = ({navigation}) => {
           </View>
           <View style={addtask2Style.importantlevel}>
             <View
-              style={[addtask2Style.circlelevel, {backgroundColor: '#EB7C7C'}]}
+              style={[addtask2Style.circlelevel, {backgroundColor: '#F89045'}]}
             />
             <Text style={addtask2Style.textimportant}>
               4. Khá quan trọng và gấp
@@ -74,19 +142,23 @@ const AddTask2Screen = ({navigation}) => {
             </Text>
           </View>
         </View>
-        <View style={{marginTop: 20}}>
-          <Text style={{fontSize: 16, color: 'black'}}>Bưóc 2/3</Text>
-          <View style={{flexDirection: 'row', marginTop: 20}}>
-            <View style={addtask2Style.circlebluestep} />
-            <View style={addtask2Style.straight} />
-            <View
-              style={[addtask2Style.circlebluestep, {marginLeft: 'auto'}]}
-            />
-            <View style={addtask2Style.straight} />
-            <View style={[addtask2Style.circlestep, {marginLeft: 'auto'}]} />
-          </View>
+        <View style={{marginTop: 20, flexDirection: 'row'}}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('AddTask3')}
+            onPress={() => navigation.navigate('AddTask1')}
+            style={[
+              addtask2Style.buttonPrev,
+              {
+                borderColor: '#4dc2f8',
+                borderWidth: 1,
+                marginTop: 40,
+              },
+            ]}>
+            <Text style={[addtask2Style.textNext, {color: '#5db8fe'}]}>
+              Trở về
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('TaskScreen')}
             style={[
               addtask2Style.buttonNext,
               {
@@ -95,13 +167,9 @@ const AddTask2Screen = ({navigation}) => {
                 marginTop: 40,
               },
             ]}>
-            <LinearGradient
-              colors={['#5db8fe', '#39cff2']}
-              style={addtask2Style.buttonNext}>
-              <Text style={[addtask2Style.textNext, {color: 'white'}]}>
-                Tiếp Tục
-              </Text>
-            </LinearGradient>
+            <Text style={[addtask2Style.textNext, {color: 'white'}]}>
+              Tiếp Tục
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -114,8 +182,9 @@ export default AddTask2Screen;
 const addtask2Style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    marginTop: 20,
+    padding: 15,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
   },
   tittle: {
     fontSize: 30,
@@ -130,16 +199,17 @@ const addtask2Style = StyleSheet.create({
   },
   timeInput: {
     marginTop: 20,
-    borderRadius: 20,
+    paddingHorizontal: 15,
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#31BAFD',
+    borderColor: 'gray',
     fontSize: 16,
   },
   textques: {
     marginTop: 20,
-    fontSize: 16,
+    fontSize: 18,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   circle: {
     width: 36,
@@ -165,19 +235,19 @@ const addtask2Style = StyleSheet.create({
 
   importantlevel: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 15,
   },
   circlelevel: {
-    width: 36,
-    height: 36,
+    width: 25,
+    height: 25,
     borderRadius: 18,
   },
   textimportant: {
-    marginTop: 8,
     marginLeft: 15,
     fontSize: 16,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '300',
   },
   circlestep: {
     width: 40,
@@ -205,10 +275,21 @@ const addtask2Style = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonNext: {
-    width: '100%',
+    flex: 1,
+    backgroundColor: '#5db8fe',
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+    marginHorizontal: 15,
+  },
+  buttonPrev: {
+    flex: 1,
+    backgroundColor: 'white',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginHorizontal: 15,
   },
 });

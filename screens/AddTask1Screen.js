@@ -14,27 +14,29 @@ import LinearGradient from 'react-native-linear-gradient';
 const AddTask1Screen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.addTittle}>Thêm task</Text>
-      <View style={styles.viewtext}>
-        <Text style={styles.text}>Bắt buộc</Text>
+      <View>
+        <Text style={styles.addTittle}>Thêm task</Text>
+        <View style={styles.viewtext}>
+          <Text style={styles.text}>
+            Tất cả các trường bên dưới đều là BẮT BUỘC
+          </Text>
+        </View>
       </View>
       <View style={styles.addtask1header}>
+        <Text style={styles.textdetail}>Tên task</Text>
+
         <TextInput placeholder="Tên task..." style={styles.taskInput} />
+        <Text style={styles.textdetail}>Loại công việc </Text>
+
         <TextInput placeholder="Loại công việc..." style={styles.taskInput} />
         <Text style={styles.textdetail}>Chi tiết</Text>
-        <TextInput style={styles.taskdetailInput} />
+        <TextInput
+          multiline={true}
+          numberOfLines={15}
+          style={styles.taskdetailInput}
+        />
       </View>
       <View style={styles.addtask1footer}>
-        <Text style={{fontSize: 16, marginTop: 15, color: 'black'}}>
-          Bước 1/3
-        </Text>
-        <View style={{flexDirection: 'row', marginTop: 15}}>
-          <View style={styles.circleblue} />
-          <View style={styles.straight} />
-          <View style={styles.circle} />
-          <View style={styles.straight} />
-          <View style={styles.circle} />
-        </View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('AddTask2');
@@ -64,48 +66,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    margin: 15,
+    padding: 15,
+    height: '100%',
+    justifyContent: 'space-between',
   },
   addTittle: {
     fontSize: 30,
     fontWeight: 'bold',
     color: 'black',
   },
-  addtask1header: {
-    flex: 0.7,
-    borderWidth: 2,
-    borderRadius: 10,
-    marginTop: 20,
-    borderColor: '#ffed63',
-  },
+
   viewtext: {
-    width: 110,
     height: 30,
-    marginBottom: -30,
-    marginTop: 25,
-    marginLeft: 15,
-    zIndex: 10,
+    marginTop: 5,
     backgroundColor: '#fff',
   },
   text: {
-    fontSize: 20,
-    color: 'black',
-    textAlign: 'center',
+    fontSize: 16,
+    color: 'gray',
+    fontWeight: '300',
+    textAlign: 'left',
     color: 'black',
   },
-  addtask1footer: {
-    flex: 0.2,
-  },
+  addtask1footer: {},
   taskInput: {
-    marginTop: 40,
-    marginLeft: 10,
-    marginRight: 10,
-    borderRadius: 30,
+    marginVertical: 15,
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#31BAFD',
+    paddingHorizontal: 15,
+    overflow: 'hidden',
+    borderColor: 'gray',
   },
   textdetail: {
-    marginLeft: 10,
     marginTop: 20,
     fontSize: 16,
     color: 'black',
@@ -113,11 +105,11 @@ const styles = StyleSheet.create({
   },
   taskdetailInput: {
     marginTop: 15,
-    marginLeft: 10,
-    marginRight: 10,
-    borderRadius: 10,
+    height: 300,
+    borderRadius: 15,
+    borderColor: 'gray',
+    padding: 15,
     borderWidth: 1,
-    flex: 0.9,
     textAlignVertical: 'top',
   },
   circle: {
