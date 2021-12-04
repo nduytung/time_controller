@@ -47,9 +47,8 @@ export const getAllTaskInfo = async userToken => {
     let res = await fetch(`${API_ENDPOINT}/task/`, {
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${userToken}`,
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
       },
     });
     let resolve = await res.json();
@@ -67,5 +66,25 @@ export const getAllUsers = async () => {
     return data;
   } catch (err) {
     console.log('GET USER ERR: ' + err);
+  }
+};
+
+export const createNewTask = async (taskData, token) => {
+  console.log(taskData);
+  try {
+    const res = await fetch(`${API_ENDPOINT}/task/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(taskData),
+    });
+    const data = await res.json();
+    console.log('answer: ');
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
   }
 };

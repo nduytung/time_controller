@@ -12,46 +12,23 @@ import taskStyle from '../public/assets/css/taskStyle';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import moment from 'moment';
 import CustomButton from '../components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TaskScreen = () => {
   const [taskData, setTaskData] = useState([]);
-  const [taskLeft, setTaskLeft] = useState();
-  const [timeLeft, setTimeLeft] = useState();
-  const [donePercentage, setDonePercentage] = useState();
   const [renderFlag, setRenderFlag] = useState(false);
 
-  const getInfo = useCallback(async () => {
-    let remainTask = 0;
-    let remainTime = 0;
-    let totalTaskTime = 0;
-    let doneTaskTime = 0;
-
-    const data = await getAllTaskInfo();
-    console.log(data.tasks);
-    await setTaskData(data.tasks);
-
-    await data.tasks.forEach(task => {
-      totalTaskTime += task.totalTime;
-      console.log('task: ' + task.pomodoroPeriod);
-      if (task.done < task.pomodoroPeriod) {
-        remainTask++;
-        remainTime += (task.pomodoroPeriod - task.done) * 25;
-      } else {
-        doneTaskTime += task.totalTime;
-      }
-    });
-    setTaskLeft(remainTask);
-    setTimeLeft(remainTime);
-    let percent = doneTaskTime / (totalTaskTime / 100);
-    setDonePercentage(percent);
-    setRenderFlag(true);
-  }, []);
-
-  //tinh toan ra so phut con lai va so task da xong
-
   useEffect(() => {
+    const getInfo = async () => {
+      const accessToken = await AsyncStorage.getItem('token');
+      const data = await getAllTaskInfo(accessToken);
+      console.log(data.tasks);
+      await setTaskData(data.tasks);
+      setRenderFlag(true);
+    };
     getInfo();
   }, [renderFlag]);
+
   return (
     <View style={{backgroundColor: 'white'}}>
       <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>

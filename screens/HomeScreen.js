@@ -31,14 +31,13 @@ const HomeScreen = ({navigation}) => {
     let doneTaskTime = 0;
 
     console.log('token');
-    console.log(typeof accessToken);
+    console.log(accessToken);
     const data = await getAllTaskInfo(accessToken);
-    console.log(data.tasks);
     await setTaskData(data.tasks);
 
     await data.tasks.forEach(task => {
       totalTaskTime += task.totalTime;
-      console.log('task: ' + task.pomodoroPeriod);
+      console.log('task: ' + task.userId);
       if (task.done < task.pomodoroPeriod) {
         remainTask++;
         remainTime += (task.pomodoroPeriod - task.done) * 25;
@@ -89,13 +88,13 @@ const HomeScreen = ({navigation}) => {
             <AnimatedCircularProgress
               size={110}
               width={16}
-              fill={donePercentage || 0}
+              fill={Math.round(donePercentage) || 0}
               tintColor="#FFFFFF"
               backgroundColor="#FFDC65"
               rotation={-360}>
               {fill => (
                 <Text style={{color: 'white', fontSize: 20}}>
-                  {donePercentage}%
+                  {Math.round(donePercentage)}%
                 </Text>
               )}
             </AnimatedCircularProgress>

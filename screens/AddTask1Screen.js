@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,10 @@ import {color} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 
 const AddTask1Screen = ({navigation}) => {
+  const [task1Info, setTask1Info] = useState({
+    taskname: '',
+    description: '',
+  });
   return (
     <View style={styles.container}>
       <View>
@@ -25,12 +29,17 @@ const AddTask1Screen = ({navigation}) => {
       <View style={styles.addtask1header}>
         <Text style={styles.textdetail}>Tên task</Text>
 
-        <TextInput placeholder="Tên task..." style={styles.taskInput} />
+        <TextInput
+          onChangeText={text => setTask1Info({...task1Info, taskname: text})}
+          placeholder="Tên task..."
+          style={styles.taskInput}
+        />
         <Text style={styles.textdetail}>Loại công việc </Text>
 
         <TextInput placeholder="Loại công việc..." style={styles.taskInput} />
         <Text style={styles.textdetail}>Chi tiết</Text>
         <TextInput
+          onChangeText={text => setTask1Info({...task1Info, description: text})}
           multiline={true}
           numberOfLines={15}
           style={styles.taskdetailInput}
@@ -39,7 +48,7 @@ const AddTask1Screen = ({navigation}) => {
       <View style={styles.addtask1footer}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('AddTask2');
+            navigation.navigate('AddTask2', {task1Info});
           }}
           style={[
             styles.buttonNext,

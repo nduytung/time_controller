@@ -11,11 +11,32 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import StarRating from 'react-native-star-rating';
 import DatePicker from 'react-native-date-picker';
+import {createNewTask} from '../asyncFunctions/handleApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Dialog, {
+  DialogFooter,
+  DialogButton,
+  DialogContent,
+} from 'react-native-popup-dialog';
 
-const AddTask2Screen = ({navigation}) => {
-  const [star, setStar] = useState(0);
+const AddTask2Screen = ({route, navigation}) => {
   const [open, setOpen] = useState();
-  const [date, setDate] = useState(new Date());
+  const {task1Info} = route.params;
+  const [visible, setVisible] = useState(false);
+
+  const [taskData, setTaskData] = useState({
+    ...task1Info,
+    importantRate: 0,
+    totalTime: 0,
+    deadline: new Date(),
+  });
+
+  const handleCreateTask = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const data = await createNewTask(taskData, token);
+    if (data.success === true) setVisible(true);
+  };
+
   return (
     <View style={addtask2Style.container}>
       <View>
@@ -34,7 +55,7 @@ const AddTask2Screen = ({navigation}) => {
         <Text style={addtask2Style.textques}>Deadline (ngày)</Text>
         <View style={{flexDirection: 'row'}}>
           <TextInput
-            value={date.toString()}
+            value={taskData.deadline.toString()}
             style={{
               borderColor: 'gray',
               flex: 1,
@@ -70,10 +91,10 @@ const AddTask2Screen = ({navigation}) => {
         <DatePicker
           modal
           open={open}
-          date={date}
+          date={taskData.deadline}
           onConfirm={date => {
             setOpen(false);
-            setDate(date);
+            setTaskData({...taskData, deadline: date});
           }}
           onCancel={() => {
             setOpen(false);
@@ -82,6 +103,10 @@ const AddTask2Screen = ({navigation}) => {
         <TextInput
           placeholder="Thời gian ước lượng (min)"
           style={addtask2Style.timeInput}
+          keyboardType="decimal-pad"
+          onChangeText={text =>
+            setTaskData({...taskData, totalTime: parseInt(text)})
+          }
         />
         <Text style={addtask2Style.textques}>
           Bạn nghĩ việc này quan trọng đến đâu ?
@@ -98,10 +123,35 @@ const AddTask2Screen = ({navigation}) => {
             maxStars={5}
             fullStarColor={'#f2b72e'}
             halfStarEnabled={true}
-            rating={star}
-            selectedStar={rating => setStar(rating)}
+            rating={taskData.importantRate}
+            selectedStar={rating =>
+              setTaskData({...taskData, importantRate: parseInt(rating * 2)})
+            }
           />
         </View>
+        <Dialog
+          visible={visible}
+          onTouchOutside={() => {
+            setVisible(false);
+          }}
+          footer={
+            <DialogFooter>
+              <DialogButton
+                text="OK"
+                onPress={() => {
+                  setVisible(false);
+                  navigation.navigate('Tabs');
+                }}
+              />
+            </DialogFooter>
+          }>
+          <DialogContent>
+            <Text
+              style={{textAlign: 'center', marginVertical: 30, fontSize: 16}}>
+              Tạo task thành công, bạn sẽ được đưa về trang chủ{' '}
+            </Text>
+          </DialogContent>
+        </Dialog>
         <View>
           <View style={addtask2Style.importantlevel}>
             <View
@@ -158,7 +208,7 @@ const AddTask2Screen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('TaskScreen')}
+            onPress={() => handleCreateTask()}
             style={[
               addtask2Style.buttonNext,
               {
