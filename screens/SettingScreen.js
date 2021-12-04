@@ -15,8 +15,19 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import settingStyle from '../public/assets/css/settingStyle';
+import CustomButton from '../components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
 
 const SettingScreen = ({navigation}) => {
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      RNRestart.Restart();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <View style={settingStyle.container}>
       <ScrollView>
@@ -169,6 +180,9 @@ const SettingScreen = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={async () => await logout()}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };

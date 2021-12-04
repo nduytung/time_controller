@@ -41,3 +41,50 @@ export const loginHandler = async (username, password) => {
     console.log('LOGIN ERR: ' + err);
   }
 };
+
+export const getAllTaskInfo = async userToken => {
+  try {
+    let res = await fetch(`${API_ENDPOINT}/task/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    let resolve = await res.json();
+    return resolve;
+  } catch (err) {
+    console.log('FETCH ERR: ' + err);
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const res = await fetch(`${API_ENDPOINT}/user/all`);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log('GET USER ERR: ' + err);
+  }
+};
+
+export const createNewTask = async (taskData, token) => {
+  console.log(taskData);
+  try {
+    const res = await fetch(`${API_ENDPOINT}/task/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(taskData),
+    });
+    const data = await res.json();
+    console.log('answer: ');
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -13,24 +13,41 @@ import TextTicker from 'react-native-text-ticker';
 import NextNav from '../components/NextNav';
 import introStyle from '../public/assets/css/introStyle';
 
-const Intro1 = ({navigation}) => {
+const Intro1 = ({route, navigation}) => {
+  const {name} = route.params;
   return (
-    <View style={{margin: 10}}>
+    <View
+      style={{
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: 200,
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'white',
+      }}>
       <Image
-        style={introStyle.imageshow}
+        style={
+          (introStyle.imageshow,
+          {
+            height: 250,
+            width: 350,
+            marginBottom: 100,
+          })
+        }
         source={require('../public/assets/image/intro1.png')}></Image>
-      <Text style={introStyle.textTopic}>Xin chào, Duy Tùng!</Text>
-      <Text style={introStyle.textDetail}>
-        Quản lý tất cả công việc của bạn chỉ bằng một ứng dụng
-      </Text>
-      <View style={{marginBottom: 90}}>
-        <NextNav
-          next={() => {
-            navigation.navigate('Intro2');
-          }}
-          prev={() => {}}
-        />
+      <View>
+        <Text style={introStyle.textTopic}>Xin chào, {name}!</Text>
+        <Text style={introStyle.textDetail}>
+          Quản lý tất cả công việc của bạn chỉ bằng một ứng dụng
+        </Text>
       </View>
+      <NextNav
+        next={() => {
+          navigation.navigate('Intro2');
+        }}
+        cur={1}
+        prev={() => {}}
+      />
     </View>
   );
 };

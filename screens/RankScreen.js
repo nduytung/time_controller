@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,9 +12,25 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useEffect} from 'react/cjs/react.development';
+import {getAllUsers} from '../asyncFunctions/handleApi';
 import rankStyles from '../public/assets/css/rankStyle';
 
 const RankScreen = () => {
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const res = await getAllUsers();
+    const userListView = await res.userList.sort(
+      (a, b) => b.pomodoroDone - a.pomodoroDone,
+    );
+    await setData(userListView);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <View style={rankStyles.RankScreencontainer}>
       <Text style={rankStyles.tittle}>Bảng xếp hạng</Text>
@@ -32,7 +48,9 @@ const RankScreen = () => {
                 marginTop: 40,
               }}
             />
-            <View style={rankStyles.rank2Column}></View>
+            <View style={rankStyles.rank2Column}>
+              <Text style={rankStyles.top3Text}> {data[1]?.username}</Text>
+            </View>
           </View>
           <View>
             <Image
@@ -43,7 +61,9 @@ const RankScreen = () => {
                 marginLeft: 15,
               }}
             />
-            <View style={rankStyles.rank1Column}></View>
+            <View style={rankStyles.rank1Column}>
+              <Text style={rankStyles.top3Text}> {data[0]?.username}</Text>
+            </View>
           </View>
           <View style={{marginLeft: 'auto'}}>
             <Image
@@ -55,66 +75,62 @@ const RankScreen = () => {
                 marginTop: 70,
               }}
             />
-            <View style={rankStyles.rank3Column}></View>
+            <View style={rankStyles.rank3Column}>
+              <Text style={rankStyles.top3Text}> {data[2]?.username}</Text>
+            </View>
           </View>
         </View>
       </Animatable.View>
       <Animatable.View
         animation="fadeInUpBig"
         style={rankStyles.RankScreenfooter}>
-        <ScrollView>
-          <RankData></RankData>
-        </ScrollView>
+        <ScrollView>{RankData(data)}</ScrollView>
       </Animatable.View>
     </View>
   );
 };
 
-const Data = [
-  '1:Quach Tuan Anh:3000',
-  '2:Dang Thanh Hau:2500',
-  '3:Nguyen Duy Tung:2300',
-  '4:Nguyen Phuc Khang:2300',
-  '3:Nguyen Duy Tung:2300',
-  '5:Nguyen Duy Tung:2300',
-  '6:Nguyen Duy Tung:2300',
-  '7:Nguyen Duy Tung:2300',
-  '8:Nguyen Duy Tung:2300',
-  '9:Nguyen Duy Tung:2300',
-  '10:Nguyen Duy Tung:2300',
-];
-
-const RankData = () => {
-  return Data.map((item, i) => {
-    var splitarray = item.split(':');
-    return (
-      <View key={i + 1} style={{flexDirection: 'row'}}>
-        <View style={{width: 35}}>
-          <Text style={rankStyles.rankNumber}>{splitarray[0]}</Text>
-        </View>
-        <Image
-          source={require('../public/assets/image/rank-icon.png')}
-          style={{
-            marginTop: 20,
-            marginLeft: 10,
-          }}
-        />
-        <View>
-          <Text style={rankStyles.rankName}>{splitarray[1]}</Text>
-          <Text style={rankStyles.rankCheckProfile}>Check Profile</Text>
-        </View>
-        <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
-          <Text style={rankStyles.rankPoint}>{splitarray[2]}</Text>
+const RankData = dataList => {
+  return (
+    dataList &&
+    dataList.map((item, i) => {
+      return (
+        <View key={i + 1} style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{width: 35}}>
+            <Text style={rankStyles.rankNumber}>{i + 1}</Text>
+          </View>
           <Image
-            source={require('../public/assets/image/rank-point.png')}
+            source={require('../public/assets/image/rank-icon.png')}
             style={{
               marginTop: 20,
+              marginLeft: 10,
             }}
           />
+          <View>
+            <Text style={rankStyles.rankName}>{item.fullname}</Text>
+            <Text style={rankStyles.rankCheckProfile}>{item.username}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginLeft: 'auto',
+              alignItems: 'center',
+              marginTop: 20,
+              marginRight: 10,
+            }}>
+            <Text style={rankStyles.rankPoint}>{item.pomodoroDone}</Text>
+            <Image
+              source={require('../public/assets/image/gem.png')}
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </View>
         </View>
-      </View>
-    );
-  });
+      );
+    })
+  );
 };
 
 export default RankScreen;

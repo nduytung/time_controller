@@ -23,7 +23,7 @@ const SignUpScreen = ({navigation}) => {
     fullname: '',
     username: '',
     password: '',
-    sex: 'Male',
+    sex: 'Nam',
     email: '',
   });
 
@@ -32,34 +32,28 @@ const SignUpScreen = ({navigation}) => {
     let data = await registerHandler(fullname, username, password, sex, email);
     //neu login thanh cong
     if (data.success == true) {
-      console.log('signed up!');
       try {
-        await AsyncStorage.setItem('@token', data.accessToken);
-        navigation.navigate('Intro1');
-      } catch (e) {
+        await AsyncStorage.setItem('token', data.accessToken);
+        await AsyncStorage.setItem('firstTime', 'true');
+        navigation.navigate('Intro1', {name: fullname});
+      } catch (err) {
         console.log('Logged in err: ' + err);
       }
     } else {
       console.log('cant login');
-      ToastAndroid.show(
-        'Mật khẩu/Tài khoản không đúng, xin vui lòng thử lại',
-        ToastAndroid.SHORT,
-      );
     }
   };
 
   return (
     <View style={signupStyle.container}>
       <View style={signupStyle.header}>
-        <Text style={signupStyle.text_header}>Welcome!!</Text>
+        <Text style={signupStyle.text_header}>Chào bạn mới!</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={signupStyle.footer}>
-        <ScrollView>
-          <Text style={signupStyle.screename}>Create Account</Text>
+        <ScrollView style={signupStyle.scrollview}>
+          <Text style={signupStyle.screename}>Đăng ký tài khoản</Text>
 
-          <Text style={[signupStyle.text_footer, {marginTop: 10}]}>
-            Fullname
-          </Text>
+          <Text style={[signupStyle.text_footer, {marginTop: 10}]}>Họ tên</Text>
           <View style={signupStyle.action}>
             <FontAwesome
               name="user-o"
@@ -68,7 +62,7 @@ const SignUpScreen = ({navigation}) => {
               style={signupStyle.usericon}
             />
             <TextInput
-              placeholder="Your fullname..."
+              placeholder="Tên đầy đủ của bạn"
               style={signupStyle.textInput}
               autoCapitalize="none"
               value={userData.fullname}
@@ -77,7 +71,7 @@ const SignUpScreen = ({navigation}) => {
           </View>
 
           <Text style={[signupStyle.text_footer, {marginTop: 10}]}>
-            Username
+            Tên người dùng
           </Text>
           <View style={signupStyle.action}>
             <FontAwesome
@@ -87,7 +81,7 @@ const SignUpScreen = ({navigation}) => {
               style={signupStyle.usericon}
             />
             <TextInput
-              placeholder="Your username..."
+              placeholder="Tên người dùng (không dấu, không cách)"
               style={signupStyle.textInput}
               autoCapitalize="none"
               value={userData.username}
@@ -95,7 +89,9 @@ const SignUpScreen = ({navigation}) => {
             />
           </View>
 
-          <Text style={[signupStyle.text_footer, {marginTop: 10}]}>Sex</Text>
+          <Text style={[signupStyle.text_footer, {marginTop: 10}]}>
+            Giới tính
+          </Text>
           <View style={signupStyle.action}>
             <FontAwesome
               name="user-o"
@@ -121,7 +117,7 @@ const SignUpScreen = ({navigation}) => {
               style={signupStyle.usericon}
             />
             <TextInput
-              placeholder="Your email..."
+              placeholder="Email của bạn"
               style={signupStyle.textInput}
               autoCapitalize="none"
               value={userData.email}
@@ -130,7 +126,7 @@ const SignUpScreen = ({navigation}) => {
           </View>
 
           <Text style={[signupStyle.text_footer, {marginTop: 10}]}>
-            Password
+            Mật khẩu
           </Text>
           <View style={signupStyle.action}>
             <FontAwesome
@@ -140,16 +136,17 @@ const SignUpScreen = ({navigation}) => {
               style={signupStyle.lockicon}
             />
             <TextInput
-              placeholder="Your password..."
+              placeholder="Mật khẩu nên có ký tự đặc biệt."
               style={signupStyle.textInput}
               autoCapitalize="none"
               value={userData.password}
+              secureTextEntry={true}
               onChangeText={text => setUserData({...userData, password: text})}
             />
           </View>
 
           <Text style={[signupStyle.text_footer, {marginTop: 10}]}>
-            Confirm Password
+            Xác nhận mật khẩu
           </Text>
           <View style={signupStyle.action}>
             <FontAwesome
@@ -159,7 +156,8 @@ const SignUpScreen = ({navigation}) => {
               style={signupStyle.lockicon}
             />
             <TextInput
-              placeholder="Confirm Your password..."
+              placeholder="Xác nhận mật khẩu."
+              secureTextEntry={true}
               style={signupStyle.textInput}
               autoCapitalize="none"
             />
@@ -171,25 +169,22 @@ const SignUpScreen = ({navigation}) => {
               style={[
                 signupStyle.SignIn,
                 {
-                  borderColor: '#4dc2f8',
+                  borderColor: '#815fde',
                   borderWidth: 1,
                   marginTop: -30,
+                  backgroundColor: '#815fde',
                 },
               ]}>
-              <LinearGradient
-                colors={['#5db8fe', '#39cff2']}
-                style={signupStyle.SignIn}>
-                <Text style={[signupStyle.textSign, {color: 'white'}]}>
-                  Sign Up
-                </Text>
-              </LinearGradient>
+              <Text style={[signupStyle.textSign, {color: 'white'}]}>
+                Đăng ký
+              </Text>
             </TouchableOpacity>
             <View style={signupStyle.TextSignIn}>
-              <Text>I'm already a member, </Text>
+              <Text>Tôi đã có tài khoản </Text>
               <Text
-                onPress={() => navigation.navigate('SignInScreen')}
+                onPress={() => navigation.navigate('Login')}
                 style={{color: '#009bd1'}}>
-                Sign In
+                Đăng nhập{' '}
               </Text>
             </View>
           </View>

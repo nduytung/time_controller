@@ -15,24 +15,36 @@ import NextNav from '../components/NextNav';
 
 const Intro2 = ({navigation}) => {
   return (
-    <View style={{margin: 10}}>
+    <View
+      style={{
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        height: '100%',
+      }}>
       <Image
-        style={introStyle.imageshow}
+        style={
+          (introStyle.imageshow,
+          {
+            width: 350,
+            height: 300,
+            marginTop: 150,
+          })
+        }
         source={require('../public/assets/image/intro2.png')}></Image>
       <Text style={introStyle.textDetail2}>
         Cài đặt thời khóa biểu, thời gian rảnh, cá nhân hóa lịch trình và nhiều
         hơn thế nữa!
       </Text>
-      <View style={{marginBottom: 90}}>
-        <NextNav
-          next={() => {
-            navigation.navigate('Intro3');
-          }}
-          prev={() => {
-            navigation.navigate('Intro1');
-          }}
-        />
-      </View>
+      <NextNav
+        next={() => {
+          navigation.navigate('Intro3');
+        }}
+        cur={2}
+        prev={() => {
+          navigation.navigate('Intro1');
+        }}
+      />
     </View>
   );
 };

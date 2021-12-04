@@ -1,110 +1,122 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 const progressStyle = StyleSheet.create({
-    body: {
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-    },
-    sec1: {
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor: '#FFFFFF',
-      margin: 5,
-      padding: 3,
-    },
-    sec1text: {
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-    },
-    sec1img: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      backgroundColor: '#FFFFFF',
-    },
-    sec2: {
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor: '#FFDC65',
-      borderRadius: 10,
-      margin: 5,
-      padding: 3,
-    },
-    sec2Progress: {
-      flex: 1,
-      width: '100%',
-    },
-    sec2text: {
-      flex: 2,
-      width: '100%',
-      justifyContent: 'center',
-      padding: 5,
-    },
-    pressable: {
-      width: '100%',
-      textAlign: 'center',
-      borderRadius: 20,
-      borderColor: '#31BAFD',
-      margin: 5,
-      padding: 5,
-      borderWidth: 2,
-    },
-  
-    progress: {
-      flex: 1,
-      width: '100%',
-      flexDirection: 'row',
-      backgroundColor: '#FFDC65',
-    },
-    scroll: {
-      width: '100%',
-      height: '100%',
-    },
-    scrollview: {
-      width: 300,
-      height: 160,
-      backgroundColor: '#A0CFEF',
-      padding: 3,
-      borderRadius: 10,
-      margin: 3,
-    },
-    text: {
-      fontSize: 20,
-      fontFamily: 'Roboto',
-      color: '#000000',
-      textAlign: 'left',
-    },
-    textImpress: {
-      fontSize: 40,
-      fontFamily: 'Roboto',
-      fontWeight: '900',
-      color: '#FFFFFF',
-      textAlign: 'left',
-    },
-    textInButton: {
-      fontSize: 20,
-      fontFamily: 'Roboto',
-      color: '#31BAFD',
-      textAlign: 'center',
-    },
-    bigText: {
-      fontSize: 40,
-      fontFamily: 'Roboto',
-      fontWeight: '900',
-      color: '#000000',
-    },
-    extentText: {
-      fontSize: 25,
-      fontFamily: 'Roboto',
-      margin: 5,
-      fontWeight: 'bold',
-      color: '#000000',
-    },
-    img: {
-      width: 10,
-      height: 10,
-      margin: 10,
-    },
-  });
-  export default progressStyle;
+  body: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: 'white',
+    height: '100%',
+  },
+
+  sec1: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 40,
+  },
+
+  sec2: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FFDC65',
+    borderRadius: 15,
+    padding: 15,
+    paddingRight: 50,
+    overflow: 'hidden',
+  },
+  sec2Progress: {
+    flex: 1,
+    width: '100%',
+  },
+
+  mainbutton: {
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: 100,
+    borderColor: '#31BAFD',
+    padding: 13,
+    borderWidth: 2,
+    marginVertical: 20,
+  },
+
+  pressable: {
+    width: '100%',
+    textAlign: 'center',
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderWidth: 2,
+  },
+
+  scroll: {
+    width: '100%',
+    height: '100%',
+  },
+  scrollview: {
+    width: 280,
+    backgroundColor: '#eedecf',
+    padding: 15,
+    overflow: 'hidden',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: 'Roboto',
+    color: 'gray',
+    textAlign: 'left',
+    fontWeight: '200',
+  },
+  hello: {
+    fontWeight: '700',
+    fontSize: 42,
+  },
+  textImpress: {
+    fontSize: 50,
+    fontFamily: 'Roboto',
+    fontWeight: '900',
+    color: '#FFFFFF',
+    textAlign: 'left',
+  },
+  mainButtonText: {
+    fontSize: 18,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    fontFamily: 'Roboto',
+    color: '#31BAFD',
+    textAlign: 'center',
+  },
+  textInButton: {
+    fontSize: 15,
+    fontWeight: '500',
+    textTransform: 'uppercase',
+    fontFamily: 'Roboto',
+    color: 'gray',
+    textAlign: 'center',
+  },
+  bigText: {
+    fontSize: 25,
+    marginVertical: 5,
+    fontFamily: 'Roboto',
+    fontWeight: '700',
+    color: '#000000',
+  },
+  extentText: {
+    fontSize: 22,
+    margin: 5,
+    fontWeight: '700',
+    color: '#000000',
+    marginTop: 25,
+  },
+  img: {
+    width: 60,
+    height: 60,
+  },
+});
+export default progressStyle;
