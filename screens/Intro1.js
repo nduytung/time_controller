@@ -13,7 +13,8 @@ import TextTicker from 'react-native-text-ticker';
 import NextNav from '../components/NextNav';
 import introStyle from '../public/assets/css/introStyle';
 
-const Intro1 = ({navigation}) => {
+const Intro1 = ({route, navigation}) => {
+  const {name} = route.params;
   return (
     <View
       style={{
@@ -35,7 +36,7 @@ const Intro1 = ({navigation}) => {
         }
         source={require('../public/assets/image/intro1.png')}></Image>
       <View>
-        <Text style={introStyle.textTopic}>Xin chào, Duy Tùng!</Text>
+        <Text style={introStyle.textTopic}>Xin chào, {name}!</Text>
         <Text style={introStyle.textDetail}>
           Quản lý tất cả công việc của bạn chỉ bằng một ứng dụng
         </Text>

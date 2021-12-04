@@ -32,10 +32,10 @@ var splashStyle = StyleSheet.create({
   },
   button: {
     alignItems: 'flex-end',
-    marginTop: 50,
+    marginTop: 110,
   },
   SignIn: {
-    width: '50%',
+    width: '90%',
     borderColor: '#815fde',
     height: 50,
     justifyContent: 'center',

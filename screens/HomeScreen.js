@@ -105,7 +105,7 @@ const HomeScreen = ({navigation}) => {
             </Text>
             <Text style={{fontSize: 40, fontWeight: '800', color: 'black'}}>
               <Text style={progressStyle.textImpress}>
-                {taskData.length - taskLeft}
+                {taskData?.length - taskLeft || 0}
               </Text>{' '}
               Streaks!
             </Text>

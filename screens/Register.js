@@ -32,19 +32,15 @@ const SignUpScreen = ({navigation}) => {
     let data = await registerHandler(fullname, username, password, sex, email);
     //neu login thanh cong
     if (data.success == true) {
-      console.log('signed up!');
       try {
-        await AsyncStorage.setItem('@token', data.accessToken);
-        navigation.navigate('Intro1');
-      } catch (e) {
+        await AsyncStorage.setItem('token', data.accessToken);
+        await AsyncStorage.setItem('firstTime', 'true');
+        navigation.navigate('Intro1', {name: fullname});
+      } catch (err) {
         console.log('Logged in err: ' + err);
       }
     } else {
       console.log('cant login');
-      ToastAndroid.show(
-        'Mật khẩu/Tài khoản không đúng, xin vui lòng thử lại',
-        ToastAndroid.SHORT,
-      );
     }
   };
 

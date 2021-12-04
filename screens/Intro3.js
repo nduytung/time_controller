@@ -16,7 +16,7 @@ import Button from '../components/CustomButton';
 
 const Intro3 = ({navigation}) => {
   const callback = () => {
-    navigation.navigate('Tabs');
+    navigation.navigate('TimeSettingScreen');
   };
   return (
     <View

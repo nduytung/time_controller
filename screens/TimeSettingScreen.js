@@ -130,7 +130,8 @@ const TimeSettingScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate('ReadyScreen')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('AlarmSettingScreen')}>
         <Text
           style={{
             color: '#6595dc',

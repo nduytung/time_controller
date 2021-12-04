@@ -17,6 +17,7 @@ import SleepCalculator from './SleepCalculator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ReadyScreen from './ReadyScreen';
 import TimeSettingScreen from './TimeSettingScreen';
+import AlarmSettingScreen from './AlarmSettingScreen';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
@@ -25,11 +26,9 @@ const RootStackScreen = ({navigation}) => {
   useEffect(() => {
     const getToken = async () => {
       const token = await AsyncStorage.getItem('token');
-      if (!token) {
-        console.log('no token found');
-        return;
-      }
-      setLogged(true);
+      const firstTime = await AsyncStorage.getItem('firstTime');
+
+      if (token && !firstTime) setLogged(true);
     };
     getToken();
   }, []);
@@ -45,6 +44,10 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen
         name="TimeSettingScreen"
         component={TimeSettingScreen}
+      />
+      <RootStack.Screen
+        name="AlarmSettingScreen"
+        component={AlarmSettingScreen}
       />
       <RootStack.Screen name="Login" component={Login} />
       <RootStack.Screen name="Intro1" component={Intro1} />
