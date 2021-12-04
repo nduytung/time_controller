@@ -82,9 +82,9 @@ const TaskScreen = () => {
           </View>
         </View>
 
-        {taskData?.map(task => {
+        {taskData?.map((task, i) => {
           return (
-            <View style={taskStyle.box1}>
+            <View key={i + 1} style={taskStyle.box1}>
               <View style={taskStyle.information}>
                 <View style={taskStyle.leftInformation}>
                   <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>

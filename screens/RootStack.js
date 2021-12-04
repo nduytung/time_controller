@@ -35,15 +35,14 @@ const RootStackScreen = ({navigation}) => {
       screenOptions={({route, navigation}) => ({
         headerShown: false,
       })}>
+      <RootStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <RootStack.Screen
         name="TimeSettingScreen"
         component={TimeSettingScreen}
       />
-      <RootStack.Screen name="ReadyScreen" component={ReadyScreen} />
-
-      <RootStack.Screen name="Intro1" component={Intro1} NAVI />
-      <RootStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <RootStack.Screen name="Login" component={Login} />
+      <RootStack.Screen name="Intro1" component={Intro1} />
+      <RootStack.Screen name="ReadyScreen" component={ReadyScreen} />
       <RootStack.Screen name="Register" component={Register} />
       <RootStack.Screen name="Intro2" component={Intro2} />
       <RootStack.Screen name="Intro3" component={Intro3} />

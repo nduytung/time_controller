@@ -6,6 +6,7 @@ const TimeSettingstyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 15,
+    height: '100%',
     marginTop: 15,
   },
   pomodoro: {
@@ -44,7 +45,7 @@ const TimeSettingstyles = StyleSheet.create({
     resizeMode: 'cover',
   },
   selecttime: {
-    marginTop: '15%',
+    marginTop: '10%',
   },
   dropdown1BtnStyle: {
     width: '100%',

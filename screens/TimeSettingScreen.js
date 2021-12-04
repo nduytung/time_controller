@@ -11,9 +11,10 @@ import {
 } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CustomButton from '../components/CustomButton';
 import TimeSettingstyles from '../public/assets/css/timesetting';
 
-const TimeSettingScreen = () => {
+const TimeSettingScreen = ({navigation}) => {
   const pomodorotimes = ['25 phút', '40 phút', '55 phút'];
   const resttime = ['5 phút', '10 phút', '15 phút'];
   return (
@@ -129,6 +130,18 @@ const TimeSettingScreen = () => {
           </View>
         </View>
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate('ReadyScreen')}>
+        <Text
+          style={{
+            color: '#6595dc',
+            fontSize: 20,
+            fontWeight: '700',
+            textAlign: 'right',
+            marginVertical: 20,
+          }}>
+          Tiếp theo
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

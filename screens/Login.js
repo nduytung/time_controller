@@ -27,7 +27,7 @@ const SignInScreen = ({navigation}) => {
     let data = await loginHandler(username, password);
     //neu login thanh cong
     if (data?.success == true) {
-      console.log('logged in!');
+      console.log('logged in!: ' + data.accessToken);
       try {
         await AsyncStorage.setItem('token', JSON.stringify(data?.accessToken));
         navigation.navigate('Tabs');

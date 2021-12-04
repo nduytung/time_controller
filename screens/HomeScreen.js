@@ -15,21 +15,22 @@ import global from '../public/assets/css/global';
 import TextTicker from 'react-native-text-ticker';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import {activities} from '../components/activitiesData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
-  const [taskLeft, setTaskLeft] = useState();
-  const [timeLeft, setTimeLeft] = useState();
-  const [donePercentage, setDonePercentage] = useState();
+  const [taskLeft, setTaskLeft] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [donePercentage, setDonePercentage] = useState(0);
   const [renderFlag, setRenderFlag] = useState(false);
 
-  const getInfo = useCallback(async () => {
+  const getInfo = useCallback(async accessToken => {
     let remainTask = 0;
     let remainTime = 0;
     let totalTaskTime = 0;
     let doneTaskTime = 0;
 
-    const data = await getAllTaskInfo();
+    const data = await getAllTaskInfo(accessToken);
     console.log(data.tasks);
     await setTaskData(data.tasks);
 
@@ -53,7 +54,16 @@ const HomeScreen = ({navigation}) => {
   //tinh toan ra so phut con lai va so task da xong
 
   useEffect(() => {
-    getInfo();
+    const getToken = async () => {
+      try {
+        const accessToken = await AsyncStorage.getItem('token');
+        return accessToken;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const accessToken = getToken();
+    getInfo(accessToken);
   }, [renderFlag]);
 
   return (
