@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import WelcomeScreen from './WelcomeScreen';
@@ -20,6 +20,8 @@ import TimeSettingScreen from './TimeSettingScreen';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
+  const [isLogged, setLogged] = useState(false);
+
   useEffect(() => {
     const getToken = async () => {
       const token = await AsyncStorage.getItem('token');
@@ -27,6 +29,7 @@ const RootStackScreen = ({navigation}) => {
         console.log('no token found');
         return;
       }
+      setLogged(true);
     };
     getToken();
   }, []);
@@ -35,7 +38,10 @@ const RootStackScreen = ({navigation}) => {
       screenOptions={({route, navigation}) => ({
         headerShown: false,
       })}>
-      <RootStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <RootStack.Screen
+        name="WelcomeScreen"
+        component={isLogged ? Tabs : WelcomeScreen}
+      />
       <RootStack.Screen
         name="TimeSettingScreen"
         component={TimeSettingScreen}

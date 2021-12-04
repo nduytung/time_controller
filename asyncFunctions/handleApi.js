@@ -47,7 +47,9 @@ export const getAllTaskInfo = async userToken => {
     let res = await fetch(`${API_ENDPOINT}/task/`, {
       method: 'GET',
       headers: {
-        'Content-Type': `Bearer ${userToken}`,
+        Accept: 'application/json',
+        Authorization: `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
       },
     });
     let resolve = await res.json();

@@ -30,6 +30,8 @@ const HomeScreen = ({navigation}) => {
     let totalTaskTime = 0;
     let doneTaskTime = 0;
 
+    console.log('token');
+    console.log(typeof accessToken);
     const data = await getAllTaskInfo(accessToken);
     console.log(data.tasks);
     await setTaskData(data.tasks);
@@ -57,13 +59,12 @@ const HomeScreen = ({navigation}) => {
     const getToken = async () => {
       try {
         const accessToken = await AsyncStorage.getItem('token');
-        return accessToken;
+        await getInfo(accessToken);
       } catch (err) {
         console.log(err);
       }
     };
-    const accessToken = getToken();
-    getInfo(accessToken);
+    getToken();
   }, [renderFlag]);
 
   return (
