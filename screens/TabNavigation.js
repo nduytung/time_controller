@@ -4,8 +4,8 @@ import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 import HomeScreen from './HomeScreen';
 import ProgressScreen from './HomeScreen';
-import SettingScreen from './SettingScreen';
-import ProfileScreen from './ProfileScreen';
+import NewSettingScreen from './NewSettingScreen';
+import ProfileScreen from './PersonalWall';
 import Intro3 from './Intro3';
 
 import {exp} from 'react-native-reanimated';
@@ -139,7 +139,7 @@ const Tabs = ({navigation}) => {
       />
       <Tab.Screen
         name="SettingScreen"
-        component={SettingScreen}
+        component={NewSettingScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (

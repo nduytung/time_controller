@@ -68,7 +68,7 @@ const PriodScreen = ({pomodoro}) => {
       <View style={priodStyle.progressView}>
         <AnimatedCircularProgress
           size={300}
-          width={30}
+          width={40}
           fill={100 - min * 4}
           tintColor="#FECB1C"
           backgroundColor="#FFFFFF"
@@ -87,11 +87,13 @@ const PriodScreen = ({pomodoro}) => {
               <Image
                 source={require(`../public/assets/image/pause.png`)}
                 resizeMode="center"
+                style={{width: 40, height: 40}}
               />
             ) : (
               <Image
                 source={require(`../public/assets/image/play.png`)}
                 resizeMode="center"
+                style={{width: 70, height: 70}}
               />
             )}
           </Pressable>

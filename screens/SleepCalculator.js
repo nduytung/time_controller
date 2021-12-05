@@ -17,11 +17,13 @@ import Dialog, {
   DialogButton,
   DialogContent,
 } from 'react-native-popup-dialog';
+import cycles from 'cycles';
 
 const SleepyScreen = () => {
   const [time, setUserTime] = useState({
     minute: 0,
     hour: 0,
+    cycle: [],
   });
   const [visible, setVisible] = useState(false);
 
@@ -36,6 +38,13 @@ const SleepyScreen = () => {
       setVisible(true);
       setUserTime({hour: 0, minute: 0});
     }
+    let cycleObject = cycles.wake(`${time.hour}:${time.minute}`);
+    cycleObject = Object.keys(cycleObject).map(key => [
+      Number(key),
+      cycleObject[key],
+    ]);
+    setUserTime({...time, cycle: cycleObject});
+    console.log(cycleObject);
   };
   return (
     <ScrollView style={sleepyStyle.backgroundFont}>
@@ -116,9 +125,9 @@ const SleepyScreen = () => {
         </View>
 
         <View style={sleepyStyle.timeRight}>
-          <Text style={sleepyStyle.textTime}>??:?? PM</Text>
-          <Text style={sleepyStyle.textTime}>??:?? PM</Text>
-          <Text style={sleepyStyle.textTime}>??:?? PM</Text>
+          <Text style={sleepyStyle.textTime}>{time.cycle[4][1]} PM</Text>
+          <Text style={sleepyStyle.textTime}>{time.cycle[3][1]} PM</Text>
+          <Text style={sleepyStyle.textTime}>{time.cycle[2][1]} PM</Text>
         </View>
       </View>
 
