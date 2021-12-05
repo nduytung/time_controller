@@ -10,7 +10,6 @@ const taskStyle = StyleSheet.create({
   },
   box1: {
     marginTop: 20,
-    backgroundColor: '#eedecf',
     borderRadius: 15,
     paddingHorizontal: 15,
     width: '100%',
@@ -25,7 +24,6 @@ const taskStyle = StyleSheet.create({
     alignSelf: 'center',
   },
   information: {
-    paddingVertical: 15,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',

@@ -30,6 +30,7 @@ const SignInScreen = ({navigation}) => {
       console.log('logged in!: ' + data.accessToken);
       try {
         await AsyncStorage.setItem('token', JSON.stringify(data?.accessToken));
+        await AsyncStorage.removeItem('firstTime');
         navigation.navigate('Tabs');
       } catch (e) {
         console.log('Logged in err: ' + err);

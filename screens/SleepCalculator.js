@@ -130,12 +130,7 @@ const SleepyScreen = () => {
           }}
           footer={
             <DialogFooter>
-              <DialogButton
-                text="OK"
-                onPress={() => {
-                  setVisible(false);
-                }}
-              />
+              <DialogButton text="OK" onPress={() => setVisible(true)} />
             </DialogFooter>
           }>
           <DialogContent>

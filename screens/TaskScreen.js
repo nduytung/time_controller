@@ -29,9 +29,22 @@ const TaskScreen = () => {
     getInfo();
   }, [renderFlag]);
 
+  const calcDoneTask = deadline => {
+    const today = new Date();
+    const thisMonth = today.getMonth();
+    const thisDay = today.getDay();
+    const thisYear = today.getFullYear();
+
+    if (thisYear > deadline.split('-')[0]) return true;
+    if (thisMonth > deadline.split('-')[1]) return true;
+    if (thisDay > deadline.split('-')[2]) return true;
+  };
+
   return (
     <View style={{backgroundColor: 'white'}}>
-      <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{margin: 10, marginBottom: 70}}
+        showsVerticalScrollIndicator={false}>
         <View>
           <Text style={taskStyle.headerText}>Task trong tuần</Text>
           <View
@@ -59,26 +72,49 @@ const TaskScreen = () => {
           </View>
         </View>
 
-        {taskData?.map((task, i) => {
-          return (
-            <View key={i + 1} style={taskStyle.box1}>
-              <View style={taskStyle.information}>
-                <View style={taskStyle.leftInformation}>
-                  <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
-                  <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
+        {taskData
+          .sort(
+            (a, b) =>
+              parseInt(b.deadline.split('T')[0].replace(/-/g, '')) -
+              parseInt(a.deadline.split('T')[0].replace(/-/g, '')),
+          )
+          .map((task, i) => {
+            const taskColor = calcDoneTask(task.deadline);
+            return (
+              <View
+                key={i + 1}
+                style={{
+                  backgroundColor: taskColor ? '#cfcfcf' : '#eedecf',
+                  marginTop: 20,
+                  borderRadius: 15,
+                  paddingHorizontal: 15,
+                  paddingTop: 15,
+                  width: '100%',
+                  alignSelf: 'center',
+                }}>
+                <View style={taskStyle.information}>
+                  <View style={taskStyle.leftInformation}>
+                    <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
+                    <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
+                  </View>
+                  <View style={taskStyle.rightInformation}>
+                    <Text style={taskStyle.rightInfor1}>{task.taskname} </Text>
+                    <Text style={taskStyle.rightInfor2}>
+                      {task.deadline.split('T')[0]}
+                    </Text>
+                  </View>
                 </View>
-                <View style={taskStyle.rightInformation}>
-                  <Text style={taskStyle.rightInfor1}>{task.taskname} </Text>
-                  <Text style={taskStyle.rightInfor2}>{task.deadline}</Text>
-                </View>
+                <Text style={taskStyle.rightInfor3}>{task.description}</Text>
+                {!taskColor ? (
+                  <View style={{width: '30%'}}>
+                    <CustomButton title={'Sửa'} />
+                  </View>
+                ) : (
+                  <View style={{paddingBottom: 15}}></View>
+                )}
               </View>
-              <Text style={taskStyle.rightInfor3}>{task.description}</Text>
-              <View style={{width: '30%'}}>
-                <CustomButton title={'Sửa'} />
-              </View>
-            </View>
-          );
-        })}
+            );
+          })}
       </ScrollView>
     </View>
   );
