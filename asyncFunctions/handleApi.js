@@ -88,3 +88,19 @@ export const createNewTask = async (taskData, token) => {
     console.log(err);
   }
 };
+
+export const handleGetUserInfo = async token => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/user/info`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const res = await data.json();
+    return res;
+  } catch (err) {
+    console.log('get API user info err: ' + err);
+  }
+};

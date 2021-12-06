@@ -15,9 +15,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import RNRestart from 'react-native-restart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useEffect} from 'react/cjs/react.development';
-
+import {useEffect, useState} from 'react/cjs/react.development';
+import {handleGetUserInfo} from '../asyncFunctions/handleApi';
 const personalManager = ({navigation}) => {
+  const [userData, setUserData] = useState();
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('token');
@@ -28,7 +30,16 @@ const personalManager = ({navigation}) => {
   };
 
   useEffect(() => {
-    const getUserInfo = async () => {};
+    const getUserInfo = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const data = await handleGetUserInfo(token);
+        await setUserData(data.userInfo);
+        console.log(userData);
+      } catch (err) {
+        console.log('get user info err: ' + err);
+      }
+    };
 
     getUserInfo();
   });
@@ -45,12 +56,14 @@ const personalManager = ({navigation}) => {
         <View style={personalUI.viewBottom}>
           <Text style={personalUI.information}>Họ tên</Text>
           <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>Goukai </Text>
+            <Text style={personalUI.textDetailInfor}>
+              {(userData && userData.fullname) || ''}{' '}
+            </Text>
             <Entypo
               name="chevron-thin-right"
               size={16}
               onPress={() => {
-                navigation.navigate('EditProfile');
+                navigation.navigate('EditProfile', {userData});
               }}
             />
           </View>
@@ -58,24 +71,30 @@ const personalManager = ({navigation}) => {
         <View style={personalUI.viewBottom}>
           <Text style={personalUI.information}>Giới tính</Text>
           <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>Male </Text>
+            <Text style={personalUI.textDetailInfor}>
+              {(userData && userData.sex) || ''}{' '}
+            </Text>
           </View>
         </View>
         <View style={personalUI.viewBottom}>
           <Text style={personalUI.information}>Tên người dùng</Text>
           <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>Wuhan </Text>
+            <Text style={personalUI.textDetailInfor}>
+              {(userData && userData.username) || ''}{' '}
+            </Text>
           </View>
         </View>
         <View style={personalUI.viewBottom}>
           <Text style={personalUI.information}>Email</Text>
           <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>duytung@gmail.com </Text>
+            <Text style={personalUI.textDetailInfor}>
+              {(userData && userData.email) || ''}{' '}
+            </Text>
             <Entypo
               name="chevron-thin-right"
               size={16}
               onPress={() => {
-                navigation.navigate('EditProfile');
+                navigation.navigate('EditProfile', {userData});
               }}
             />
           </View>
@@ -88,7 +107,7 @@ const personalManager = ({navigation}) => {
               name="chevron-thin-right"
               size={16}
               onPress={() => {
-                navigation.navigate('EditProfile');
+                navigation.navigate('EditProfile', {userData});
               }}
             />
           </View>

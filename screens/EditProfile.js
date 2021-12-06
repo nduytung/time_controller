@@ -1,8 +1,13 @@
 import React from 'react';
 import {Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {useState} from 'react/cjs/react.development';
 
-const EditProfile = () => {
-  const editProfile = () => {};
+const EditProfile = ({route, navigation}) => {
+  const {userData} = route.params;
+  const [userInfo, setUserInfo] = useState(userData);
+
+  const handleEditProfile = async;
+
   return (
     <View
       style={{
@@ -17,10 +22,11 @@ const EditProfile = () => {
 
       <View>
         <Text style={{fontSize: 18, color: 'gray', fontWeight: '300'}}>
-          Tên người dùng
+          Họ tên đầy đủ{' '}
         </Text>
         <TextInput
-          placeholder="Tên người dùng..."
+          placeholder={userInfo.fullname}
+          onChangeText={text => setUserInfo({...userInfo, fullname: text})}
           style={{
             padding: 7,
             borderWidth: 1,
@@ -40,7 +46,8 @@ const EditProfile = () => {
           Email{' '}
         </Text>
         <TextInput
-          placeholder="Email..."
+          placeholder={userInfo.email}
+          onChangeText={text => setUserInfo({...userInfo, email: text})}
           style={{
             padding: 7,
             borderWidth: 1,
@@ -60,7 +67,8 @@ const EditProfile = () => {
           Mật khẩu{' '}
         </Text>
         <TextInput
-          placeholder="Tên người dùng..."
+          placeholder="Password..."
+          onChangeText={text => setUserInfo({...userInfo, password: text})}
           secureTextEntry={true}
           style={{
             padding: 7,
@@ -81,7 +89,7 @@ const EditProfile = () => {
           Nhập lại mật khẩu{' '}
         </Text>
         <TextInput
-          placeholder="Tên người dùng..."
+          placeholder="Password..."
           secureTextEntry={true}
           style={{
             padding: 7,
