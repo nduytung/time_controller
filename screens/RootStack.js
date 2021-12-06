@@ -39,7 +39,6 @@ const RootStackScreen = ({navigation}) => {
       screenOptions={({route, navigation}) => ({
         headerShown: false,
       })}>
-      <RootStack.Screen name="EditProfile" component={EditProfile} />
       <RootStack.Screen
         name="WelcomeScreen"
         component={isLogged ? Tabs : WelcomeScreen}
@@ -57,6 +56,7 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="ReadyScreen" component={ReadyScreen} />
       <RootStack.Screen name="Register" component={Register} />
       <RootStack.Screen name="Intro2" component={Intro2} />
+      <RootStack.Screen name="EditProfile" component={EditProfile} />
       <RootStack.Screen name="Intro3" component={Intro3} />
       <RootStack.Screen name="Tabs" component={Tabs} />
       <RootStack.Screen name="WorkingScreen" component={WorkingScreen} />

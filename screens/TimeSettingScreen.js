@@ -15,12 +15,18 @@ import CustomButton from '../components/CustomButton';
 import TimeSettingstyles from '../public/assets/css/timesetting';
 
 const TimeSettingScreen = ({navigation}) => {
-  const pomodorotimes = ['25 phút', '40 phút', '55 phút'];
-  const resttime = ['5 phút', '10 phút', '15 phút'];
+  const pomodorotimes = ['30 giay', '25 phút', '40 phút', '55 phút'];
+  const resttime = ['10 giay', '5 phút', '10 phút', '15 phút'];
   return (
     <View style={TimeSettingstyles.container}>
-      <View style={{flex: 0.1}}>
-        <Text style={{fontSize: 30, fontWeight: 'bold', color: 'black'}}>
+      <View>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            color: 'black',
+            marginBottom: 20,
+          }}>
           Cài đặt thời gian
         </Text>
       </View>
@@ -96,37 +102,32 @@ const TimeSettingScreen = ({navigation}) => {
             hơn 10 phút nhé!
           </Text>
           <View style={TimeSettingstyles.restDetail}>
-            <Image
-              source={require('../public/assets/image/rest.png')}
-              style={TimeSettingstyles.image2}
-              re
-            />
-          </View>
-          <View style={TimeSettingstyles.selecttime}>
-            <SelectDropdown
-              data={resttime}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-              }}
-              defaultButtonText={'Chọn thôi nào'}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
-              buttonStyle={TimeSettingstyles.dropdown2BtnStyle}
-              buttonTextStyle={TimeSettingstyles.dropdown1BtnTxtStyle}
-              renderDropdownIcon={() => {
-                return (
-                  <FontAwesome name="chevron-down" color={'#444'} size={18} />
-                );
-              }}
-              dropdownIconPosition={'right'}
-              dropdownStyle={TimeSettingstyles.dropdown1DropdownStyle}
-              rowStyle={TimeSettingstyles.dropdown1RowStyle}
-              rowTextStyle={TimeSettingstyles.dropdown1RowTxtStyle}
-            />
+            <View style={TimeSettingstyles.selecttime}>
+              <SelectDropdown
+                data={resttime}
+                onSelect={(selectedItem, index) => {
+                  console.log(selectedItem, index);
+                }}
+                defaultButtonText={'Chọn thôi nào'}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
+                buttonStyle={TimeSettingstyles.dropdown2BtnStyle}
+                buttonTextStyle={TimeSettingstyles.dropdown1BtnTxtStyle}
+                renderDropdownIcon={() => {
+                  return (
+                    <FontAwesome name="chevron-down" color={'#444'} size={18} />
+                  );
+                }}
+                dropdownIconPosition={'right'}
+                dropdownStyle={TimeSettingstyles.dropdown1DropdownStyle}
+                rowStyle={TimeSettingstyles.dropdown1RowStyle}
+                rowTextStyle={TimeSettingstyles.dropdown1RowTxtStyle}
+              />
+            </View>
           </View>
         </View>
       </View>

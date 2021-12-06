@@ -66,6 +66,8 @@ const PriodScreen = ({pomodoro, navigation}) => {
     }
   };
 
+  const sendWorkingData = async () => {};
+
   return (
     <View style={priodStyle.body}>
       {() => startTimer()}

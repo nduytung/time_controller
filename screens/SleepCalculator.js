@@ -124,9 +124,15 @@ const SleepyScreen = () => {
         </View>
 
         <View style={sleepyStyle.timeRight}>
-          <Text style={sleepyStyle.textTime}>{time.cycle[4][1]} PM</Text>
-          <Text style={sleepyStyle.textTime}>{time.cycle[3][1]} PM</Text>
-          <Text style={sleepyStyle.textTime}>{time.cycle[2][1]} PM</Text>
+          <Text style={sleepyStyle.textTime}>
+            {(time.cycle[4] && time.cycle[4][1]) || 0} PM
+          </Text>
+          <Text style={sleepyStyle.textTime}>
+            {(time.cycle[4] && time.cycle[3][1]) || 0} PM
+          </Text>
+          <Text style={sleepyStyle.textTime}>
+            {(time.cycle[4] && time.cycle[2][1]) || 0} PM
+          </Text>
         </View>
       </View>
 
