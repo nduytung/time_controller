@@ -12,10 +12,28 @@ import {
 import personalUI from '../public/assets/css/personalUI';
 import TextTicker from 'react-native-text-ticker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
+import RNRestart from 'react-native-restart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect} from 'react/cjs/react.development';
 
-const personalManager = () => {
+const personalManager = ({navigation}) => {
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      RNRestart.Restart();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const getUserInfo = async () => {};
+
+    getUserInfo();
+  });
   return (
-    <View style={personalUI.fullScreen}>
+    <ScrollView style={personalUI.fullScreen}>
       <View style={personalUI.top}>
         <Image
           style={personalUI.img}
@@ -23,54 +41,80 @@ const personalManager = () => {
       </View>
 
       <ScrollView style={personalUI.bottom}>
-        <Text style={personalUI.title2}>Basic Information</Text>
+        <Text style={personalUI.title2}>Thông tin cá nhân</Text>
         <View style={personalUI.viewBottom}>
-          <Text style={personalUI.information}>Name</Text>
+          <Text style={personalUI.information}>Họ tên</Text>
           <View style={personalUI.detailInfor}>
             <Text style={personalUI.textDetailInfor}>Goukai </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
+            <Entypo
+              name="chevron-thin-right"
+              size={16}
+              onPress={() => {
+                navigation.navigate('EditProfile');
+              }}
+            />
           </View>
         </View>
         <View style={personalUI.viewBottom}>
-          <Text style={personalUI.information}>Gender</Text>
+          <Text style={personalUI.information}>Giới tính</Text>
           <View style={personalUI.detailInfor}>
             <Text style={personalUI.textDetailInfor}>Male </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
           </View>
         </View>
         <View style={personalUI.viewBottom}>
-          <Text style={personalUI.information}>Location</Text>
+          <Text style={personalUI.information}>Tên người dùng</Text>
           <View style={personalUI.detailInfor}>
             <Text style={personalUI.textDetailInfor}>Wuhan </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
           </View>
         </View>
         <View style={personalUI.viewBottom}>
           <Text style={personalUI.information}>Email</Text>
           <View style={personalUI.detailInfor}>
             <Text style={personalUI.textDetailInfor}>duytung@gmail.com </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
+            <Entypo
+              name="chevron-thin-right"
+              size={16}
+              onPress={() => {
+                navigation.navigate('EditProfile');
+              }}
+            />
           </View>
         </View>
         <View style={personalUI.viewBottom}>
-          <Text style={personalUI.information}>About</Text>
+          <Text style={personalUI.information}>Thay đổi mật khẩu</Text>
           <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>DevOps </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
-          </View>
-        </View>
-
-        <Text style={personalUI.title2}>Education</Text>
-        <View style={personalUI.viewBottom}>
-          <Text style={personalUI.information}>University</Text>
-          <View style={personalUI.detailInfor}>
-            <Text style={personalUI.textDetailInfor}>UIT </Text>
-            <FontAwesome name="forward" size={20}></FontAwesome>
+            <Text style={personalUI.textDetailInfor}></Text>
+            <Entypo
+              name="chevron-thin-right"
+              size={16}
+              onPress={() => {
+                navigation.navigate('EditProfile');
+              }}
+            />
           </View>
         </View>
       </ScrollView>
-      <View style={{paddingBottom: 90}}></View>
-    </View>
+      <TouchableOpacity
+        onPress={() => {
+          handleLogout();
+        }}
+        style={{
+          width: '90%',
+          borderColor: '#815fde',
+          height: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 15,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          marginBottom: 120,
+          borderWidth: 1,
+        }}>
+        <Text style={{color: '#815fde', fontSize: 18, textAlign: 'center'}}>
+          Đăng xuất{' '}
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 export default personalManager;

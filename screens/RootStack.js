@@ -19,6 +19,7 @@ import ReadyScreen from './ReadyScreen';
 import TimeSettingScreen from './TimeSettingScreen';
 import AlarmSettingScreen from './AlarmSettingScreen';
 import HobbyScreen from './HobbyScreen';
+import EditProfile from './EditProfile';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
@@ -38,6 +39,7 @@ const RootStackScreen = ({navigation}) => {
       screenOptions={({route, navigation}) => ({
         headerShown: false,
       })}>
+      <RootStack.Screen name="EditProfile" component={EditProfile} />
       <RootStack.Screen
         name="WelcomeScreen"
         component={isLogged ? Tabs : WelcomeScreen}

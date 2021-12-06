@@ -31,10 +31,10 @@ const HomeScreen = ({navigation}) => {
     let totalTaskTime = 0;
     let doneTaskTime = 0;
 
-    console.log('token');
-    console.log(accessToken);
     const data = await getAllTaskInfo(accessToken);
     await setTaskData(data.tasks);
+    console.log('get data done: ');
+    console.log(data);
 
     await data.tasks.forEach(task => {
       totalTaskTime += task.totalTime;
