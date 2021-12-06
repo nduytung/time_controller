@@ -8,58 +8,71 @@ import {
   useColorScheme,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import detail from '../public/assets/css/detail';
-import TextTicker from 'react-native-text-ticker';
+import StarRating from 'react-native-star-rating';
 
-const modifyJobScreen = () => {
+const HobbyScreen = ({route, navigation}) => {
+  const {hobbyDetail} = route.params;
+  const {name, time, level, often, calories, image, desc} = hobbyDetail;
 
-  const [star, setStar] = useState(5)
-  const [maxRate, setMaxrate] = useState([1,2,3,4,5])
-  const starfill = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png'
-  const starcorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
-
-  const CustomRating = () => {
-    return(
-      <View style={detail.customRating}>
-        {
-          maxRate.map((item, key) => {
-            return(
-              <TouchableOpacity activeOpacity={0.7} key={item} onPress={() => setStar(item)}>
-                <Image style={detail.starImg} source={item <= star ? {uri: starfill} : {uri: starcorner}}></Image>
-              </TouchableOpacity>
-            )
-          })
-        }
-      </View>
-    )
-  }
-  return(
-        <ScrollView style = {detail.boder}>
+  return (
+    <View style={detail.boder}>
+      <View>
         <View style={detail.box}>
-          <Image style={detail.image} source={require("./bike.jpg")}></Image>
+          <Image
+            style={detail.image}
+            source={require('../public/assets/image/bike.png')}
+          />
           <View style={detail.information}>
-            <TextTicker style={detail.mdifyTitle}>Đạp xe</TextTicker>
-            <CustomRating></CustomRating>
+            <Text style={detail.mdifyTitle}>{name} </Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              fullStarColor={'#f2b72e'}
+              halfStarEnabled={true}
+              rating={level / 2}
+              starSize={30}
+              width={'100%'}
+            />
           </View>
         </View>
         <View style={detail.modifyInfor}>
-          <TextTicker style={detail.modifyText1}>Độ khó: 5/10</TextTicker>
-          <TextTicker style={detail.modifyText1}>Calories: 200</TextTicker>
-          <TextTicker style={detail.modifyText1}>Thời gian: 20 mins</TextTicker>
-          <TextTicker style={detail.modifyText1}>Cường độ luyện tập: 1 lần/ tuần</TextTicker>
+          <Text style={detail.modifyText1}>Độ khó: {level}/10</Text>
+          <Text style={detail.modifyText1}>Calories: {calories}</Text>
+          <Text style={detail.modifyText1}>Thời gian: {time} mins</Text>
+          <Text style={detail.modifyText1}>
+            Cường độ luyện tập: {often} lần/ tuần
+          </Text>
         </View>
-        <View style={detail.modifyInfor}>
-          <Text style={detail.modifyText}>Đây là một đoạn text dùng để kiểm tra nội dung được hiển thị, đồng thời xem việc tự động xuống dòng của văn bản</Text>
-        </View>
-        <TouchableOpacity style={detail.saveChange}>
-          <Text style={detail.textbold}>LƯU THAY ĐỔI</Text>
-        </TouchableOpacity>
-        <View style={{padding: 80}}></View>
-      </ScrollView>
-  )
-  
-}
+      </View>
+      <View style={detail.modifyInfor}>
+        <Text style={detail.modifyText}>{desc}</Text>
+      </View>
+      <TouchableOpacity
+        onPress={() => {
+          handleNotification();
+          navigation.navigate('Login');
+        }}
+        style={{
+          width: '90%',
+          borderColor: '#815fde',
+          height: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 15,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          backgroundColor: '#815fde',
+          borderWidth: 1,
+        }}>
+        <Text style={{color: 'white', fontSize: 18, textAlign: 'center'}}>
+          Bắt đầu luyện tập
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
-export default modifyJobScreen;
+export default HobbyScreen;

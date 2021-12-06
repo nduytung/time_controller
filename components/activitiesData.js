@@ -1,8 +1,8 @@
 export const activities = [
   {
     name: 'Đạp xe quanh công viên',
-    time: '30 mins',
-    level: '5/10',
+    time: 30,
+    level: 5,
     often: 1,
     calories: 200,
     image: '',
@@ -10,8 +10,8 @@ export const activities = [
   },
   {
     name: 'Chạy bộ',
-    time: '40 mins',
-    level: '7/10',
+    time: 40,
+    level: 7,
     often: 3,
     calories: 300,
     image: '',
@@ -19,8 +19,8 @@ export const activities = [
   },
   {
     name: 'Bơi lội',
-    time: '60 mins',
-    level: '8/10',
+    time: 60,
+    level: 8,
     often: 2,
     calories: 250,
     image: '',
@@ -28,8 +28,8 @@ export const activities = [
   },
   {
     name: 'Tắm nước lạnh',
-    time: '10 mins',
-    level: '7/10',
+    time: 10,
+    level: 7,
     often: 2,
     calories: 50,
     image: '',
@@ -37,8 +37,8 @@ export const activities = [
   },
   {
     name: 'Đi bộ hàng ngày',
-    time: '90 mins',
-    level: '3/10',
+    time: 90,
+    level: 3,
     often: 5,
     calories: 200,
     image: '',
@@ -46,8 +46,8 @@ export const activities = [
   },
   {
     name: 'Tắm nước lạnh',
-    time: '10 mins',
-    level: '7/10',
+    time: 10,
+    level: 7,
     often: 2,
     calories: 50,
     image: '',

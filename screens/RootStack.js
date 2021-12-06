@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ReadyScreen from './ReadyScreen';
 import TimeSettingScreen from './TimeSettingScreen';
 import AlarmSettingScreen from './AlarmSettingScreen';
+import HobbyScreen from './HobbyScreen';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
@@ -57,6 +58,7 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="Intro3" component={Intro3} />
       <RootStack.Screen name="Tabs" component={Tabs} />
       <RootStack.Screen name="WorkingScreen" component={WorkingScreen} />
+      <RootStack.Screen name="HobbyScreen" component={HobbyScreen} />
       <RootStack.Screen name="TaskScreen" component={TaskScreen} />
       <RootStack.Screen name="AddTask1" component={AddTask1Screen} />
       <RootStack.Screen name="AddTask2" component={AddTask2Screen} />

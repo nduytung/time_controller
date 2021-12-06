@@ -44,7 +44,6 @@ const SleepyScreen = () => {
       cycleObject[key],
     ]);
     setUserTime({...time, cycle: cycleObject});
-    console.log(cycleObject);
   };
   return (
     <ScrollView style={sleepyStyle.backgroundFont}>

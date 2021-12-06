@@ -16,6 +16,7 @@ import TextTicker from 'react-native-text-ticker';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import {activities} from '../components/activitiesData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
@@ -186,7 +187,14 @@ const HomeScreen = ({navigation}) => {
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
           {activities.map((item, i) => {
             return (
-              <View key={i + 1} style={global.box}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('HobbyScreen', {
+                    hobbyDetail: item,
+                  })
+                }
+                key={i + 1}
+                style={global.box}>
                 <Image
                   style={global.imageJob}
                   source={require('../public/assets/image/bike.png')}></Image>
@@ -197,7 +205,7 @@ const HomeScreen = ({navigation}) => {
                   </Text>
                   <Text style={global.textWork}>{item.name}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>

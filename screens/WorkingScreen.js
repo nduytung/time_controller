@@ -5,7 +5,7 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import challengeStyle from '../public/assets/css/challenge';
 import {useEffect} from 'react/cjs/react.development';
 
-const PriodScreen = ({pomodoro}) => {
+const PriodScreen = ({pomodoro, navigation}) => {
   const [timer, setTimer] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -16,6 +16,7 @@ const PriodScreen = ({pomodoro}) => {
   const handleStart = () => {
     setIsActive(true);
     setIsPaused(false);
+
     increment.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
@@ -49,7 +50,10 @@ const PriodScreen = ({pomodoro}) => {
     if (minutes < 1) {
       setMin(minutes);
       return `${getMinutes} : ${getSeconds}`;
-    } else handleReset();
+    } else {
+      handleReset();
+      setPeriod(period => period + 1);
+    }
   };
 
   const activeButton = () => {
@@ -77,7 +81,7 @@ const PriodScreen = ({pomodoro}) => {
         </AnimatedCircularProgress>
       </View>
 
-      {min < 25 ? (
+      {timer < 3 ? (
         <View style={priodStyle.imgView}>
           <Pressable
             class="press"
@@ -101,22 +105,27 @@ const PriodScreen = ({pomodoro}) => {
       ) : (
         <View style={challengeStyle.tagView}>
           <View style={{margin: 5}}>
-            <Text style={challengeStyle.text}>5 minute challenge</Text>
+            <Text style={challengeStyle.text}>
+              5min challenge - Thử thách ngắn
+            </Text>
           </View>
           <View style={challengeStyle.HoriLine} />
           <View style={challengeStyle.rowView}>
             <View style={{flex: 1}}>
               <Image
                 style={challengeStyle.img}
-                source={require('../public/assets/image/intro1.png')}
+                source={require('../public/assets/image/push-up.png')}
                 resizeMode="center"
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
               <Text style={challengeStyle.bigText}>chống đẩy</Text>
-              <Text style={challengeStyle.text}>x5</Text>
+              <Text style={{fontSize: 20, fontWeight: '700', color: 'gray'}}>
+                x5
+              </Text>
             </View>
           </View>
+          {() => handleReset()}
         </View>
       )}
       <View style={priodStyle.textView}>

@@ -23,16 +23,16 @@ const challengeStyle = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: 'Roboto',
-    color: '#000000',
+    color: 'gray',
     textAlign: 'left',
   },
   bigText: {
     fontSize: 30,
     fontFamily: 'Roboto',
-    fontWeight: '900',
-    color: '#000000',
+    fontWeight: '700',
+    color: 'white',
   },
   extentText: {
     fontSize: 25,
@@ -42,13 +42,13 @@ const challengeStyle = StyleSheet.create({
     color: '#000000',
   },
   img: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     margin: 3,
   },
   tagView: {
     flex: 1,
-    padding: 5,
+    padding: 20,
     margin: 10,
     borderRadius: 10,
     backgroundColor: '#A6E2FF',
@@ -73,10 +73,14 @@ const challengeStyle = StyleSheet.create({
     height: 1,
     width: '100%',
     backgroundColor: '#000000',
-    margin: 1,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: 10,
   },
   rowView: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
