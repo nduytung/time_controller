@@ -9,18 +9,27 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import taskStyle from '../public/assets/css/taskStyle';
-import {getAllTaskInfo} from '../asyncFunctions/handleApi';
+import {getAllTaskInfo, handleDeleteTask} from '../asyncFunctions/handleApi';
 import moment from 'moment';
 import CustomButton from '../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Dialog, {
+  DialogFooter,
+  DialogButton,
+  DialogContent,
+} from 'react-native-popup-dialog';
 
 const TaskScreen = () => {
   const [taskData, setTaskData] = useState([]);
   const [renderFlag, setRenderFlag] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [deleteTaskId, setDeleteTaskId] = useState(0);
+  const [token, setToken] = useState();
 
   useEffect(() => {
     const getInfo = async () => {
       const accessToken = await AsyncStorage.getItem('token');
+      await setToken(accessToken);
       const data = await getAllTaskInfo(accessToken);
       console.log(data.tasks);
       await setTaskData(data.tasks);
@@ -38,6 +47,15 @@ const TaskScreen = () => {
     if (thisYear > deadline.split('-')[0]) return true;
     if (thisMonth > deadline.split('-')[1]) return true;
     if (thisDay > deadline.split('-')[2]) return true;
+  };
+
+  const deleteTask = async () => {
+    const data = await handleDeleteTask(deleteTaskId, token);
+    console.log(data);
+
+    await setDeleteTaskId(0);
+    await setVisible(false);
+    setRenderFlag(renderFlag => !renderFlag);
   };
 
   return (
@@ -106,7 +124,36 @@ const TaskScreen = () => {
                 </View>
                 <Text style={taskStyle.rightInfor3}>{task.description}</Text>
                 {!taskColor ? (
-                  <View style={{width: '30%'}}>
+                  <View
+                    style={{
+                      width: '60%',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setVisible(true);
+                        setDeleteTaskId(task._id);
+                      }}
+                      style={{
+                        borderColor: 'white',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingHorizontal: 10,
+                        borderRadius: 10,
+                        height: 42,
+                        marginRight: 10,
+                        borderWidth: 1,
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 18,
+                          textAlign: 'center',
+                        }}>
+                        Xóa task{' '}
+                      </Text>
+                    </TouchableOpacity>
                     <CustomButton title={'Sửa'} />
                   </View>
                 ) : (
@@ -116,6 +163,23 @@ const TaskScreen = () => {
             );
           })}
       </ScrollView>
+      <Dialog
+        visible={visible}
+        onTouchOutside={() => {
+          setVisible(false);
+        }}
+        footer={
+          <DialogFooter>
+            <DialogButton text="Hủy" onPress={() => setVisible(false)} />
+            <DialogButton text="Xóa" onPress={() => deleteTask()} />
+          </DialogFooter>
+        }>
+        <DialogContent>
+          <Text style={{textAlign: 'center', marginVertical: 30, fontSize: 16}}>
+            Bạn có chắc muốn xóa VĨNH VIỄN task này?{' '}
+          </Text>
+        </DialogContent>
+      </Dialog>
     </View>
   );
 };

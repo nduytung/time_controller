@@ -35,12 +35,8 @@ const HomeScreen = ({navigation}) => {
 
     const data = await getAllTaskInfo(accessToken);
     await setTaskData(data.tasks);
-    console.log('get data done: ');
-    console.log(data);
-
     await data.tasks.forEach(task => {
       totalTaskTime += task.totalTime;
-      console.log('task: ' + task.userId);
       if (task.done < task.pomodoroPeriod) {
         remainTask++;
         remainTime += (task.pomodoroPeriod - task.done) * 25;

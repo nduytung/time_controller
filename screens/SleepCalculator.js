@@ -37,6 +37,7 @@ const SleepyScreen = () => {
     ) {
       setVisible(true);
       setUserTime({hour: 0, minute: 0});
+      return;
     }
     let cycleObject = cycles.wake(`${time.hour}:${time.minute}`);
     cycleObject = Object.keys(cycleObject).map(key => [

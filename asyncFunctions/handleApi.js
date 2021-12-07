@@ -121,3 +121,20 @@ export const changeUserInfo = async (userInfo, token) => {
     console.log('change user info err: ' + err);
   }
 };
+
+export const handleDeleteTask = async (taskId, token) => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/task/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({taskId}),
+    });
+    const res = await data.json();
+    return res;
+  } catch (err) {
+    console.log('Delete task failed: ' + err);
+  }
+};
