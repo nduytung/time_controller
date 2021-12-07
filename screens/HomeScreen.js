@@ -29,24 +29,28 @@ const HomeScreen = ({navigation}) => {
 
   const getInfo = useCallback(async accessToken => {
     let remainTask = 0;
+    let doneTask = 0;
     let remainTime = 0;
     let totalTaskTime = 0;
     let doneTaskTime = 0;
 
     const data = await getAllTaskInfo(accessToken);
     await setTaskData(data.tasks);
+
     await data.tasks.forEach(task => {
       totalTaskTime += task.totalTime;
       if (task.done < task.pomodoroPeriod) {
         remainTask++;
         remainTime += (task.pomodoroPeriod - task.done) * 25;
       } else {
+        doneTask++;
         doneTaskTime += task.totalTime;
       }
     });
+
     setTaskLeft(remainTask);
     setTimeLeft(remainTime);
-    let percent = doneTaskTime / (totalTaskTime / 100);
+    let percent = doneTask / ((doneTask + remainTask) / 100);
     setDonePercentage(percent);
     setRenderFlag(true);
   }, []);

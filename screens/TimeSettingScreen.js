@@ -17,6 +17,9 @@ import TimeSettingstyles from '../public/assets/css/timesetting';
 const TimeSettingScreen = ({navigation}) => {
   const pomodorotimes = ['30 giay', '25 phút', '40 phút', '55 phút'];
   const resttime = ['10 giay', '5 phút', '10 phút', '15 phút'];
+
+  const [setting1, setSetting1] = useState({});
+
   return (
     <View style={TimeSettingstyles.container}>
       <View>
@@ -62,7 +65,7 @@ const TimeSettingScreen = ({navigation}) => {
             <SelectDropdown
               data={pomodorotimes}
               onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
+                setSetting1({...setting1, pomodoro: selectedItem});
               }}
               defaultButtonText={'Chọn thôi nào'}
               buttonTextAfterSelection={(selectedItem, index) => {
@@ -106,7 +109,7 @@ const TimeSettingScreen = ({navigation}) => {
               <SelectDropdown
                 data={resttime}
                 onSelect={(selectedItem, index) => {
-                  console.log(selectedItem, index);
+                  setSetting1({...setting1, breaktime: selectedItem});
                 }}
                 defaultButtonText={'Chọn thôi nào'}
                 buttonTextAfterSelection={(selectedItem, index) => {

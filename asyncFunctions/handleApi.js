@@ -138,3 +138,35 @@ export const handleDeleteTask = async (taskId, token) => {
     console.log('Delete task failed: ' + err);
   }
 };
+
+export const handleEditTask = async taskInfo => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/task/edit`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(taskInfo),
+    });
+    const res = await data.json();
+    return res;
+  } catch (err) {
+    console.log('edit task err: ' + err);
+  }
+};
+
+export const createSetting = async userId => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/setting/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userId),
+    });
+    const res = await data.json();
+    return res;
+  } catch (err) {
+    console.log('edit task err: ' + err);
+  }
+};

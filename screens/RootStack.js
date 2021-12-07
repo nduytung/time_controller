@@ -20,6 +20,7 @@ import TimeSettingScreen from './TimeSettingScreen';
 import AlarmSettingScreen from './AlarmSettingScreen';
 import HobbyScreen from './HobbyScreen';
 import EditProfile from './EditProfile';
+import EditTask from './EditTask';
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
@@ -58,6 +59,7 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="Intro2" component={Intro2} />
       <RootStack.Screen name="EditProfile" component={EditProfile} />
       <RootStack.Screen name="Intro3" component={Intro3} />
+      <RootStack.Screen name="EditTask" component={EditTask} />
       <RootStack.Screen name="Tabs" component={Tabs} />
       <RootStack.Screen name="WorkingScreen" component={WorkingScreen} />
       <RootStack.Screen name="HobbyScreen" component={HobbyScreen} />

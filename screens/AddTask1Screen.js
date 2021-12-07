@@ -16,6 +16,7 @@ const AddTask1Screen = ({navigation}) => {
     taskname: '',
     description: '',
   });
+
   return (
     <View style={styles.container}>
       <View>

@@ -19,12 +19,16 @@ import Dialog, {
   DialogContent,
 } from 'react-native-popup-dialog';
 
-const TaskScreen = () => {
+const TaskScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
   const [renderFlag, setRenderFlag] = useState(false);
   const [visible, setVisible] = useState(false);
   const [deleteTaskId, setDeleteTaskId] = useState(0);
   const [token, setToken] = useState();
+
+  const handleEditTask = taskInfo => {
+    navigation.navigate('EditTask', {taskInfo});
+  };
 
   useEffect(() => {
     const getInfo = async () => {
@@ -154,7 +158,10 @@ const TaskScreen = () => {
                         Xóa task{' '}
                       </Text>
                     </TouchableOpacity>
-                    <CustomButton title={'Sửa'} />
+                    <CustomButton
+                      callback={() => handleEditTask(task)}
+                      title={'Sửa'}
+                    />
                   </View>
                 ) : (
                   <View style={{paddingBottom: 15}}></View>
