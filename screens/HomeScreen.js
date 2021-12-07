@@ -17,6 +17,7 @@ import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import {activities} from '../components/activitiesData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {handleGetUserInfo} from '../asyncFunctions/handleApi';
 
 const HomeScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
@@ -24,6 +25,7 @@ const HomeScreen = ({navigation}) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [donePercentage, setDonePercentage] = useState(0);
   const [renderFlag, setRenderFlag] = useState(false);
+  const [userData, setUserData] = useState();
 
   const getInfo = useCallback(async accessToken => {
     let remainTask = 0;
@@ -60,6 +62,9 @@ const HomeScreen = ({navigation}) => {
       try {
         const accessToken = await AsyncStorage.getItem('token');
         await getInfo(accessToken);
+
+        const data = await handleGetUserInfo(accessToken);
+        await setUserData(data.userInfo);
       } catch (err) {
         console.log(err);
       }
@@ -73,7 +78,9 @@ const HomeScreen = ({navigation}) => {
         <View class="Sec1" style={progressStyle.sec1}>
           <View class="Text" style={progressStyle.sec1text}>
             <Text style={progressStyle.hello}>Xin chào!</Text>
-            <Text style={progressStyle.text}>Chiến thôi, Duy Tung !</Text>
+            <Text style={progressStyle.text}>
+              Chiến thôi, {(userData && userData.fullname) || 'User'} !
+            </Text>
           </View>
           <View style={progressStyle.sec1img}>
             <Image

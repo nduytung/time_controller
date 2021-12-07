@@ -1,12 +1,19 @@
 import React from 'react';
 import {Text, TextInput, View, TouchableOpacity} from 'react-native';
 import {useState} from 'react/cjs/react.development';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {changeUserInfo} from '../asyncFunctions/handleApi';
 
 const EditProfile = ({route, navigation}) => {
   const {userData} = route.params;
   const [userInfo, setUserInfo] = useState(userData);
 
-  const handleEditProfile = async;
+  const handleEditProfile = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const data = await changeUserInfo(userInfo, token);
+    console.log(data);
+    if (data.success == true) navigation.navigate('Tabs');
+  };
 
   return (
     <View
@@ -25,7 +32,7 @@ const EditProfile = ({route, navigation}) => {
           Họ tên đầy đủ{' '}
         </Text>
         <TextInput
-          placeholder={userInfo.fullname}
+          value={userInfo.fullname}
           onChangeText={text => setUserInfo({...userInfo, fullname: text})}
           style={{
             padding: 7,
@@ -35,7 +42,7 @@ const EditProfile = ({route, navigation}) => {
             color: 'gray',
             marginVertical: 7,
             fontSize: 16,
-            fontWeight: '200',
+            fontWeight: '500',
             width: '100%',
           }}
         />
@@ -46,17 +53,17 @@ const EditProfile = ({route, navigation}) => {
           Email{' '}
         </Text>
         <TextInput
-          placeholder={userInfo.email}
+          value={userInfo.email}
           onChangeText={text => setUserInfo({...userInfo, email: text})}
           style={{
             padding: 7,
             borderWidth: 1,
-            borderColor: 'lightgray',
+            borderColor: 'gray',
             borderRadius: 7,
             color: 'gray',
             marginVertical: 7,
             fontSize: 16,
-            fontWeight: '200',
+            fontWeight: '500',
             width: '100%',
           }}
         />
@@ -78,7 +85,7 @@ const EditProfile = ({route, navigation}) => {
             color: 'gray',
             marginVertical: 7,
             fontSize: 16,
-            fontWeight: '200',
+            fontWeight: '500',
             width: '100%',
           }}
         />
@@ -99,7 +106,7 @@ const EditProfile = ({route, navigation}) => {
             color: 'gray',
             marginVertical: 7,
             fontSize: 16,
-            fontWeight: '200',
+            fontWeight: '500',
             width: '100%',
           }}
         />
@@ -107,7 +114,7 @@ const EditProfile = ({route, navigation}) => {
 
       <TouchableOpacity
         onPress={() => {
-          editProfile();
+          handleEditProfile();
         }}
         style={{
           width: '90%',

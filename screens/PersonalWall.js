@@ -42,7 +42,7 @@ const personalManager = ({navigation}) => {
     };
 
     getUserInfo();
-  });
+  }, []);
   return (
     <ScrollView style={personalUI.fullScreen}>
       <View style={personalUI.top}>
@@ -74,6 +74,7 @@ const personalManager = ({navigation}) => {
             <Text style={personalUI.textDetailInfor}>
               {(userData && userData.sex) || ''}{' '}
             </Text>
+            <Entypo name="chevron-thin-right" size={16} />
           </View>
         </View>
         <View style={personalUI.viewBottom}>
@@ -82,6 +83,7 @@ const personalManager = ({navigation}) => {
             <Text style={personalUI.textDetailInfor}>
               {(userData && userData.username) || ''}{' '}
             </Text>
+            <Entypo name="chevron-thin-right" size={16} />
           </View>
         </View>
         <View style={personalUI.viewBottom}>

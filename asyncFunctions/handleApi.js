@@ -104,3 +104,20 @@ export const handleGetUserInfo = async token => {
     console.log('get API user info err: ' + err);
   }
 };
+
+export const changeUserInfo = async (userInfo, token) => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/user/edit`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userInfo),
+    });
+    const res = await data.json();
+    return res;
+  } catch (err) {
+    console.log('change user info err: ' + err);
+  }
+};
