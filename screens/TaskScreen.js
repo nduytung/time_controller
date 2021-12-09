@@ -42,7 +42,7 @@ const TaskScreen = ({navigation}) => {
     getInfo();
   }, [renderFlag]);
 
-  const calcDoneTask = deadline => {
+  const calcDoneTask = (deadline, done, total) => {
     const today = new Date();
     const thisMonth = today.getMonth();
     const thisDay = today.getDay();
@@ -51,6 +51,7 @@ const TaskScreen = ({navigation}) => {
     if (thisYear > deadline.split('-')[0]) return true;
     if (thisMonth > deadline.split('-')[1]) return true;
     if (thisDay > deadline.split('-')[2]) return true;
+    if (done === total) return true;
   };
 
   const deleteTask = async () => {
@@ -64,9 +65,7 @@ const TaskScreen = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white'}}>
-      <ScrollView
-        style={{margin: 10, marginBottom: 70}}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
         <View>
           <Text style={taskStyle.headerText}>Task trong tuần</Text>
           <View
@@ -93,95 +92,154 @@ const TaskScreen = ({navigation}) => {
             />
           </View>
         </View>
+        <View style={{marginBottom: 90}}>
+          {taskData
+            .filter(
+              task =>
+                !calcDoneTask(task.deadline, task.done, task.pomodoroPeriod),
+            )
+            .map((task, i) => {
+              return (
+                <View
+                  key={i + 1}
+                  style={{
+                    backgroundColor: '#eedecf',
+                    marginTop: 20,
+                    borderRadius: 15,
+                    paddingHorizontal: 15,
+                    paddingTop: 15,
+                    width: '100%',
+                    alignSelf: 'center',
+                  }}>
+                  <View style={taskStyle.information}>
+                    <View style={taskStyle.leftInformation}>
+                      <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
+                      <Text style={taskStyle.leftInfor2}>
+                        {task.totalTime}{' '}
+                      </Text>
+                    </View>
+                    <View style={taskStyle.rightInformation}>
+                      <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
+                      <Text style={taskStyle.rightInfor2}>
+                        {task.deadline.split('T')[0]} -{' '}
+                        <Text style={{color: 'gray'}}>
+                          {task.done}/{task.pomodoroPeriod}
+                        </Text>
+                      </Text>
+                      <View
+                        style={{
+                          width: '40%',
 
-        {taskData.map((task, i) => {
-          console.log(task);
-          const taskColor = calcDoneTask(task.deadline);
-          return (
-            <View
-              key={i + 1}
-              style={{
-                backgroundColor: taskColor ? '#cfcfcf' : '#eedecf',
-                marginTop: 20,
-                borderRadius: 15,
-                paddingHorizontal: 15,
-                paddingTop: 15,
-                width: '100%',
-                alignSelf: 'center',
-              }}>
-              <View style={taskStyle.information}>
-                <View style={taskStyle.leftInformation}>
-                  <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
-                  <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
-                </View>
-                <View style={taskStyle.rightInformation}>
-                  <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
-                  <Text style={taskStyle.rightInfor2}>
-                    {task.deadline.split('T')[0]} -{' '}
-                    <Text style={{color: 'gray'}}>
-                      {task.done}/{task.pomodoroPeriod}
-                    </Text>
-                  </Text>
+                          margin: 5,
+                        }}>
+                        <StarRating
+                          disabled={true}
+                          maxStars={5}
+                          starSize={20}
+                          fullStarColor={'#f2b72e'}
+                          halfStarEnabled={true}
+                          rating={task.importantRate / 2}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <Text style={taskStyle.rightInfor3}>{task.description}</Text>
+
                   <View
                     style={{
-                      width: '40%',
-
-                      margin: 5,
+                      width: '60%',
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}>
-                    <StarRating
-                      disabled={true}
-                      maxStars={5}
-                      starSize={20}
-                      fullStarColor={'#f2b72e'}
-                      halfStarEnabled={true}
-                      rating={task.importantRate / 2}
+                    <TouchableOpacity
+                      onPress={() => {
+                        setVisible(true);
+                        setDeleteTaskId(task._id);
+                      }}
+                      style={{
+                        borderColor: 'white',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingHorizontal: 10,
+                        borderRadius: 10,
+                        height: 42,
+                        marginRight: 10,
+                        borderWidth: 1,
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontSize: 18,
+                          textAlign: 'center',
+                        }}>
+                        Xóa task{' '}
+                      </Text>
+                    </TouchableOpacity>
+                    <CustomButton
+                      callback={() => handleEditTask(task)}
+                      title={'Sửa'}
                     />
                   </View>
                 </View>
-              </View>
-              <Text style={taskStyle.rightInfor3}>{task.description}</Text>
-              {!taskColor ? (
+              );
+            })}
+
+          {taskData
+            .filter(task =>
+              calcDoneTask(task.deadline, task.done, task.pomodoroPeriod),
+            )
+            .map((task, i) => {
+              return (
                 <View
+                  key={i + 1}
                   style={{
-                    width: '60%',
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                    backgroundColor: '#cfcfcf',
+                    marginTop: 20,
+                    borderRadius: 15,
+                    paddingHorizontal: 15,
+                    paddingTop: 15,
+                    width: '100%',
+                    alignSelf: 'center',
                   }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setVisible(true);
-                      setDeleteTaskId(task._id);
-                    }}
-                    style={{
-                      borderColor: 'white',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      paddingHorizontal: 10,
-                      borderRadius: 10,
-                      height: 42,
-                      marginRight: 10,
-                      borderWidth: 1,
-                    }}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontSize: 18,
-                        textAlign: 'center',
-                      }}>
-                      Xóa task{' '}
-                    </Text>
-                  </TouchableOpacity>
-                  <CustomButton
-                    callback={() => handleEditTask(task)}
-                    title={'Sửa'}
-                  />
+                  <View style={taskStyle.information}>
+                    <View style={taskStyle.leftInformation}>
+                      <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
+                      <Text style={taskStyle.leftInfor2}>
+                        {task.totalTime}{' '}
+                      </Text>
+                    </View>
+                    <View style={taskStyle.rightInformation}>
+                      <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
+                      <Text style={taskStyle.rightInfor2}>
+                        {task.deadline.split('T')[0]} -{' '}
+                        <Text style={{color: 'gray'}}>
+                          {task.done}/{task.pomodoroPeriod}
+                        </Text>
+                      </Text>
+                      <View
+                        style={{
+                          width: '40%',
+
+                          margin: 5,
+                        }}>
+                        <StarRating
+                          disabled={true}
+                          maxStars={5}
+                          starSize={20}
+                          fullStarColor={'#f2b72e'}
+                          halfStarEnabled={true}
+                          rating={task.importantRate / 2}
+                        />
+                      </View>
+                    </View>
+                  </View>
+                  <Text style={taskStyle.rightInfor3}>{task.description}</Text>
+
+                  <View style={{paddingBottom: 15}}></View>
                 </View>
-              ) : (
-                <View style={{paddingBottom: 15}}></View>
-              )}
-            </View>
-          );
-        })}
+              );
+            })}
+        </View>
       </ScrollView>
       <Dialog
         visible={visible}

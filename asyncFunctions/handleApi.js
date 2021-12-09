@@ -49,7 +49,7 @@ export const getAllTaskInfo = async userToken => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${newToken}`,
       },
     });
     let resolve = await res.json();
@@ -79,7 +79,7 @@ export const createNewTask = async (taskData, token) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${newToken}`,
       },
       body: JSON.stringify(taskData),
     });
@@ -99,7 +99,7 @@ export const handleGetUserInfo = async token => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${newToken}`,
       },
     });
     const res = await data.json();
@@ -171,7 +171,7 @@ export const setUserSetting = async (setting, token) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ` + token,
+        Authorization: `Bearer ` + newToken,
       },
       body: JSON.stringify(setting),
     });
@@ -181,5 +181,23 @@ export const setUserSetting = async (setting, token) => {
     return res;
   } catch (err) {
     console.log('set setting err: ' + err);
+  }
+};
+
+export const handleAddPomodoro = async taskId => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/update/pomodoro`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(taskId),
+    });
+
+    const res = await data.json();
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log('set pomodoro err: ' + err);
   }
 };

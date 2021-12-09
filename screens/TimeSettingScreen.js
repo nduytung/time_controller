@@ -17,8 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setUserSetting} from '../asyncFunctions/handleApi';
 
 const TimeSettingScreen = ({navigation}) => {
-  const pomodorotimes = ['30 giay', '25 phút', '40 phút', '55 phút'];
-  const resttime = ['10 giay', '5 phút', '10 phút', '15 phút'];
+  const pomodorotimes = ['1 phut', '25 phút', '40 phút', '55 phút'];
+  const resttime = ['1 phut', '5 phút', '10 phút', '15 phút'];
 
   const [setting1, setSetting1] = useState();
 

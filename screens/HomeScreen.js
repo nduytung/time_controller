@@ -27,6 +27,18 @@ const HomeScreen = ({navigation}) => {
   const [renderFlag, setRenderFlag] = useState(false);
   const [userData, setUserData] = useState();
 
+  const calcDoneTask = (deadline, done, total) => {
+    const today = new Date();
+    const thisMonth = today.getMonth();
+    const thisDay = today.getDay();
+    const thisYear = today.getFullYear();
+
+    if (thisYear > deadline.split('-')[0]) return true;
+    if (thisMonth > deadline.split('-')[1]) return true;
+    if (thisDay > deadline.split('-')[2]) return true;
+    if (done === total) return true;
+  };
+
   const getInfo = useCallback(async accessToken => {
     let remainTask = 0;
     let doneTask = 0;
@@ -35,9 +47,12 @@ const HomeScreen = ({navigation}) => {
     let doneTaskTime = 0;
 
     const data = await getAllTaskInfo(accessToken);
-    await setTaskData(data.tasks);
+    const filteredTask = data.tasks.filter(
+      task => !calcDoneTask(task.deadline, task.done, task.pomodoroPeriod),
+    );
+    await setTaskData(filteredTask);
 
-    await data.tasks.forEach(task => {
+    await filteredTask.forEach(task => {
       totalTaskTime += task.totalTime;
       if (task.done < task.pomodoroPeriod) {
         remainTask++;
@@ -121,7 +136,14 @@ const HomeScreen = ({navigation}) => {
         </View>
         <Pressable class="press" style={progressStyle.mainbutton}>
           <Text
-            onPress={() => navigation.navigate('WorkingScreen')}
+            onPress={() =>
+              navigation.navigate('WorkingScreen', {
+                taskDetail: taskData[0],
+                leftTask: taskData[0].pomodoroPeriod - taskData[0].done,
+                pomodoro: userData.pomodoroTime,
+                breaktime: userData.breaktime,
+              })
+            }
             style={progressStyle.mainButtonText}>
             Làm việc
           </Text>

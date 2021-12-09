@@ -16,7 +16,7 @@ const priodStyle = StyleSheet.create({
   },
 
   progressView: {
-    flex: 3,
+    flex: 2,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

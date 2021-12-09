@@ -4,19 +4,28 @@ import priodStyle from '../public/assets/css/priodStyle';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import challengeStyle from '../public/assets/css/challenge';
 import {useEffect} from 'react/cjs/react.development';
+import Dialog, {
+  DialogFooter,
+  DialogButton,
+  DialogContent,
+} from 'react-native-popup-dialog';
+import {handleAddPomodoro} from '../asyncFunctions/handleApi';
 
-const PriodScreen = ({pomodoro, navigation}) => {
+const PriodScreen = ({route, navigation}) => {
   const [timer, setTimer] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const increment = useRef(null);
   const [min, setMin] = useState(0);
   const [period, setPeriod] = useState(0);
+  const [resting, setResting] = useState(false);
+  const {taskDetail, pomodoroTime, breaktime, leftTask} = route?.params;
+  const [counter, setCounter] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   const handleStart = () => {
     setIsActive(true);
     setIsPaused(false);
-
     increment.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
@@ -43,16 +52,25 @@ const PriodScreen = ({pomodoro, navigation}) => {
     setTimer(0);
   };
 
-  const formatTime = () => {
+  const formatTime = async () => {
     const getSeconds = `0${timer % 60}`.slice(-2);
     const minutes = `${Math.floor(timer / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
-    if (minutes < 1) {
+    let tempHolder = resting ? breaktime : pomodoroTime;
+
+    if (minutes < tempHolder) {
       setMin(minutes);
       return `${getMinutes} : ${getSeconds}`;
     } else {
-      handleReset();
-      setPeriod(period => period + 1);
+      if (period < leftTask) {
+        handleReset();
+        setResting(resting => !resting);
+        await sendWorkingData();
+        setPeriod(period => period + 1);
+      } else {
+        handleReset();
+        setVisible(true);
+      }
     }
   };
 
@@ -66,11 +84,12 @@ const PriodScreen = ({pomodoro, navigation}) => {
     }
   };
 
-  const sendWorkingData = async () => {};
+  const sendWorkingData = async () => {
+    await handleAddPomodoro(taskDetail._id);
+  };
 
   return (
     <View style={priodStyle.body}>
-      {() => startTimer()}
       <View style={priodStyle.progressView}>
         <AnimatedCircularProgress
           size={300}
@@ -83,7 +102,7 @@ const PriodScreen = ({pomodoro, navigation}) => {
         </AnimatedCircularProgress>
       </View>
 
-      {timer < 3 ? (
+      {!resting ? (
         <View style={priodStyle.imgView}>
           <Pressable
             class="press"
@@ -130,6 +149,21 @@ const PriodScreen = ({pomodoro, navigation}) => {
           {() => handleReset()}
         </View>
       )}
+      <View style={{paddingHorizontal: 15, marginTop: 80}}>
+        <Text style={{fontSize: 15}}>
+          Task hiện tại:{' '}
+          <Text style={{color: 'black'}}>
+            {(taskDetail && taskDetail.taskname) || 'Task 01'}
+          </Text>
+        </Text>
+        <Text style={{fontSize: 15}}>
+          Thời gian dự kiến:{' '}
+          <Text style={{color: 'black'}}>
+            {(taskDetail && taskDetail.startDay.split('T')[0]) || 'today'} -{' '}
+            {(taskDetail && taskDetail.endDay.split('T')[0]) || 'today'}
+          </Text>
+        </Text>
+      </View>
       <View style={priodStyle.textView}>
         <View style={priodStyle.textViewText}>
           <Text style={priodStyle.text}>Bạn đã hoàn thành</Text>
@@ -140,10 +174,35 @@ const PriodScreen = ({pomodoro, navigation}) => {
         </View>
         <View style={priodStyle.verticleLine} />
         <View style={priodStyle.textViewText}>
-          <Text style={priodStyle.text}>Còn {4 - period} chu kỳ</Text>
+          <Text style={priodStyle.text}>
+            Còn {taskDetail.taskPerDay - period} chu kỳ
+          </Text>
           <Text style={priodStyle.bigText}>để nghỉ dài</Text>
         </View>
       </View>
+
+      <Dialog
+        visible={visible}
+        onTouchOutside={() => {
+          setVisible(false);
+        }}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text="OK"
+              onPress={() => {
+                setVisible(false);
+                navigation.navigate('Tabs');
+              }}
+            />
+          </DialogFooter>
+        }>
+        <DialogContent>
+          <Text style={{textAlign: 'center', marginVertical: 30, fontSize: 16}}>
+            Chúc mừng, bạn đã hoàn thành hết chu kỳ của task này!{' '}
+          </Text>
+        </DialogContent>
+      </Dialog>
     </View>
   );
 };
