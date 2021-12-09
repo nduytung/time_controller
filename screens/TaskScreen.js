@@ -94,100 +94,94 @@ const TaskScreen = ({navigation}) => {
           </View>
         </View>
 
-        {taskData
-          .sort(
-            (a, b) =>
-              parseInt(b.deadline.split('T')[0].replace(/-/g, '')) -
-              parseInt(a.deadline.split('T')[0].replace(/-/g, '')),
-          )
-          .map((task, i) => {
-            console.log(task);
-            const taskColor = calcDoneTask(task.deadline);
-            return (
-              <View
-                key={i + 1}
-                style={{
-                  backgroundColor: taskColor ? '#cfcfcf' : '#eedecf',
-                  marginTop: 20,
-                  borderRadius: 15,
-                  paddingHorizontal: 15,
-                  paddingTop: 15,
-                  width: '100%',
-                  alignSelf: 'center',
-                }}>
-                <View style={taskStyle.information}>
-                  <View style={taskStyle.leftInformation}>
-                    <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
-                    <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
-                  </View>
-                  <View style={taskStyle.rightInformation}>
-                    <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
-                    <Text style={taskStyle.rightInfor2}>
-                      {task.deadline.split('T')[0]} -{' '}
-                      <Text style={{color: 'gray'}}>
-                        {task.pomodoroPeriod}/{task.done}
-                      </Text>
-                    </Text>
-                    <View
-                      style={{
-                        width: '40%',
-
-                        margin: 5,
-                      }}>
-                      <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        starSize={20}
-                        fullStarColor={'#f2b72e'}
-                        halfStarEnabled={true}
-                        rating={task.importantRate / 2}
-                      />
-                    </View>
-                  </View>
+        {taskData.map((task, i) => {
+          console.log(task);
+          const taskColor = calcDoneTask(task.deadline);
+          return (
+            <View
+              key={i + 1}
+              style={{
+                backgroundColor: taskColor ? '#cfcfcf' : '#eedecf',
+                marginTop: 20,
+                borderRadius: 15,
+                paddingHorizontal: 15,
+                paddingTop: 15,
+                width: '100%',
+                alignSelf: 'center',
+              }}>
+              <View style={taskStyle.information}>
+                <View style={taskStyle.leftInformation}>
+                  <Text style={taskStyle.leftInfor1}>Thời gian tổng</Text>
+                  <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
                 </View>
-                <Text style={taskStyle.rightInfor3}>{task.description}</Text>
-                {!taskColor ? (
+                <View style={taskStyle.rightInformation}>
+                  <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
+                  <Text style={taskStyle.rightInfor2}>
+                    {task.deadline.split('T')[0]} -{' '}
+                    <Text style={{color: 'gray'}}>
+                      {task.done}/{task.pomodoroPeriod}
+                    </Text>
+                  </Text>
                   <View
                     style={{
-                      width: '60%',
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      width: '40%',
+
+                      margin: 5,
                     }}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setVisible(true);
-                        setDeleteTaskId(task._id);
-                      }}
-                      style={{
-                        borderColor: 'white',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        paddingHorizontal: 10,
-                        borderRadius: 10,
-                        height: 42,
-                        marginRight: 10,
-                        borderWidth: 1,
-                      }}>
-                      <Text
-                        style={{
-                          color: 'white',
-                          fontSize: 18,
-                          textAlign: 'center',
-                        }}>
-                        Xóa task{' '}
-                      </Text>
-                    </TouchableOpacity>
-                    <CustomButton
-                      callback={() => handleEditTask(task)}
-                      title={'Sửa'}
+                    <StarRating
+                      disabled={true}
+                      maxStars={5}
+                      starSize={20}
+                      fullStarColor={'#f2b72e'}
+                      halfStarEnabled={true}
+                      rating={task.importantRate / 2}
                     />
                   </View>
-                ) : (
-                  <View style={{paddingBottom: 15}}></View>
-                )}
+                </View>
               </View>
-            );
-          })}
+              <Text style={taskStyle.rightInfor3}>{task.description}</Text>
+              {!taskColor ? (
+                <View
+                  style={{
+                    width: '60%',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setVisible(true);
+                      setDeleteTaskId(task._id);
+                    }}
+                    style={{
+                      borderColor: 'white',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      paddingHorizontal: 10,
+                      borderRadius: 10,
+                      height: 42,
+                      marginRight: 10,
+                      borderWidth: 1,
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 18,
+                        textAlign: 'center',
+                      }}>
+                      Xóa task{' '}
+                    </Text>
+                  </TouchableOpacity>
+                  <CustomButton
+                    callback={() => handleEditTask(task)}
+                    title={'Sửa'}
+                  />
+                </View>
+              ) : (
+                <View style={{paddingBottom: 15}}></View>
+              )}
+            </View>
+          );
+        })}
       </ScrollView>
       <Dialog
         visible={visible}

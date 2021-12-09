@@ -56,7 +56,7 @@ const AddTask2Screen = ({route, navigation}) => {
         <Text style={addtask2Style.textques}>Deadline (ngày)</Text>
         <View style={{flexDirection: 'row'}}>
           <TextInput
-            value={taskData.deadline.toString()}
+            value={taskData?.deadline.toISOString()}
             style={{
               borderColor: 'gray',
               flex: 1,
@@ -92,10 +92,11 @@ const AddTask2Screen = ({route, navigation}) => {
         <DatePicker
           modal
           open={open}
-          date={taskData.deadline}
+          date={new Date()}
           onConfirm={date => {
-            setOpen(false);
             setTaskData({...taskData, deadline: date});
+            console.log(taskData.deadline);
+            setOpen(false);
           }}
           onCancel={() => {
             setOpen(false);
@@ -106,9 +107,10 @@ const AddTask2Screen = ({route, navigation}) => {
           style={addtask2Style.timeInput}
           keyboardType="decimal-pad"
           onChangeText={text => {
+            const ceiler = Math.ceil(parseInt(text) / 25);
             setTaskData({
               ...taskData,
-              pomodoroPeriod: parseInt(text / 25),
+              pomodoroPeriod: ceiler,
               totalTime: parseInt(text),
             });
           }}

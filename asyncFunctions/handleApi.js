@@ -79,7 +79,7 @@ export const createNewTask = async (taskData, token) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${newToken}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(taskData),
     });
@@ -99,7 +99,7 @@ export const handleGetUserInfo = async token => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${newToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await data.json();
@@ -171,7 +171,7 @@ export const setUserSetting = async (setting, token) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ` + newToken,
+        Authorization: `Bearer ` + token,
       },
       body: JSON.stringify(setting),
     });
