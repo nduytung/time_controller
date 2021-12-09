@@ -193,19 +193,21 @@ export const setUserSetting = async (setting, token) => {
   }
 };
 
-export const handleAddPomodoro = async taskId => {
+export const handleAddPomodoro = async (taskId, token) => {
+  console.log(taskId);
   try {
-    const data = await fetch(`${API_ENDPOINT}/update/pomodoro`, {
+    const data = await fetch(`${API_ENDPOINT}/task/update/pomodoro`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(taskId),
     });
 
     const res = await data.json();
+    console.log(res);
     if (res.success !== true) handleErr(res.message);
-
     return res;
   } catch (err) {
     handleErr(err);

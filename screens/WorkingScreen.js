@@ -10,8 +10,9 @@ import Dialog, {
   DialogContent,
 } from 'react-native-popup-dialog';
 import {handleAddPomodoro} from '../asyncFunctions/handleApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const PriodScreen = ({route, navigation}) => {
+const WorkingScreen = ({route, navigation}) => {
   const [timer, setTimer] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -63,7 +64,7 @@ const PriodScreen = ({route, navigation}) => {
       if (period < leftTask) {
         handleReset();
         setResting(!resting);
-        setPeriod(period => period + 1);
+        if (!resting) setPeriod(period => period + 1);
       } else {
         handleReset();
         setVisible(true);
@@ -81,11 +82,17 @@ const PriodScreen = ({route, navigation}) => {
     }
   };
 
-  const sendWorkingData = async () => {
-    await handleAddPomodoro(taskDetail._id);
-  };
-
   useEffect(() => {
+    const sendWorkingData = async () => {
+      const token = await AsyncStorage.getItem('token');
+      console.log(typeof taskDetail._id);
+      if (resting === true) {
+        const data = await handleAddPomodoro(taskDetail._id, token);
+        console.log(data);
+      }
+    };
+
+    sendWorkingData();
     console.log('resting status: ' + resting);
     if (resting) handleStart();
   }, [resting]);
@@ -208,4 +215,4 @@ const PriodScreen = ({route, navigation}) => {
   );
 };
 
-export default PriodScreen;
+export default WorkingScreen;
