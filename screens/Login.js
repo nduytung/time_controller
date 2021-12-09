@@ -25,23 +25,11 @@ const SignInScreen = ({navigation}) => {
 
   const handleLogin = async () => {
     let data = await loginHandler(username, password);
-    //neu login thanh cong
-    if (data?.success == true) {
-      console.log('logged in!: ' + data.accessToken);
-      try {
-        await AsyncStorage.setItem('token', JSON.stringify(data?.accessToken));
-        await AsyncStorage.removeItem('firstTime');
-        navigation.navigate('Tabs');
-      } catch (e) {
-        console.log('Logged in err: ' + err);
-      }
-    } else {
-      console.log('cant login');
-      console.log(data?.message);
-      ToastAndroid.show(
-        'Mật khẩu/Tài khoản không đúng, xin vui lòng thử lại',
-        ToastAndroid.SHORT,
-      );
+
+    if (data.success === true) {
+      await AsyncStorage.setItem('token', JSON.stringify(data?.accessToken));
+      await AsyncStorage.removeItem('firstTime');
+      navigation.navigate('Tabs');
     }
   };
 

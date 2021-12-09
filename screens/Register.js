@@ -33,7 +33,7 @@ const SignUpScreen = ({navigation}) => {
     //neu login thanh cong
     if (data.success == true) {
       try {
-        await AsyncStorage.setItem('token', data.accessToken);
+        await AsyncStorage.setItem('token', JSON.stringify(data.accessToken));
         await AsyncStorage.setItem('firstTime', 'true');
         navigation.navigate('Intro1', {name: fullname});
       } catch (err) {

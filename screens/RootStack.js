@@ -62,6 +62,7 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="EditTask" component={EditTask} />
       <RootStack.Screen name="Tabs" component={Tabs} />
       <RootStack.Screen name="WorkingScreen" component={WorkingScreen} />
+      <RootStack.Screen name="SleepCalculator" component={SleepCalculator} />
       <RootStack.Screen name="HobbyScreen" component={HobbyScreen} />
       <RootStack.Screen name="TaskScreen" component={TaskScreen} />
       <RootStack.Screen name="AddTask1" component={AddTask1Screen} />

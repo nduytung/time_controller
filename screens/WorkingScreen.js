@@ -20,7 +20,6 @@ const PriodScreen = ({route, navigation}) => {
   const [period, setPeriod] = useState(0);
   const [resting, setResting] = useState(false);
   const {taskDetail, pomodoroTime, breaktime, leftTask} = route?.params;
-  const [counter, setCounter] = useState(0);
   const [visible, setVisible] = useState(false);
 
   const handleStart = () => {
@@ -52,20 +51,18 @@ const PriodScreen = ({route, navigation}) => {
     setTimer(0);
   };
 
-  const formatTime = async () => {
+  const formatTime = () => {
     const getSeconds = `0${timer % 60}`.slice(-2);
     const minutes = `${Math.floor(timer / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
-    let tempHolder = resting ? breaktime : pomodoroTime;
 
-    if (minutes < tempHolder) {
+    if (minutes < 1) {
       setMin(minutes);
       return `${getMinutes} : ${getSeconds}`;
     } else {
       if (period < leftTask) {
         handleReset();
-        setResting(resting => !resting);
-        await sendWorkingData();
+        setResting(!resting);
         setPeriod(period => period + 1);
       } else {
         handleReset();
@@ -88,6 +85,11 @@ const PriodScreen = ({route, navigation}) => {
     await handleAddPomodoro(taskDetail._id);
   };
 
+  useEffect(() => {
+    console.log('resting status: ' + resting);
+    if (resting) handleStart();
+  }, [resting]);
+
   return (
     <View style={priodStyle.body}>
       <View style={priodStyle.progressView}>
@@ -102,7 +104,7 @@ const PriodScreen = ({route, navigation}) => {
         </AnimatedCircularProgress>
       </View>
 
-      {!resting ? (
+      {resting === false ? (
         <View style={priodStyle.imgView}>
           <Pressable
             class="press"
@@ -146,7 +148,6 @@ const PriodScreen = ({route, navigation}) => {
               </Text>
             </View>
           </View>
-          {() => handleReset()}
         </View>
       )}
       <View style={{paddingHorizontal: 15, marginTop: 80}}>

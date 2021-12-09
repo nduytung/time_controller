@@ -1,4 +1,13 @@
 const API_ENDPOINT = 'http://192.168.100.8:3001';
+import {ToastAndroid} from 'react-native';
+
+const handleErr = message => {
+  ToastAndroid.showWithGravity(
+    message,
+    ToastAndroid.SHORT,
+    ToastAndroid.CENTER,
+  );
+};
 
 export const registerHandler = async (
   fullname,
@@ -17,11 +26,10 @@ export const registerHandler = async (
       body: JSON.stringify(data),
     });
     let resolve = await res.json();
-    console.log('info: ');
-    console.log(resolve);
+    if (resolve.success !== true) handleErr(resolve.message);
     return resolve;
   } catch (err) {
-    console.log('ERROR GETTING API: ' + err);
+    handleErr(err);
   }
 };
 
@@ -36,27 +44,27 @@ export const loginHandler = async (username, password) => {
       body: JSON.stringify(data),
     });
     let resolve = await res.json();
+    if (resolve.success !== true) handleErr(resolve.message);
     return resolve;
   } catch (err) {
-    console.log('LOGIN ERR: ' + err);
+    handleErr(err);
   }
 };
 
 export const getAllTaskInfo = async userToken => {
-  const newToken = JSON.stringify(userToken);
   try {
     let res = await fetch(`${API_ENDPOINT}/task/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${newToken}`,
+        Authorization: `Bearer ${userToken}`,
       },
     });
     let resolve = await res.json();
-    console.log(resolve);
+    if (resolve.success !== true) handleErr(resolve.message);
     return resolve;
   } catch (err) {
-    console.log('FETCH ERR: ' + err);
+    handleErr(err);
   }
 };
 
@@ -64,55 +72,52 @@ export const getAllUsers = async () => {
   try {
     const res = await fetch(`${API_ENDPOINT}/user/all`);
     const data = await res.json();
-    console.log(data);
+    if (data.success !== true) handleErr(data.message);
     return data;
   } catch (err) {
-    console.log('GET USER ERR: ' + err);
+    handleErr(err);
   }
 };
 
 export const createNewTask = async (taskData, token) => {
-  const newToken = JSON.stringify(token);
   console.log(taskData);
   try {
     const res = await fetch(`${API_ENDPOINT}/task/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${newToken}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(taskData),
     });
     const data = await res.json();
-    console.log('answer: ');
-    console.log(data);
+    if (data.success !== true) handleErr(data.message);
+
     return data;
   } catch (err) {
-    console.log(err);
+    handleErr(err);
   }
 };
 
 export const handleGetUserInfo = async token => {
-  const newToken = JSON.stringify(token);
   try {
     const data = await fetch(`${API_ENDPOINT}/user/info`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${newToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await data.json();
-    console.log(res);
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('get API user info err: ' + err);
+    handleErr(err);
   }
 };
 
 export const changeUserInfo = async (userInfo, token) => {
-  const newToken = JSON.stringify(token);
-
   try {
     const data = await fetch(`${API_ENDPOINT}/user/edit`, {
       method: 'PUT',
@@ -123,14 +128,15 @@ export const changeUserInfo = async (userInfo, token) => {
       body: JSON.stringify(userInfo),
     });
     const res = await data.json();
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('change user info err: ' + err);
+    handleErr(err);
   }
 };
 
 export const handleDeleteTask = async (taskId, token) => {
-  const newToken = JSON.stringify(token);
   try {
     const data = await fetch(`${API_ENDPOINT}/task/delete`, {
       method: 'DELETE',
@@ -141,9 +147,11 @@ export const handleDeleteTask = async (taskId, token) => {
       body: JSON.stringify({taskId}),
     });
     const res = await data.json();
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('Delete task failed: ' + err);
+    handleErr(err);
   }
 };
 
@@ -157,30 +165,31 @@ export const handleEditTask = async taskInfo => {
       body: JSON.stringify(taskInfo),
     });
     const res = await data.json();
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('edit task err: ' + err);
+    handleErr(err);
   }
 };
 
 export const setUserSetting = async (setting, token) => {
-  const newToken = JSON.stringify(token);
-  console.log(setting);
   try {
     const data = await fetch(`${API_ENDPOINT}/user/edit-time`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ` + newToken,
+        Authorization: `Bearer ` + token,
       },
       body: JSON.stringify(setting),
     });
 
     const res = await data.json();
-    console.log(res);
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('set setting err: ' + err);
+    handleErr(err);
   }
 };
 
@@ -195,9 +204,10 @@ export const handleAddPomodoro = async taskId => {
     });
 
     const res = await data.json();
-    console.log(res);
+    if (res.success !== true) handleErr(res.message);
+
     return res;
   } catch (err) {
-    console.log('set pomodoro err: ' + err);
+    handleErr(err);
   }
 };
