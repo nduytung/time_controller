@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -13,12 +13,20 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CustomButton from '../components/CustomButton';
 import TimeSettingstyles from '../public/assets/css/timesetting';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setUserSetting} from '../asyncFunctions/handleApi';
 
 const TimeSettingScreen = ({navigation}) => {
   const pomodorotimes = ['30 giay', '25 phút', '40 phút', '55 phút'];
   const resttime = ['10 giay', '5 phút', '10 phút', '15 phút'];
 
-  const [setting1, setSetting1] = useState({});
+  const [setting1, setSetting1] = useState();
+
+  const handleNewUserSetting = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const data = await setUserSetting(setting1, token);
+    if (data.success === true) navigation.navigate('AlarmSettingScreen');
+  };
 
   return (
     <View style={TimeSettingstyles.container}>
@@ -65,7 +73,10 @@ const TimeSettingScreen = ({navigation}) => {
             <SelectDropdown
               data={pomodorotimes}
               onSelect={(selectedItem, index) => {
-                setSetting1({...setting1, pomodoro: selectedItem});
+                setSetting1({
+                  ...setting1,
+                  pomodoroTime: parseInt(selectedItem.split(' ')[0]),
+                });
               }}
               defaultButtonText={'Chọn thôi nào'}
               buttonTextAfterSelection={(selectedItem, index) => {
@@ -109,7 +120,10 @@ const TimeSettingScreen = ({navigation}) => {
               <SelectDropdown
                 data={resttime}
                 onSelect={(selectedItem, index) => {
-                  setSetting1({...setting1, breaktime: selectedItem});
+                  setSetting1({
+                    ...setting1,
+                    breaktime: parseInt(selectedItem.split(' ')[0]),
+                  });
                 }}
                 defaultButtonText={'Chọn thôi nào'}
                 buttonTextAfterSelection={(selectedItem, index) => {
@@ -135,7 +149,9 @@ const TimeSettingScreen = ({navigation}) => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('AlarmSettingScreen')}>
+        onPress={() => {
+          handleNewUserSetting();
+        }}>
         <Text
           style={{
             color: '#6595dc',

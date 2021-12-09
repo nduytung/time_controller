@@ -43,6 +43,7 @@ export const loginHandler = async (username, password) => {
 };
 
 export const getAllTaskInfo = async userToken => {
+  const newToken = JSON.stringify(userToken);
   try {
     let res = await fetch(`${API_ENDPOINT}/task/`, {
       method: 'GET',
@@ -52,6 +53,7 @@ export const getAllTaskInfo = async userToken => {
       },
     });
     let resolve = await res.json();
+    console.log(resolve);
     return resolve;
   } catch (err) {
     console.log('FETCH ERR: ' + err);
@@ -70,13 +72,14 @@ export const getAllUsers = async () => {
 };
 
 export const createNewTask = async (taskData, token) => {
+  const newToken = JSON.stringify(token);
   console.log(taskData);
   try {
     const res = await fetch(`${API_ENDPOINT}/task/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${newToken}`,
       },
       body: JSON.stringify(taskData),
     });
@@ -90,15 +93,17 @@ export const createNewTask = async (taskData, token) => {
 };
 
 export const handleGetUserInfo = async token => {
+  const newToken = JSON.stringify(token);
   try {
     const data = await fetch(`${API_ENDPOINT}/user/info`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${newToken}`,
       },
     });
     const res = await data.json();
+    console.log(res);
     return res;
   } catch (err) {
     console.log('get API user info err: ' + err);
@@ -106,6 +111,8 @@ export const handleGetUserInfo = async token => {
 };
 
 export const changeUserInfo = async (userInfo, token) => {
+  const newToken = JSON.stringify(token);
+
   try {
     const data = await fetch(`${API_ENDPOINT}/user/edit`, {
       method: 'PUT',
@@ -123,6 +130,7 @@ export const changeUserInfo = async (userInfo, token) => {
 };
 
 export const handleDeleteTask = async (taskId, token) => {
+  const newToken = JSON.stringify(token);
   try {
     const data = await fetch(`${API_ENDPOINT}/task/delete`, {
       method: 'DELETE',
@@ -155,18 +163,23 @@ export const handleEditTask = async taskInfo => {
   }
 };
 
-export const createSetting = async userId => {
+export const setUserSetting = async (setting, token) => {
+  const newToken = JSON.stringify(token);
+  console.log(setting);
   try {
-    const data = await fetch(`${API_ENDPOINT}/setting/create`, {
-      method: 'POST',
+    const data = await fetch(`${API_ENDPOINT}/user/edit-time`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ` + newToken,
       },
-      body: JSON.stringify(userId),
+      body: JSON.stringify(setting),
     });
+
     const res = await data.json();
+    console.log(res);
     return res;
   } catch (err) {
-    console.log('edit task err: ' + err);
+    console.log('set setting err: ' + err);
   }
 };

@@ -29,6 +29,7 @@ const AddTask2Screen = ({route, navigation}) => {
     importantRate: 0,
     totalTime: 0,
     deadline: new Date(),
+    pomodoroPeriod: 0,
   });
 
   const handleCreateTask = async () => {
@@ -104,9 +105,13 @@ const AddTask2Screen = ({route, navigation}) => {
           placeholder="Thời gian ước lượng (min)"
           style={addtask2Style.timeInput}
           keyboardType="decimal-pad"
-          onChangeText={text =>
-            setTaskData({...taskData, totalTime: parseInt(text)})
-          }
+          onChangeText={text => {
+            setTaskData({
+              ...taskData,
+              pomodoroPeriod: parseInt(text / 25),
+              totalTime: parseInt(text),
+            });
+          }}
         />
         <Text style={addtask2Style.textques}>
           Bạn nghĩ việc này quan trọng đến đâu ?
@@ -123,7 +128,7 @@ const AddTask2Screen = ({route, navigation}) => {
             maxStars={5}
             fullStarColor={'#f2b72e'}
             halfStarEnabled={true}
-            rating={taskData.importantRate}
+            rating={taskData.importantRate / 2}
             selectedStar={rating =>
               setTaskData({...taskData, importantRate: parseInt(rating * 2)})
             }

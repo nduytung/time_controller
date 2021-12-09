@@ -18,6 +18,7 @@ import Dialog, {
   DialogButton,
   DialogContent,
 } from 'react-native-popup-dialog';
+import StarRating from 'react-native-star-rating';
 
 const TaskScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
@@ -35,7 +36,6 @@ const TaskScreen = ({navigation}) => {
       const accessToken = await AsyncStorage.getItem('token');
       await setToken(accessToken);
       const data = await getAllTaskInfo(accessToken);
-      console.log(data.tasks);
       await setTaskData(data.tasks);
       setRenderFlag(true);
     };
@@ -101,6 +101,7 @@ const TaskScreen = ({navigation}) => {
               parseInt(a.deadline.split('T')[0].replace(/-/g, '')),
           )
           .map((task, i) => {
+            console.log(task);
             const taskColor = calcDoneTask(task.deadline);
             return (
               <View
@@ -120,10 +121,28 @@ const TaskScreen = ({navigation}) => {
                     <Text style={taskStyle.leftInfor2}>{task.totalTime} </Text>
                   </View>
                   <View style={taskStyle.rightInformation}>
-                    <Text style={taskStyle.rightInfor1}>{task.taskname} </Text>
+                    <Text style={taskStyle.rightInfor1}>{task.taskname}</Text>
                     <Text style={taskStyle.rightInfor2}>
-                      {task.deadline.split('T')[0]}
+                      {task.deadline.split('T')[0]} -{' '}
+                      <Text style={{color: 'gray'}}>
+                        {task.pomodoroPeriod}/{task.done}
+                      </Text>
                     </Text>
+                    <View
+                      style={{
+                        width: '40%',
+
+                        margin: 5,
+                      }}>
+                      <StarRating
+                        disabled={true}
+                        maxStars={5}
+                        starSize={20}
+                        fullStarColor={'#f2b72e'}
+                        halfStarEnabled={true}
+                        rating={task.importantRate / 2}
+                      />
+                    </View>
                   </View>
                 </View>
                 <Text style={taskStyle.rightInfor3}>{task.description}</Text>

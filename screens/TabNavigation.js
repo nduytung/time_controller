@@ -64,18 +64,7 @@ const Tabs = ({navigation}) => {
           ),
         }}
       />
-      <Tab.Screen
-        name="SleepCalculator"
-        component={SleepyScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="moon" size={25} />
-            </View>
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="BufferScreen"
         component={BufferScreen}
@@ -133,18 +122,6 @@ const Tabs = ({navigation}) => {
           tabBarIcon: ({focused}) => (
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
               <Entypo name="add-user" size={25} />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="SettingScreen"
-        component={NewSettingScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="cog" size={25} />
             </View>
           ),
         }}

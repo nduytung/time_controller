@@ -14,7 +14,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AlarmStyle from '../public/assets/css/alarmstyle';
 
-const AlarmSettingScreen = () => {
+const AlarmSettingScreen = ({navigation}) => {
   const times = ['2 giờ', '3 giờ', '4 giờ', '5 giờ', '6 giờ', '7 giờ'];
   const mintimes = ['1 giờ', '2 giờ', '3 giờ', '4 giờ'];
   const maxtimes = ['2 giờ', '3 giờ', '4 giờ', '5 giờ', '6 giờ', '7 giờ'];
@@ -145,7 +145,11 @@ const AlarmSettingScreen = () => {
                 HỦY
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={AlarmStyle.button}>
+            <TouchableOpacity
+              style={AlarmStyle.button}
+              onPress={() => {
+                navigation.navigate('AddTask1');
+              }}>
               <Text
                 style={{
                   color: 'white',

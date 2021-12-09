@@ -171,9 +171,11 @@ const HomeScreen = ({navigation}) => {
               <View class="task-detail" style={progressStyle.scrollview}>
                 <View>
                   <Text style={progressStyle.text}>
-                    Số việc bạn đã làm cùng ứng dụng
+                    Để kịp tiến độ, bạn sẽ cần làm
                   </Text>
-                  <Text style={progressStyle.bigText}>{taskLeft} việc</Text>
+                  <Text style={progressStyle.bigText}>
+                    {(taskData && taskData[0]?.taskPerDay) || 0} task mỗi ngày
+                  </Text>
                   <Text style={progressStyle.text}>
                     <Text style={{color: '#FFFFFF'}}></Text>
                   </Text>
