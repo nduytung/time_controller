@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ const AddTask2Screen = ({route, navigation}) => {
   const [open, setOpen] = useState();
   const {task1Info} = route.params;
   const [visible, setVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const [taskData, setTaskData] = useState({
     ...task1Info,
@@ -34,9 +35,14 @@ const AddTask2Screen = ({route, navigation}) => {
 
   const handleCreateTask = async () => {
     const token = await AsyncStorage.getItem('token');
+    console.log(taskData.deadline);
     const data = await createNewTask(taskData, token);
     if (data.success === true) setVisible(true);
   };
+
+  useEffect(() => {
+    setTaskData({...taskData, deadline: date});
+  }, [date]);
 
   return (
     <View style={addtask2Style.container}>
@@ -56,7 +62,7 @@ const AddTask2Screen = ({route, navigation}) => {
         <Text style={addtask2Style.textques}>Deadline (ngày)</Text>
         <View style={{flexDirection: 'row'}}>
           <TextInput
-            value={taskData?.deadline.toISOString()}
+            value={date.toISOString().split('T')[0]}
             style={{
               borderColor: 'gray',
               flex: 1,
@@ -92,11 +98,10 @@ const AddTask2Screen = ({route, navigation}) => {
         <DatePicker
           modal
           open={open}
-          date={new Date()}
+          date={date}
           onConfirm={date => {
-            setTaskData({...taskData, deadline: date});
-            console.log(taskData.deadline);
             setOpen(false);
+            setDate(date);
           }}
           onCancel={() => {
             setOpen(false);

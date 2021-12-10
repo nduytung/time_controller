@@ -5,6 +5,8 @@ import {
   Text,
   View,
   Image,
+  FlatList,
+  RefreshControl,
   Pressable,
 } from 'react-native';
 import progressStyle from '../public/assets/css/progressStyle';
@@ -16,8 +18,13 @@ import TextTicker from 'react-native-text-ticker';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import {activities} from '../components/activitiesData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {handleGetUserInfo} from '../asyncFunctions/handleApi';
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 const HomeScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
@@ -26,6 +33,38 @@ const HomeScreen = ({navigation}) => {
   const [donePercentage, setDonePercentage] = useState(0);
   const [renderFlag, setRenderFlag] = useState(false);
   const [userData, setUserData] = useState();
+  const [refreshing, setRefreshing] = React.useState(false);
+  let tempActivities = activities;
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  const renderItem = ({item}) => (
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('HobbyScreen', {
+          hobbyDetail: item,
+        })
+      }
+      onLongPress={() => {
+        tempActivities.splice(item.id - 1, 1);
+        onRefresh();
+      }}
+      style={global.box}>
+      <Image
+        style={global.imageJob}
+        source={require('../public/assets/image/bike.png')}></Image>
+      <View style={global.infor}>
+        <Text style={global.textTime}>
+          {' '}
+          {item.time} - {item.calories} calories
+        </Text>
+        <Text style={global.textWork}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   const calcDoneTask = (deadline, done, total) => {
     const today = new Date();
@@ -88,7 +127,11 @@ const HomeScreen = ({navigation}) => {
   }, [renderFlag]);
 
   return (
-    <ScrollView style={progressStyle.body}>
+    <ScrollView
+      style={progressStyle.body}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <ScrollView>
         <View class="Sec1" style={progressStyle.sec1}>
           <View class="Text" style={progressStyle.sec1text}>
@@ -216,29 +259,11 @@ const HomeScreen = ({navigation}) => {
 
         <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
-          {activities.map((item, i) => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('HobbyScreen', {
-                    hobbyDetail: item,
-                  })
-                }
-                key={i + 1}
-                style={global.box}>
-                <Image
-                  style={global.imageJob}
-                  source={require('../public/assets/image/bike.png')}></Image>
-                <View style={global.infor}>
-                  <Text style={global.textTime}>
-                    {' '}
-                    {item.time} - {item.calories} calories
-                  </Text>
-                  <Text style={global.textWork}>{item.name}</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+          <FlatList
+            data={tempActivities}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
         </View>
       </ScrollView>
     </ScrollView>

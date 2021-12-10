@@ -1,5 +1,6 @@
 export const activities = [
   {
+    id: 1,
     name: 'Đạp xe quanh công viên',
     time: 30,
     level: 5,
@@ -9,6 +10,8 @@ export const activities = [
     desc: 'Đi xe đạp là một trong những phương pháp tập thể dục tuyệt vời để luyện tập cho sức khỏe tim mạch. Một bài tập xe đạp trung bình sẽ đốt cháy khoảng 400 calo mỗi giờ. Thêm vào đó, nó tăng cường sức mạnh cho phần dưới của cơ thể, bao gồm cả chân, hông và mông. Nếu muốn một bài tập nhẹ nhàng cho lưng, hông, đầu gối và mắt cá chân thì đây là lựa chọn tuyệt vời.',
   },
   {
+    id: 2,
+
     name: 'Chạy bộ',
     time: 40,
     level: 7,
@@ -18,6 +21,8 @@ export const activities = [
     desc: 'Bài tập chạy bộ là một trong những phương pháp giảm cân nhờ có tác dụng đốt cháy nhiều calo. Bạn không nhất thiết phải chạy nhanh mới giảm được nhiều cân mà nên chạy chậm để tăng cường tác dụng giảm cân. Tuy nhiên, khi chạy chậm thì bạn cần phải tăng thời gian chạy hơn gấp đôi so với việc chạy nhanh để thấy hiệu quả.',
   },
   {
+    id: 3,
+
     name: 'Bơi lội',
     time: 60,
     level: 8,
@@ -27,6 +32,7 @@ export const activities = [
     desc: 'Bơi là một trong các hình thức vận động toàn bộ thân thể dưới nước và là một trong những phương pháp tăng chiều cao lý tưởng. Với kỹ thuật bơi chuẩn, người bơi có thể giữ thăng bằng và nổi trên mặt nước mà không bị chìm xuống nước do tác dụng của trọng lực. Đồng thời, tay và chân kết hợp hoạt động nhịp nhàng để đẩy người tiến về phía trước.',
   },
   {
+    id: 4,
     name: 'Tắm nước lạnh',
     time: 10,
     level: 7,
@@ -36,6 +42,8 @@ export const activities = [
     desc: 'Tắm nước lạnh đem lại cảm giác mát mẻ, dễ chịu đặc biệt trong mùa hè. 1 công bố được đăng trên tạp chí y học uy tín British Journal of Sports Medicine của Anh đã chỉ ra rằng, tắm nước lạnh có nhiều tác dụng tốt cho sinh lý cơ thể. Tắm nước lạnh giúp làm tăng nhịp tim, tăng huyết áp và tăng cường hệ hô hấp. Ngoài ra, tắm nước lạnh có giúp tăng trao đổi chất của cơ thể do cơ thể phải làm việc nhiều hơn để duy trì thân nhiệt ổn định. Đặc biệt, tắm nước lạnh giúp đốt cháy năng lượng giúp giảm cân.',
   },
   {
+    id: 5,
+
     name: 'Đi bộ hàng ngày',
     time: 90,
     level: 3,
@@ -45,6 +53,8 @@ export const activities = [
     desc: 'Theo trang Boldsky, đi bộ hàng ngày sẽ giúp cải thiện sức khỏe của bạn khi các cơ hoạt động, đốt cháy calo, giảm căng thẳng. Đặc biệt, đi bộ còn giúp bạn giảm cân, giảm huyết áp.',
   },
   {
+    id: 6,
+
     name: 'Tắm nước lạnh',
     time: 10,
     level: 7,

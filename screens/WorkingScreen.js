@@ -83,17 +83,6 @@ const WorkingScreen = ({route, navigation}) => {
   };
 
   useEffect(() => {
-    const sendWorkingData = async () => {
-      const token = await AsyncStorage.getItem('token');
-      console.log(typeof taskDetail._id);
-      if (resting === true) {
-        const data = await handleAddPomodoro(taskDetail._id, token);
-        console.log(data);
-      }
-    };
-
-    sendWorkingData();
-    console.log('resting status: ' + resting);
     if (resting) handleStart();
   }, [resting]);
 
