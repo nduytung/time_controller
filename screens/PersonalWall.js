@@ -17,6 +17,8 @@ import RNRestart from 'react-native-restart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react/cjs/react.development';
 import {handleGetUserInfo} from '../asyncFunctions/handleApi';
+import ImagePicker from 'react-native-image-picker';
+
 const personalManager = ({navigation}) => {
   const [userData, setUserData] = useState();
 
@@ -46,9 +48,11 @@ const personalManager = ({navigation}) => {
   return (
     <ScrollView style={personalUI.fullScreen}>
       <View style={personalUI.top}>
-        <Image
-          style={personalUI.img}
-          source={require('../public/assets/image/avatar.jpg')}></Image>
+        <TouchableOpacity onPress={() => {}}>
+          <Image
+            style={personalUI.img}
+            source={require('../public/assets/image/avatar.jpg')}></Image>
+        </TouchableOpacity>
       </View>
 
       <ScrollView style={personalUI.bottom}>

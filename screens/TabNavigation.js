@@ -18,6 +18,7 @@ import AddTask2Screen from './AddTask2Screen';
 import BufferScreen from './BufferScreen';
 import SleepyScreen from './SleepCalculator';
 import TaskScreen from './TaskScreen';
+import TestingScreen from './TestingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -114,6 +115,18 @@ const Tabs = ({navigation}) => {
         }}
       />
 
+      <Tab.Screen
+        name="TestScreen"
+        component={TestingScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Entypo name="browser" size={25} />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}

@@ -58,7 +58,6 @@ const HomeScreen = ({navigation}) => {
         source={require('../public/assets/image/bike.png')}></Image>
       <View style={global.infor}>
         <Text style={global.textTime}>
-          {' '}
           {item.time} - {item.calories} calories
         </Text>
         <Text style={global.textWork}>{item.name}</Text>

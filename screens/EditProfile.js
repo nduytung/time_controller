@@ -1,18 +1,132 @@
 import React from 'react';
-import {Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import {useState} from 'react/cjs/react.development';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {changeUserInfo} from '../asyncFunctions/handleApi';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const EditProfile = ({route, navigation}) => {
   const {userData} = route.params;
   const [userInfo, setUserInfo] = useState(userData);
+  const [filePath, setFilePath] = useState({});
 
   const handleEditProfile = async () => {
     const token = await AsyncStorage.getItem('token');
+    setUserInfo({...userInfo, avt: filePath.base64});
     const data = await changeUserInfo(userInfo, token);
     console.log(data);
     if (data.success == true) navigation.navigate('Tabs');
+  };
+
+  const requestCameraPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'Camera Permission',
+            message: 'App needs camera permission',
+          },
+        );
+        // If CAMERA Permission is granted
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        return false;
+      }
+    } else return true;
+  };
+
+  const requestExternalWritePermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'External Storage Write Permission',
+            message: 'App needs write permission',
+          },
+        );
+        // If WRITE_EXTERNAL_STORAGE Permission is granted
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        alert('Write permission err', err);
+      }
+      return false;
+    } else return true;
+  };
+
+  const captureImage = async type => {
+    let options = {
+      mediaType: type,
+      maxWidth: 300,
+      maxHeight: 550,
+      quality: 1,
+      videoQuality: 'low',
+      durationLimit: 30, //Video max duration in seconds
+      saveToPhotos: true,
+      includeBase64: true,
+    };
+    let isCameraPermitted = await requestCameraPermission();
+    let isStoragePermitted = await requestExternalWritePermission();
+    if (isCameraPermitted && isStoragePermitted) {
+      launchCamera(options, response => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+          alert('User cancelled camera picker');
+          return;
+        } else if (response.errorCode == 'camera_unavailable') {
+          alert('Camera not available on device');
+          return;
+        } else if (response.errorCode == 'permission') {
+          alert('Permission not satisfied');
+          return;
+        } else if (response.errorCode == 'others') {
+          alert(response.errorMessage);
+          return;
+        }
+
+        setFilePath(response.assets[0]);
+      });
+    }
+  };
+
+  const chooseFile = type => {
+    let options = {
+      mediaType: type,
+      maxWidth: 300,
+      maxHeight: 550,
+      quality: 1,
+      includeBase64: true,
+    };
+    launchImageLibrary(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        alert('User cancelled camera picker');
+        return;
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
+        return;
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
+        return;
+      } else if (response.errorCode == 'others') {
+        alert(response.errorMessage);
+        return;
+      }
+
+      setFilePath(response.assets[0]);
+    });
   };
 
   return (
@@ -28,11 +142,49 @@ const EditProfile = ({route, navigation}) => {
       </Text>
 
       <View>
+        <View>
+          {!filePath ? (
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 100,
+                overflow: 'hidden',
+              }}
+              source={require('../public/assets/image/user-default.png')}
+            />
+          ) : (
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 100,
+                overflow: 'hidden',
+              }}
+              source={{uri: filePath.uri}}
+            />
+          )}
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={styles.buttonStyle}
+              onPress={() => captureImage('photo')}>
+              <Text style={styles.textStyle}>Launch Camera for Image</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={styles.buttonStyle}
+              onPress={() => chooseFile('photo')}>
+              <Text style={styles.textStyle}>Choose Image</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <Text style={{fontSize: 18, color: 'gray', fontWeight: '300'}}>
           Họ tên đầy đủ{' '}
         </Text>
         <TextInput
-          value={userInfo.fullname}
+          value={(userInfo && userInfo.fullname) || 'user'}
           onChangeText={text => setUserInfo({...userInfo, fullname: text})}
           style={{
             padding: 7,
@@ -53,7 +205,7 @@ const EditProfile = ({route, navigation}) => {
           Email{' '}
         </Text>
         <TextInput
-          value={userInfo.email}
+          value={(userInfo && userInfo.email) || 'mail'}
           onChangeText={text => setUserInfo({...userInfo, email: text})}
           style={{
             padding: 7,
@@ -137,3 +289,35 @@ const EditProfile = ({route, navigation}) => {
 };
 
 export default EditProfile;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  titleText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 20,
+  },
+  textStyle: {
+    padding: 10,
+    color: 'black',
+    textAlign: 'center',
+  },
+  buttonStyle: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 5,
+    marginVertical: 10,
+    width: 250,
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+    margin: 5,
+  },
+});
