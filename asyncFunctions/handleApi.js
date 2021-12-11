@@ -128,6 +128,7 @@ export const changeUserInfo = async (userInfo, token) => {
       body: JSON.stringify(userInfo),
     });
     const res = await data.json();
+    console.log(res);
     if (res.success !== true) handleErr(res.message);
 
     return res;
@@ -203,6 +204,26 @@ export const handleAddPomodoro = async (taskId, token) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(taskId),
+    });
+
+    const res = await data.json();
+    console.log(res);
+    if (res.success !== true) handleErr(res.message);
+    return res;
+  } catch (err) {
+    handleErr(err);
+  }
+};
+
+export const handleSetNewHobby = async (token, hobby) => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/hobby/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(hobby),
     });
 
     const res = await data.json();

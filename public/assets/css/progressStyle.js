@@ -117,6 +117,8 @@ const progressStyle = StyleSheet.create({
   img: {
     width: 60,
     height: 60,
+    alignSelf: 'center',
+    alignItems: 'center',
   },
 });
 export default progressStyle;

@@ -12,11 +12,16 @@ import {
 } from 'react-native';
 import detail from '../public/assets/css/detail';
 import StarRating from 'react-native-star-rating';
+import Dialog, {
+  DialogFooter,
+  DialogButton,
+  DialogContent,
+} from 'react-native-popup-dialog';
 
 const HobbyScreen = ({route, navigation}) => {
   const {hobbyDetail} = route.params;
   const {name, time, level, often, calories, image, desc} = hobbyDetail;
-
+  const [visible, setVisible] = useState(false);
   return (
     <View style={detail.boder}>
       <View>
@@ -52,8 +57,7 @@ const HobbyScreen = ({route, navigation}) => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          handleNotification();
-          navigation.navigate('Login');
+          setVisible(true);
         }}
         style={{
           width: '90%',
@@ -71,6 +75,28 @@ const HobbyScreen = ({route, navigation}) => {
           Bắt đầu luyện tập
         </Text>
       </TouchableOpacity>
+      <Dialog
+        visible={visible}
+        onTouchOutside={() => {
+          setVisible(false);
+        }}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text="OK"
+              onPress={() => {
+                setVisible(false);
+                navigation.navigate('Tabs');
+              }}
+            />
+          </DialogFooter>
+        }>
+        <DialogContent>
+          <Text style={{textAlign: 'center', marginVertical: 30, fontSize: 16}}>
+            Okay, chúc bạn may mắn nhé{' '}
+          </Text>
+        </DialogContent>
+      </Dialog>
     </View>
   );
 };

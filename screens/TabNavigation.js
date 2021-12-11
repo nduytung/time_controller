@@ -116,18 +116,6 @@ const Tabs = ({navigation}) => {
       />
 
       <Tab.Screen
-        name="TestScreen"
-        component={TestingScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="browser" size={25} />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{

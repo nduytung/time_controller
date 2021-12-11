@@ -23,7 +23,6 @@ const detail = StyleSheet.create({
     padding: 15,
     backgroundColor: 'white',
     height: '100%',
-    justifyContent: 'space-between',
   },
   box: {
     margin: 5,

@@ -18,7 +18,7 @@ import TextTicker from 'react-native-text-ticker';
 import {getAllTaskInfo} from '../asyncFunctions/handleApi';
 import {activities} from '../components/activitiesData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Entypo from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {handleGetUserInfo} from '../asyncFunctions/handleApi';
 
@@ -139,10 +139,19 @@ const HomeScreen = ({navigation}) => {
               Chiến thôi, {(userData && userData.fullname) || 'User'} !
             </Text>
           </View>
-          <View style={progressStyle.sec1img}>
+          <View
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 50,
+              overflow: 'hidden',
+            }}>
             <Image
               style={progressStyle.img}
-              source={require('../public/assets/image/user-avt.png')}
+              resizeMode="stretch"
+              source={{
+                uri: `data:image/png;base64,${userData && userData.avt}`,
+              }}
               resizeMode="center"
             />
           </View>
@@ -258,6 +267,24 @@ const HomeScreen = ({navigation}) => {
 
         <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SetHobbyScreen')}
+            style={{
+              marginBottom: 20,
+              borderRadius: 20,
+              marginTop: 5,
+              flexDirection: 'row',
+              borderColor: 'grey',
+              borderWidth: 1,
+              width: '100%',
+              alignItems: 'center',
+              borderStyle: 'dashed',
+              justifyContent: 'center',
+            }}>
+            <Text style={global.textTime}>
+              <Entypo name="circle-with-plus" size={50} />
+            </Text>
+          </TouchableOpacity>
           <FlatList
             data={tempActivities}
             renderItem={renderItem}

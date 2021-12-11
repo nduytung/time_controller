@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   TextInput,
@@ -15,7 +15,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 const EditProfile = ({route, navigation}) => {
   const {userData} = route.params;
   const [userInfo, setUserInfo] = useState(userData);
-  const [filePath, setFilePath] = useState({});
+  const [filePath, setFilePath] = useState();
 
   const handleEditProfile = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -100,6 +100,10 @@ const EditProfile = ({route, navigation}) => {
     }
   };
 
+  useEffect(() => {
+    console.log(filePath);
+  }, []);
+
   const chooseFile = type => {
     let options = {
       mediaType: type,
@@ -142,17 +146,16 @@ const EditProfile = ({route, navigation}) => {
       </Text>
 
       <View>
-        <View>
-          {!filePath ? (
-            <Image
+        <View style={{alignItems: 'center'}}>
+          {filePath === undefined ? (
+            <View
               style={{
+                backgroundColor: '#ddd',
                 width: 150,
                 height: 150,
                 borderRadius: 100,
                 overflow: 'hidden',
-              }}
-              source={require('../public/assets/image/user-default.png')}
-            />
+              }}></View>
           ) : (
             <Image
               style={{
@@ -161,22 +164,22 @@ const EditProfile = ({route, navigation}) => {
                 borderRadius: 100,
                 overflow: 'hidden',
               }}
-              source={{uri: filePath.uri}}
+              source={{uri: filePath?.uri}}
             />
           )}
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.buttonStyle}
               onPress={() => captureImage('photo')}>
-              <Text style={styles.textStyle}>Launch Camera for Image</Text>
+              <Text style={styles.textStyle}>Chụp ảnh</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.buttonStyle}
               onPress={() => chooseFile('photo')}>
-              <Text style={styles.textStyle}>Choose Image</Text>
+              <Text style={styles.textStyle}>Chọn ảnh </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -311,9 +314,11 @@ const styles = StyleSheet.create({
   buttonStyle: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    padding: 5,
-    marginVertical: 10,
-    width: 250,
+    padding: 2,
+    marginHorizontal: 10,
+    borderRadius: 7,
+    marginVertical: 20,
+    width: 150,
   },
   imageStyle: {
     width: 200,

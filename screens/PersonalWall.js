@@ -51,7 +51,9 @@ const personalManager = ({navigation}) => {
         <TouchableOpacity onPress={() => {}}>
           <Image
             style={personalUI.img}
-            source={require('../public/assets/image/avatar.jpg')}></Image>
+            source={{
+              uri: `data:image/png;base64,${userData && userData.avt}`,
+            }}></Image>
         </TouchableOpacity>
       </View>
 
