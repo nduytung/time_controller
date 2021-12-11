@@ -42,7 +42,11 @@ const SplashScreen = ({navigation}) => {
         resizeMode="cover"
         blurRadius={4}
         style={{flex: 1, justifyContent: 'center'}}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
         <View style={splashStyle.header}>
           <Text
             style={{
