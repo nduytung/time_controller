@@ -1,6 +1,13 @@
 import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 
 import HomeScreen from './HomeScreen';
 import ProgressScreen from './HomeScreen';
