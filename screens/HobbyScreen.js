@@ -55,6 +55,30 @@ const HobbyScreen = ({route, navigation}) => {
       <View style={detail.modifyInfor}>
         <Text style={detail.modifyText}>{desc}</Text>
       </View>
+      {!image ? (
+        <View
+          style={{
+            backgroundColor: '#ddd',
+            width: '100%',
+            height: 200,
+            borderRadius: 10,
+            marginVertical: 30,
+            overflow: 'hidden',
+          }}></View>
+      ) : (
+        <Image
+          style={{
+            width: '100%',
+            height: 200,
+            marginVertical: 30,
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}
+          source={{
+            uri: `data:image/png;base64,${image}`,
+          }}
+        />
+      )}
       <TouchableOpacity
         onPress={() => {
           setVisible(true);

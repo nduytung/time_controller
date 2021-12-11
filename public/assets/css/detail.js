@@ -63,7 +63,7 @@ const detail = StyleSheet.create({
   },
   modifyText: {
     marginTop: 10,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '200',
     color: 'gray',
     textAlign: 'justify',

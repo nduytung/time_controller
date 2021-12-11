@@ -234,3 +234,22 @@ export const handleSetNewHobby = async (token, hobby) => {
     handleErr(err);
   }
 };
+
+export const handleGetNewHobby = async token => {
+  try {
+    const data = await fetch(`${API_ENDPOINT}/hobby`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const res = await data.json();
+    console.log(res);
+    if (res.success !== true) handleErr(res.message);
+    return res;
+  } catch (err) {
+    handleErr(err);
+  }
+};

@@ -20,7 +20,10 @@ import {activities} from '../components/activitiesData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {handleGetUserInfo} from '../asyncFunctions/handleApi';
+import {
+  handleGetUserInfo,
+  handleGetNewHobby,
+} from '../asyncFunctions/handleApi';
 
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -33,6 +36,7 @@ const HomeScreen = ({navigation}) => {
   const [donePercentage, setDonePercentage] = useState(0);
   const [renderFlag, setRenderFlag] = useState(false);
   const [userData, setUserData] = useState();
+  const [userHobby, setUserHobby] = useState();
   const [refreshing, setRefreshing] = React.useState(false);
   let tempActivities = activities;
 
@@ -115,7 +119,8 @@ const HomeScreen = ({navigation}) => {
       try {
         const accessToken = await AsyncStorage.getItem('token');
         await getInfo(accessToken);
-
+        const userHobby = await handleGetNewHobby(accessToken);
+        await setUserHobby(userHobby.hobby);
         const data = await handleGetUserInfo(accessToken);
         await setUserData(data.userInfo);
       } catch (err) {
@@ -289,6 +294,11 @@ const HomeScreen = ({navigation}) => {
             data={tempActivities}
             renderItem={renderItem}
             keyExtractor={item => item.id}
+          />
+          <FlatList
+            data={userHobby}
+            renderItem={renderItem}
+            keyExtractor={item => item._id}
           />
         </View>
       </ScrollView>
