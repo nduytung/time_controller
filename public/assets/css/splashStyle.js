@@ -15,14 +15,14 @@ var splashStyle = StyleSheet.create({
   },
   footer: {
     flex: 1.5,
-    backgroundColor: 'white',
     paddingVertical: 50,
     paddingHorizontal: 30,
   },
   title: {
-    color: '#05375a',
-    fontWeight: 'bold',
-    fontSize: 20,
+    color: 'white',
+    fontWeight: '500',
+    marginTop: 60,
+    fontSize: 18,
     justifyContent: 'center',
     textAlign: 'center',
   },
@@ -32,7 +32,7 @@ var splashStyle = StyleSheet.create({
   },
   button: {
     alignItems: 'flex-end',
-    marginTop: 110,
+    marginTop: 50,
   },
   SignIn: {
     width: '90%',

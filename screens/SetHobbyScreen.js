@@ -186,6 +186,7 @@ const SetHobbyScreen = ({navigation}) => {
           <Text style={detail.modifyText1}>Calories: </Text>
           <TextInput
             value={hobby.calories}
+            keyboardType="number-pad"
             onChangeText={text => setHobby({...hobby, calories: text})}
             style={{
               padding: 5,
@@ -198,6 +199,7 @@ const SetHobbyScreen = ({navigation}) => {
           />
           <Text style={detail.modifyText1}>Thời gian: </Text>
           <TextInput
+            keyboardType="number-pad"
             value={hobby.time}
             onChangeText={text => setHobby({...hobby, time: text})}
             style={{
@@ -211,6 +213,7 @@ const SetHobbyScreen = ({navigation}) => {
           />
           <Text style={detail.modifyText1}>Cường độ luyện tập: </Text>
           <TextInput
+            keyboardType="number-pad"
             value={hobby.often}
             onChangeText={text => setHobby({...hobby, often: text})}
             style={{
@@ -237,6 +240,7 @@ const SetHobbyScreen = ({navigation}) => {
             borderRadius: 10,
             marginBottom: 10,
             borderColor: 'gray',
+            textAlignVertical: 'top',
             height: 15,
             borderWidth: 1,
             height: 200,

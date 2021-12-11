@@ -62,7 +62,7 @@ const HomeScreen = ({navigation}) => {
         source={require('../public/assets/image/bike.png')}></Image>
       <View style={global.infor}>
         <Text style={global.textTime}>
-          {item.time} - {item.calories} calories
+          {item.time} mins - {item.calories} calories
         </Text>
         <Text style={global.textWork}>{item.name}</Text>
       </View>
@@ -151,14 +151,23 @@ const HomeScreen = ({navigation}) => {
               borderRadius: 50,
               overflow: 'hidden',
             }}>
-            <Image
-              style={progressStyle.img}
-              resizeMode="stretch"
-              source={{
-                uri: `data:image/png;base64,${userData && userData.avt}`,
-              }}
-              resizeMode="center"
-            />
+            {userData?.avt ? (
+              <Image
+                style={progressStyle.img}
+                resizeMode="stretch"
+                source={{
+                  uri: `data:image/png;base64,${userData && userData.avt}`,
+                }}
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                style={progressStyle.img}
+                resizeMode="stretch"
+                source={require('../public/assets/image/user-avt.png')}
+                resizeMode="center"
+              />
+            )}
           </View>
         </View>
 
@@ -272,6 +281,17 @@ const HomeScreen = ({navigation}) => {
 
         <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
+
+          <FlatList
+            data={tempActivities}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+          <FlatList
+            data={userHobby}
+            renderItem={renderItem}
+            keyExtractor={item => item._id}
+          />
           <TouchableOpacity
             onPress={() => navigation.navigate('SetHobbyScreen')}
             style={{
@@ -286,20 +306,10 @@ const HomeScreen = ({navigation}) => {
               borderStyle: 'dashed',
               justifyContent: 'center',
             }}>
-            <Text style={global.textTime}>
+            <Text style={{marginVertical: 10}}>
               <Entypo name="circle-with-plus" size={50} />
             </Text>
           </TouchableOpacity>
-          <FlatList
-            data={tempActivities}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-          <FlatList
-            data={userHobby}
-            renderItem={renderItem}
-            keyExtractor={item => item._id}
-          />
         </View>
       </ScrollView>
     </ScrollView>

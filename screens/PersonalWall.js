@@ -49,11 +49,21 @@ const personalManager = ({navigation}) => {
     <ScrollView style={personalUI.fullScreen}>
       <View style={personalUI.top}>
         <TouchableOpacity onPress={() => {}}>
-          <Image
-            style={personalUI.img}
-            source={{
-              uri: `data:image/png;base64,${userData && userData.avt}`,
-            }}></Image>
+          {userData?.avt ? (
+            <Image
+              style={personalUI.img}
+              source={{
+                uri: `data:image/png;base64,${userData && userData.avt}`,
+              }}
+              resizeMode="cover"
+            />
+          ) : (
+            <Image
+              style={personalUI.img}
+              source={require('../public/assets/image/user-avt.png')}
+              resizeMode="center"
+            />
+          )}
         </TouchableOpacity>
       </View>
 
