@@ -8,15 +8,16 @@ var AlarmStyle = StyleSheet.create({
     padding: 10,
   },
   alarmsetting: {
-    flex: 0.5,
     backgroundColor: '#F9FFB7',
     borderRadius: 20,
     marginTop: 30,
     padding: 15,
+    paddingVertical: 25,
   },
   texttille: {
     fontSize: 23,
     color: 'black',
+    fontWeight: '500',
   },
   text: {
     fontSize: 16,

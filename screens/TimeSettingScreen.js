@@ -37,6 +37,7 @@ const TimeSettingScreen = ({navigation}) => {
             fontWeight: 'bold',
             color: 'black',
             marginBottom: 20,
+            marginTop: 40,
           }}>
           Cài đặt thời gian
         </Text>

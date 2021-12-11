@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,156 +13,111 @@ import LinearGradient from 'react-native-linear-gradient';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AlarmStyle from '../public/assets/css/alarmstyle';
+import DatePicker from 'react-native-date-picker';
+import PushNotification from 'react-native-push-notification';
 
 const AlarmSettingScreen = ({navigation}) => {
-  const times = ['2 giờ', '3 giờ', '4 giờ', '5 giờ', '6 giờ', '7 giờ'];
-  const mintimes = ['1 giờ', '2 giờ', '3 giờ', '4 giờ'];
-  const maxtimes = ['2 giờ', '3 giờ', '4 giờ', '5 giờ', '6 giờ', '7 giờ'];
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState();
+
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: 'noti-channel',
+      channelName: 'Main Notification Channel',
+    });
+  };
+
+  const handleNotification = () => {
+    PushNotification.localNotificationSchedule({
+      channelId: 'noti-channel',
+      title: 'Ôi bạn ơi...',
+      date: date,
+      message: 'Ngồi vào làm việc đi chứ còn gì nữa bạn',
+      allowWhileIdle: true,
+      repeatTime: 1,
+    });
+  };
+
+  const createNoti = () => {
+    createChannels();
+    handleNotification();
+    navigation.navigate('AddTask1');
+  };
   return (
     <View style={AlarmStyle.container}>
-      {/* <View style={AlarmStyle.alarmsetting}>
-        <Text style={AlarmStyle.texttille}>Bạn muốn đặt báo thức chứ ?</Text>
-        <Text style={AlarmStyle.text}>Không phiền không ăn tiền</Text>
-
-        <View style={AlarmStyle.buttonview}>
-          <SelectDropdown
-            data={times}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
-            defaultButtonText={'Chọn thôi nào'}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={AlarmStyle.dropdown1BtnStyle}
-            buttonTextStyle={AlarmStyle.dropdown1BtnTxtStyle}
-            renderDropdownIcon={() => {
-              return (
-                <FontAwesome name="chevron-down" color={'#444'} size={18} />
-              );
-            }}
-            dropdownIconPosition={'right'}
-            dropdownStyle={AlarmStyle.dropdown1DropdownStyle}
-            rowStyle={AlarmStyle.dropdown1RowStyle}
-            rowTextStyle={AlarmStyle.dropdown1RowTxtStyle}
-          />
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style={AlarmStyle.button}>
-              <LinearGradient
-                colors={['#F9FFB7', '#F9FFB7']}
-                style={AlarmStyle.btnlayout}>
-                <Text
-                  style={{color: 'black', fontSize: 16, fontWeight: 'bold'}}>
-                  HỦY
-                </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-            <TouchableOpacity style={AlarmStyle.button}>
-              <LinearGradient
-                colors={['#5db8fe', '#39cff2']}
-                style={AlarmStyle.btnlayout}>
-                <Text
-                  style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
-                  OK
-                </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View> */}
       <View style={[AlarmStyle.alarmsetting, {backgroundColor: '#EDF2F5'}]}>
         <Text style={AlarmStyle.texttille}>Cam kết</Text>
         <Text style={AlarmStyle.text}>
-          Thời gian tối đa - tối thiểu mà bạn sẽ dành cho công việc mỗi ngày
-          trên app này
+          Bạn có muốn đặt báo thức nhắc nhở mỗi ngày?
         </Text>
-        <View style={AlarmStyle.buttonview}>
-          <Text style={AlarmStyle.minmax}>Tối thiểu:</Text>
-          <SelectDropdown
-            style={AlarmStyle.timpicker}
-            data={mintimes}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
+        <View style={{flexDirection: 'row', marginBottom: 20}}>
+          <TextInput
+            value={date.toISOString().split('T')[1].split('.')[0]}
+            style={{
+              borderColor: 'gray',
+              flex: 1,
+              marginRight: 15,
+              borderWidth: 1,
+              marginTop: 20,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              borderRadius: 15,
             }}
-            defaultButtonText={'Chọn thôi nào'}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={AlarmStyle.dropdown1BtnStyle}
-            buttonTextStyle={AlarmStyle.dropdown1BtnTxtStyle}
-            renderDropdownIcon={() => {
-              return (
-                <FontAwesome name="chevron-down" color={'#444'} size={18} />
-              );
-            }}
-            dropdownIconPosition={'right'}
-            dropdownStyle={AlarmStyle.dropdown1DropdownStyle}
-            rowStyle={AlarmStyle.dropdown1RowStyle}
-            rowTextStyle={AlarmStyle.dropdown1RowTxtStyle}
           />
-          <Text style={AlarmStyle.minmax}>Tối đa:</Text>
-          <SelectDropdown
-            style={AlarmStyle.timpicker}
-            data={maxtimes}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
-            defaultButtonText={'Chọn thôi nào'}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={AlarmStyle.dropdown1BtnStyle}
-            buttonTextStyle={AlarmStyle.dropdown1BtnTxtStyle}
-            renderDropdownIcon={() => {
-              return (
-                <FontAwesome name="chevron-down" color={'#444'} size={18} />
-              );
-            }}
-            dropdownIconPosition={'right'}
-            dropdownStyle={AlarmStyle.dropdown1DropdownStyle}
-            rowStyle={AlarmStyle.dropdown1RowStyle}
-            rowTextStyle={AlarmStyle.dropdown1RowTxtStyle}
-          />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TouchableOpacity style={{width: '45%'}}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  fontWeight: '700',
-                  textAlign: 'center',
-                  paddingVertical: 7,
-                }}>
-                HỦY
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={AlarmStyle.button}
-              onPress={() => {
-                navigation.navigate('AddTask1');
+          <TouchableOpacity
+            onPress={() => setOpen(true)}
+            style={{
+              backgroundColor: '#7CC88D',
+              marginTop: 20,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              width: 100,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 16,
+                fontWeight: '400',
+                textAlign: 'center',
               }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 18,
-                  paddingVertical: 7,
-                  fontWeight: '700',
-                  textAlign: 'center',
-                }}>
-                OK
-              </Text>
-            </TouchableOpacity>
-          </View>
+              Chọn
+            </Text>
+          </TouchableOpacity>
+
+          <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
         </View>
+        <TouchableOpacity
+          onPress={() => createNoti()}
+          style={{
+            backgroundColor: '#7CC88D',
+            marginTop: 20,
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            width: '100%',
+            borderRadius: 15,
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 16,
+              fontWeight: '400',
+              textAlign: 'center',
+            }}>
+            Đồng ý{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
