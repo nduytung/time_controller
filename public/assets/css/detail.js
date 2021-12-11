@@ -21,8 +21,10 @@ const detail = StyleSheet.create({
   },
   boder: {
     padding: 15,
+    paddingTop: 40,
     backgroundColor: 'white',
-    height: '100%',
+    flex: 1,
+    justifyContent: 'space-between',
   },
   box: {
     margin: 5,

@@ -13,7 +13,7 @@ const sleepyStyle = StyleSheet.create({
     borderRadius: 20,
   },
   helloText: {
-    marginTop: 20,
+    marginTop: 50,
     margin: 10,
     color: 'white',
     fontSize: 25,

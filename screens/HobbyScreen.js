@@ -53,6 +53,7 @@ const HobbyScreen = ({route, navigation}) => {
         </View>
       </View>
       <View style={detail.modifyInfor}>
+        <Text style={{fontSize: 18, fontWeight: '500'}}>Mô tả hoạt động</Text>
         <Text style={detail.modifyText}>{desc}</Text>
       </View>
       {!image ? (

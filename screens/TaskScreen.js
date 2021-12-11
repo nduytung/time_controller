@@ -65,7 +65,9 @@ const TaskScreen = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white'}}>
-      <ScrollView style={{margin: 10}} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={{margin: 10, marginTop: 30}}
+        showsVerticalScrollIndicator={false}>
         <View>
           <Text style={taskStyle.headerText}>Task trong tuần</Text>
           <View

@@ -171,6 +171,7 @@ const EditTask = ({route, navigation}) => {
             color: 'gray',
             marginVertical: 7,
             height: 200,
+            textAlignVertical: 'top',
             textAlign: 'left',
             fontSize: 18,
             fontWeight: '400',

@@ -60,7 +60,7 @@ const AddTask2Screen = ({route, navigation}) => {
       </View>
       <View>
         <Text style={addtask2Style.textques}>Deadline (ngày)</Text>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', marginBottom: 20}}>
           <TextInput
             value={date.toISOString().split('T')[0]}
             style={{
@@ -68,7 +68,7 @@ const AddTask2Screen = ({route, navigation}) => {
               flex: 1,
               marginRight: 15,
               borderWidth: 1,
-              marginTop: 40,
+              marginTop: 20,
               paddingVertical: 10,
               paddingHorizontal: 15,
               borderRadius: 15,
@@ -78,7 +78,7 @@ const AddTask2Screen = ({route, navigation}) => {
             onPress={() => setOpen(true)}
             style={{
               backgroundColor: '#7CC88D',
-              marginTop: 40,
+              marginTop: 20,
               paddingVertical: 10,
               paddingHorizontal: 15,
               width: 100,
@@ -107,6 +107,10 @@ const AddTask2Screen = ({route, navigation}) => {
             setOpen(false);
           }}
         />
+        <Text style={addtask2Style.textques}>
+          Thời gian ước lượng (theo phút)
+        </Text>
+
         <TextInput
           placeholder="Thời gian ước lượng (min)"
           style={addtask2Style.timeInput}
@@ -245,6 +249,7 @@ const addtask2Style = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
+    paddingTop: 40,
     backgroundColor: 'white',
     justifyContent: 'space-between',
   },
@@ -260,7 +265,8 @@ const addtask2Style = StyleSheet.create({
     fontWeight: '300',
   },
   timeInput: {
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 20,
     paddingHorizontal: 15,
     borderRadius: 15,
     borderWidth: 1,

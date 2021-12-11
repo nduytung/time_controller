@@ -3,11 +3,11 @@ import {StyleSheet} from 'react-native';
 
 const personalUI = StyleSheet.create({
   fullScreen: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
+    justifyContent: 'space-between',
   },
   top: {
-    backgroundColor: '#8BC6FC',
+    backgroundColor: '#eedecf',
   },
   bottom: {
     height: '65%',

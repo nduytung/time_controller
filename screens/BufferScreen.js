@@ -29,13 +29,19 @@ const BufferScreen = ({navigation}) => {
         style={{
           borderRadius: 7,
           paddingHorizontal: 150,
-          paddingVertical: 10,
+          paddingVertical: 12,
           justifyContent: 'center',
           backgroundColor: 'white',
           marginVertical: 15,
         }}
         onPress={() => navigation.navigate('AddTask1')}>
-        <Text style={{color: 'black', fontSize: 16, textAlign: 'center'}}>
+        <Text
+          style={{
+            color: 'gray',
+            fontSize: 18,
+            fontWeight: '500',
+            textAlign: 'center',
+          }}>
           Bắt đầu
         </Text>
       </TouchableOpacity>

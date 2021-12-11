@@ -46,7 +46,7 @@ const personalManager = ({navigation}) => {
     getUserInfo();
   }, []);
   return (
-    <ScrollView style={personalUI.fullScreen}>
+    <View style={personalUI.fullScreen}>
       <View style={personalUI.top}>
         <TouchableOpacity onPress={() => {}}>
           {userData?.avt ? (
@@ -137,7 +137,7 @@ const personalManager = ({navigation}) => {
         }}
         style={{
           width: '90%',
-          borderColor: '#815fde',
+          backgroundColor: '#eedecf',
           height: 50,
           justifyContent: 'center',
           alignItems: 'center',
@@ -145,13 +145,12 @@ const personalManager = ({navigation}) => {
           marginLeft: 'auto',
           marginRight: 'auto',
           marginBottom: 120,
-          borderWidth: 1,
         }}>
-        <Text style={{color: '#815fde', fontSize: 18, textAlign: 'center'}}>
+        <Text style={{color: 'gray', fontSize: 18, textAlign: 'center'}}>
           Đăng xuất{' '}
         </Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 };
 export default personalManager;
