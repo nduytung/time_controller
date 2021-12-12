@@ -43,15 +43,11 @@ const TaskScreen = ({navigation}) => {
   }, [renderFlag]);
 
   const calcDoneTask = (deadline, done, total) => {
+    const thatday = new Date(deadline);
     const today = new Date();
-    const thisMonth = today.getMonth();
-    const thisDay = today.getDay();
-    const thisYear = today.getFullYear();
+    if (thatday < today) return true;
 
-    if (thisYear > deadline.split('-')[0]) return true;
-    if (thisMonth > deadline.split('-')[1]) return true;
-    if (thisDay > deadline.split('-')[2]) return true;
-    if (done === total) return true;
+    return false;
   };
 
   const deleteTask = async () => {

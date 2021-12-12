@@ -4,8 +4,10 @@ import {
   progressStyleheet,
   Text,
   View,
+  LogBox,
   Image,
   FlatList,
+  SafeAreaView,
   RefreshControl,
   Pressable,
 } from 'react-native';
@@ -53,7 +55,7 @@ const HomeScreen = ({navigation}) => {
         })
       }
       onLongPress={() => {
-        tempActivities.splice(item.id - 1, 1);
+        tempActivities.splice(tempActivities.indexOf(item), 1);
         onRefresh();
       }}
       style={global.box}>
@@ -128,6 +130,7 @@ const HomeScreen = ({navigation}) => {
       }
     };
     getToken();
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, [renderFlag]);
 
   return (
@@ -281,17 +284,18 @@ const HomeScreen = ({navigation}) => {
 
         <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
-
-          <FlatList
-            data={tempActivities}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-          <FlatList
-            data={userHobby}
-            renderItem={renderItem}
-            keyExtractor={item => item._id}
-          />
+          <SafeAreaView style={{flex: 1}}>
+            <FlatList
+              data={tempActivities}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+            />
+            <FlatList
+              data={userHobby}
+              renderItem={renderItem}
+              keyExtractor={item => item._id}
+            />
+          </SafeAreaView>
           <TouchableOpacity
             onPress={() => navigation.navigate('SetHobbyScreen')}
             style={{

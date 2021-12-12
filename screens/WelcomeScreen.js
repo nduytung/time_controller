@@ -47,7 +47,6 @@ const SplashScreen = ({navigation}) => {
           <View style={splashStyle.button}>
             <TouchableOpacity
               onPress={() => {
-                handleNotification();
                 navigation.navigate('Login');
               }}
               style={[
