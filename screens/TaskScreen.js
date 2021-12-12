@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  RefreshControl,
   ImageBackground,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -20,16 +21,26 @@ import Dialog, {
 } from 'react-native-popup-dialog';
 import StarRating from 'react-native-star-rating';
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
 const TaskScreen = ({navigation}) => {
   const [taskData, setTaskData] = useState([]);
   const [renderFlag, setRenderFlag] = useState(false);
   const [visible, setVisible] = useState(false);
   const [deleteTaskId, setDeleteTaskId] = useState(0);
   const [token, setToken] = useState();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const handleEditTask = taskInfo => {
     navigation.navigate('EditTask', {taskInfo});
   };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -60,7 +71,11 @@ const TaskScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <ScrollView
+      style={{backgroundColor: 'white'}}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <ScrollView
         style={{margin: 10, marginTop: 30}}
         showsVerticalScrollIndicator={false}>
@@ -256,7 +271,7 @@ const TaskScreen = ({navigation}) => {
           </Text>
         </DialogContent>
       </Dialog>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -39,7 +39,7 @@ const SetHobbyScreen = ({navigation}) => {
   const setNewHobby = async () => {
     const token = await AsyncStorage.getItem('token');
     console.log(hobby);
-    setHobby({...hobby, image: filePath.base64});
+    await setHobby({...hobby, image: filePath.base64});
     const data = await handleSetNewHobby(token, hobby);
     if (data.success === true) setVisible(true);
   };
@@ -120,7 +120,7 @@ const SetHobbyScreen = ({navigation}) => {
   const chooseFile = type => {
     let options = {
       mediaType: type,
-      maxWidth: 300,
+      maxWidth: 500,
       maxHeight: 550,
       quality: 1,
       includeBase64: true,

@@ -4,6 +4,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  ScrollView,
   StyleSheet,
   Image,
 } from 'react-native';
@@ -19,9 +20,10 @@ const EditProfile = ({route, navigation}) => {
 
   const handleEditProfile = async () => {
     const token = await AsyncStorage.getItem('token');
-    setUserInfo({...userInfo, avt: filePath.base64});
+    await setUserInfo({...userInfo, avt: filePath.base64});
     const data = await changeUserInfo(userInfo, token);
-    console.log(data);
+    console.log('changing: ');
+    console.log(userInfo);
     if (data.success == true) navigation.navigate('Tabs');
   };
 
@@ -79,8 +81,6 @@ const EditProfile = ({route, navigation}) => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
-        console.log('Response = ', response);
-
         if (response.didCancel) {
           alert('User cancelled camera picker');
           return;
@@ -100,21 +100,17 @@ const EditProfile = ({route, navigation}) => {
     }
   };
 
-  useEffect(() => {
-    console.log(filePath);
-  }, []);
-
   const chooseFile = type => {
+    console.log('triggered!');
     let options = {
       mediaType: type,
-      maxWidth: 300,
+      maxWidth: 500,
       maxHeight: 550,
       quality: 1,
       includeBase64: true,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
+      console.log(response);
       if (response.didCancel) {
         alert('User cancelled camera picker');
         return;
@@ -133,12 +129,15 @@ const EditProfile = ({route, navigation}) => {
     });
   };
 
+  useEffect(() => {
+    console.log(filePath);
+  }, [filePath]);
+
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
         height: '100%',
-        justifyContent: 'space-between',
         padding: 15,
       }}>
       <Text style={{fontSize: 30, fontWeight: '700', marginVertical: 20}}>
@@ -287,7 +286,7 @@ const EditProfile = ({route, navigation}) => {
           Lưu thay đổi{' '}
         </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

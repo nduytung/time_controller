@@ -47,30 +47,6 @@ const HomeScreen = ({navigation}) => {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const renderItem = ({item}) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('HobbyScreen', {
-          hobbyDetail: item,
-        })
-      }
-      onLongPress={() => {
-        tempActivities.splice(tempActivities.indexOf(item), 1);
-        onRefresh();
-      }}
-      style={global.box}>
-      <Image
-        style={global.imageJob}
-        source={require('../public/assets/image/bike.png')}></Image>
-      <View style={global.infor}>
-        <Text style={global.textTime}>
-          {item.time} mins - {item.calories} calories
-        </Text>
-        <Text style={global.textWork}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
   const calcDoneTask = (deadline, done, total) => {
     const today = new Date();
     const thisMonth = today.getMonth();
@@ -130,7 +106,6 @@ const HomeScreen = ({navigation}) => {
       }
     };
     getToken();
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, [renderFlag]);
 
   return (
@@ -284,18 +259,59 @@ const HomeScreen = ({navigation}) => {
 
         <View style={global.hobby}>
           <Text style={progressStyle.extentText}>Làm gì hôm nay?</Text>
-          <SafeAreaView style={{flex: 1}}>
-            <FlatList
-              data={tempActivities}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-            />
-            <FlatList
-              data={userHobby}
-              renderItem={renderItem}
-              keyExtractor={item => item._id}
-            />
-          </SafeAreaView>
+          {tempActivities.map((item, i) => {
+            return (
+              <TouchableOpacity
+                key={i}
+                onPress={() =>
+                  navigation.navigate('HobbyScreen', {
+                    hobbyDetail: item,
+                  })
+                }
+                onLongPress={() => {
+                  tempActivities.splice(tempActivities.indexOf(item), 1);
+                  onRefresh();
+                }}
+                style={global.box}>
+                <Image
+                  style={global.imageJob}
+                  source={require('../public/assets/image/bike.png')}></Image>
+                <View style={global.infor}>
+                  <Text style={global.textTime}>
+                    {item.time} mins - {item.calories} calories
+                  </Text>
+                  <Text style={global.textWork}>{item.name}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+          {userHobby &&
+            userHobby?.map((item, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  onPress={() =>
+                    navigation.navigate('HobbyScreen', {
+                      hobbyDetail: item,
+                    })
+                  }
+                  onLongPress={() => {
+                    tempActivities.splice(tempActivities.indexOf(item), 1);
+                    onRefresh();
+                  }}
+                  style={global.box}>
+                  <Image
+                    style={global.imageJob}
+                    source={require('../public/assets/image/bike.png')}></Image>
+                  <View style={global.infor}>
+                    <Text style={global.textTime}>
+                      {item.time} mins - {item.calories} calories
+                    </Text>
+                    <Text style={global.textWork}>{item.name}</Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
           <TouchableOpacity
             onPress={() => navigation.navigate('SetHobbyScreen')}
             style={{

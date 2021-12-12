@@ -12,7 +12,6 @@ import TaskScreen from './TaskScreen';
 import Tabs from './TabNavigation';
 import AddTask1Screen from './AddTask1Screen';
 import AddTask2Screen from './AddTask2Screen';
-import AddTask3Screen from './AddTask3Screen';
 import SleepCalculator from './SleepCalculator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ReadyScreen from './ReadyScreen';
@@ -22,6 +21,7 @@ import HobbyScreen from './HobbyScreen';
 import EditProfile from './EditProfile';
 import EditTask from './EditTask';
 import SetHobbyScreen from './SetHobbyScreen';
+
 const RootStack = createStackNavigator();
 
 const RootStackScreen = ({navigation}) => {
@@ -31,11 +31,11 @@ const RootStackScreen = ({navigation}) => {
     const getToken = async () => {
       const token = await AsyncStorage.getItem('token');
       const firstTime = await AsyncStorage.getItem('firstTime');
-
       if (token && !firstTime) setLogged(true);
     };
     getToken();
   }, []);
+
   return (
     <RootStack.Navigator
       screenOptions={({route, navigation}) => ({
@@ -69,7 +69,6 @@ const RootStackScreen = ({navigation}) => {
       <RootStack.Screen name="AddTask1" component={AddTask1Screen} />
       <RootStack.Screen name="AddTask2" component={AddTask2Screen} />
       <RootStack.Screen name="SetHobbyScreen" component={SetHobbyScreen} />
-      <RootStack.Screen name="AddTask3" component={AddTask3Screen} />
     </RootStack.Navigator>
   );
 };

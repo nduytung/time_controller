@@ -25,7 +25,6 @@ import AddTask2Screen from './AddTask2Screen';
 import BufferScreen from './BufferScreen';
 import SleepyScreen from './SleepCalculator';
 import TaskScreen from './TaskScreen';
-import TestingScreen from './TestingScreen';
 
 const Tab = createBottomTabNavigator();
 
