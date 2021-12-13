@@ -51,12 +51,12 @@ const TaskScreen = ({navigation}) => {
       setRenderFlag(true);
     };
     getInfo();
-  }, [renderFlag]);
+  }, [renderFlag, refreshing]);
 
   const calcDoneTask = (deadline, done, total) => {
     const thatday = new Date(deadline);
     const today = new Date();
-    if (thatday < today) return true;
+    if (thatday < today || done >= total) return true;
 
     return false;
   };

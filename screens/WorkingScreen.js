@@ -57,14 +57,16 @@ const WorkingScreen = ({route, navigation}) => {
     const minutes = `${Math.floor(timer / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
 
-    if (minutes < 1) {
+    if (minutes < 25) {
       setMin(minutes);
-      return `${getMinutes} : ${getSeconds}`;
+      return `${24 - getMinutes} : ${59 - getSeconds}`;
     } else {
       if (period < leftTask) {
         handleReset();
         setResting(!resting);
         if (!resting) setPeriod(period => period + 1);
+        const token = await AsyncStorage.getItem('token');
+        await handleAddPomodoro(taskDetail.taskId, token);
       } else {
         handleReset();
         setVisible(true);

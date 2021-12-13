@@ -106,7 +106,7 @@ const HomeScreen = ({navigation}) => {
       }
     };
     getToken();
-  }, [renderFlag]);
+  }, [renderFlag, refreshing]);
 
   return (
     <ScrollView
@@ -239,7 +239,7 @@ const HomeScreen = ({navigation}) => {
                     Để kịp tiến độ, bạn sẽ cần làm
                   </Text>
                   <Text style={progressStyle.bigText}>
-                    {(taskData && taskData[0]?.taskPerDay) || 0} task mỗi ngày
+                    {(taskData && taskData[0]?.taskPerDay) || 0} chu kỳ mỗi ngày
                   </Text>
                   <Text style={progressStyle.text}>
                     <Text style={{color: '#FFFFFF'}}></Text>
