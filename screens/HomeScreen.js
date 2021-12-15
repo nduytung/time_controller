@@ -296,7 +296,7 @@ const HomeScreen = ({navigation}) => {
                     })
                   }
                   onLongPress={() => {
-                    tempActivities.splice(tempActivities.indexOf(item), 1);
+                    userHobby.splice(userHobby.indexOf(item), 1);
                     onRefresh();
                   }}
                   style={global.box}>

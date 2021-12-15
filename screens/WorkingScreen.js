@@ -65,8 +65,6 @@ const WorkingScreen = ({route, navigation}) => {
         handleReset();
         setResting(!resting);
         if (!resting) setPeriod(period => period + 1);
-        const token = await AsyncStorage.getItem('token');
-        await handleAddPomodoro(taskDetail.taskId, token);
       } else {
         handleReset();
         setVisible(true);
